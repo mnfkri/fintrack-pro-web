@@ -4,152 +4,489 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FinTrack Pro - Kelola Keuangan Pribadi Cerdas & Aman</title>
-  
+  <meta name="description" content="FinTrack Pro: aplikasi keuangan pribadi offline-first, terenkripsi SQLCipher, dengan AI Financial Advisor dan backup Google Drive. Dibuat oleh Emtitra Production.">
+  <meta name="theme-color" content="#0b1a33">
+  <meta property="og:title" content="FinTrack Pro - Kelola Keuangan Pribadi Cerdas & Aman">
+  <meta property="og:description" content="Aplikasi keuangan offline-first, terenkripsi, dengan AI Financial Advisor.">
+  <meta property="og:image" content="assets/icon.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/icon.png">
+
   <!-- TEMPAT TAG VERIFIKASI GOOGLE SEARCH CONSOLE NANTI AKAN DITARUH DI SINI -->
   <!-- Contoh: <meta name="google-site-verification" content="KODE_DARI_GOOGLE" /> -->
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
+      --bg: #070f1f;
+      --bg-2: #0b1a33;
+      --surface: rgba(255,255,255,0.04);
+      --surface-2: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.09);
+      --text: #e6edf7;
+      --muted: #94a3b8;
+      --indigo: #6366f1;
+      --teal: #14b8a6;
+      --grad: linear-gradient(135deg, #6366f1 0%, #14b8a6 100%);
+      --radius: 20px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
-    header { background: #ffffff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
-    .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; }
-    .brand { font-size: 1.25rem; font-weight: 700; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
-    .nav-links { display: flex; gap: 1rem; }
-    .nav-btn { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 500; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; background: none; border: none; }
-    .nav-btn:hover, .nav-btn.active { color: var(--primary); background: #eff6ff; }
-    .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
-    .page-section { display: none; background: var(--card-bg); border-radius: 12px; padding: 2.5rem; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .page-section.active { display: block; }
-    .hero { text-align: center; padding: 3rem 1rem; }
-    .hero h1 { font-size: 2.5rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem; }
-    .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 2rem; }
-    .badge { display: inline-block; background: #e0e7ff; color: #3730a3; padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-    .feature-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 8px; background: #fdfdfd; }
-    .feature-card h3 { color: #1e3a8a; margin-bottom: 0.5rem; }
-    h2 { font-size: 1.75rem; margin-bottom: 1.25rem; color: #0f172a; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
-    h3 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; color: #1e293b; }
-    p, li { color: #334155; margin-bottom: 0.75rem; }
-    ul { padding-left: 1.5rem; margin-bottom: 1rem; }
-    footer { text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.65; overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
+    .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    /* Background decoration */
+    .bg-orbs { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(110px); opacity: .45; animation: float 18s ease-in-out infinite; }
+    .orb.a { width: 520px; height: 520px; background: #4f46e5; top: -160px; left: -120px; }
+    .orb.b { width: 480px; height: 480px; background: #0d9488; bottom: -180px; right: -120px; animation-delay: -6s; }
+    .orb.c { width: 300px; height: 300px; background: #7c3aed; top: 45%; left: 55%; opacity: .2; animation-delay: -12s; }
+    .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse at top, #000 20%, transparent 70%); }
+    @keyframes float { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,30px) scale(1.08); } }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 100; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
+    header.scrolled { background: rgba(7,15,31,.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-color: var(--border); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .brand { display: flex; align-items: center; gap: .65rem; font-weight: 800; font-size: 1.15rem; cursor: pointer; }
+    .brand img { width: 36px; height: 36px; border-radius: 10px; }
+    .nav-links { display: flex; align-items: center; gap: .35rem; }
+    .nav-btn { background: none; border: none; color: var(--muted); font: inherit; font-weight: 500; font-size: .93rem; padding: .5rem .9rem; border-radius: 10px; cursor: pointer; transition: all .2s; }
+    .nav-btn:hover { color: var(--text); background: var(--surface-2); }
+    .nav-btn.active { color: var(--text); background: var(--surface-2); }
+    .btn { display: inline-flex; align-items: center; gap: .55rem; font: inherit; font-weight: 600; padding: .85rem 1.5rem; border-radius: 14px; border: none; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; }
+    .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 10px 30px -10px rgba(99,102,241,.7); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(20,184,166,.8); }
+    .btn-ghost { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: rgba(255,255,255,.12); }
+    .btn-sm { padding: .55rem 1.1rem; font-size: .9rem; border-radius: 12px; }
+    .menu-toggle { display: none; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); width: 42px; height: 42px; border-radius: 12px; cursor: pointer; font-size: 1.2rem; }
+
+    /* Pages */
+    .page { display: none; animation: fadeIn .5s ease; }
+    .page.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; padding: 4.5rem 0 5rem; }
+    .pill { display: inline-flex; align-items: center; gap: .5rem; padding: .4rem .9rem .4rem .45rem; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); font-size: .85rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .pill b { background: var(--grad); color: #fff; padding: .15rem .6rem; border-radius: 999px; font-size: .75rem; }
+    .hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.08; font-weight: 800; letter-spacing: -.03em; margin-bottom: 1.4rem; }
+    .hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 560px; margin-bottom: 2.2rem; }
+    .hero-cta { display: flex; gap: .9rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .trust { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .trust div { font-size: .85rem; color: var(--muted); }
+    .trust strong { display: block; font-size: 1.5rem; color: var(--text); font-weight: 800; }
+
+    .phone-stage { position: relative; display: flex; justify-content: center; perspective: 1400px; }
+    .phone { position: relative; width: 290px; border-radius: 42px; padding: 10px; background: linear-gradient(160deg, #1e293b, #0f172a); box-shadow: 0 40px 80px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08), inset 0 0 0 1px rgba(255,255,255,.05); transform: rotateY(-12deg) rotateX(4deg); transition: transform .6s; }
+    .phone:hover { transform: rotateY(0) rotateX(0); }
+    .phone img { border-radius: 34px; aspect-ratio: 768/1376; object-fit: cover; }
+    .phone.back { position: absolute; width: 240px; opacity: .55; transform: translate(130px, 40px) rotateY(-18deg) scale(.9); filter: blur(1px); z-index: -1; }
+    .float-card { position: absolute; background: rgba(15,23,42,.8); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: 16px; padding: .8rem 1rem; display: flex; align-items: center; gap: .7rem; font-size: .85rem; box-shadow: 0 20px 40px -15px rgba(0,0,0,.6); animation: bob 5s ease-in-out infinite; }
+    .float-card .ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--grad); font-size: 1.1rem; }
+    .float-card small { display: block; color: var(--muted); font-size: .75rem; }
+    .float-card.one { top: 12%; left: -6%; }
+    .float-card.two { bottom: 14%; right: -4%; animation-delay: -2.5s; }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+    /* Sections */
+    section.block { padding: 5.5rem 0; }
+    .sec-head { text-align: center; max-width: 680px; margin: 0 auto 3.5rem; }
+    .eyebrow { display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: .9rem; }
+    .sec-head h2 { font-size: clamp(1.9rem, 3.5vw, 2.7rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 1rem; }
+    .sec-head p { color: var(--muted); font-size: 1.05rem; }
+
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .card { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem; transition: transform .3s, border-color .3s, background .3s; overflow: hidden; }
+    .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 0%), rgba(99,102,241,.14), transparent 45%); opacity: 0; transition: opacity .3s; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(99,102,241,.4); }
+    .card:hover::before { opacity: 1; }
+    .card .ic { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; font-size: 1.5rem; background: linear-gradient(135deg, rgba(99,102,241,.2), rgba(20,184,166,.2)); border: 1px solid var(--border); margin-bottom: 1.2rem; }
+    .card h3 { font-size: 1.15rem; margin-bottom: .5rem; }
+    .card p { color: var(--muted); font-size: .95rem; }
+
+    /* Showcase */
+    .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .tabs { display: flex; flex-direction: column; gap: .75rem; }
+    .tab { text-align: left; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 16px; padding: 1.2rem 1.4rem; cursor: pointer; font: inherit; transition: all .25s; }
+    .tab h4 { font-size: 1.05rem; margin-bottom: .25rem; display: flex; align-items: center; gap: .6rem; }
+    .tab p { color: var(--muted); font-size: .92rem; max-height: 0; overflow: hidden; transition: max-height .35s; }
+    .tab.active { background: var(--surface-2); border-color: rgba(20,184,166,.5); box-shadow: 0 0 0 4px rgba(20,184,166,.08); }
+    .tab.active p { max-height: 120px; }
+    .show-phone { display: flex; justify-content: center; }
+    .show-phone .phone { transform: none; width: 300px; }
+    .show-phone img { transition: opacity .35s; }
+
+    /* Security */
+    .security { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .sec-big { background: linear-gradient(135deg, rgba(99,102,241,.15), rgba(20,184,166,.1)); border: 1px solid var(--border); border-radius: 28px; padding: 2.5rem; }
+    .sec-big h3 { font-size: 1.7rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+    .sec-big p { color: var(--muted); margin-bottom: 1.5rem; }
+    .checks { list-style: none; display: grid; gap: .8rem; }
+    .checks li { display: flex; gap: .7rem; align-items: flex-start; }
+    .checks li::before { content: "✓"; flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--grad); color: #fff; font-size: .75rem; font-weight: 800; display: grid; place-items: center; margin-top: 2px; }
+    .flow { display: grid; gap: 1rem; }
+    .flow .step { display: flex; gap: 1rem; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.3rem 1.5rem; }
+    .flow .num { flex: none; width: 44px; height: 44px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); display: grid; place-items: center; font-weight: 800; }
+    .flow h4 { font-size: 1rem; }
+    .flow p { color: var(--muted); font-size: .9rem; }
+
+    /* FAQ */
+    .faq { max-width: 780px; margin: 0 auto; display: grid; gap: .8rem; }
+    .faq details { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.1rem 1.4rem; transition: border-color .2s; }
+    .faq details[open] { border-color: rgba(99,102,241,.45); }
+    .faq summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; font-size: 1.4rem; line-height: 1; color: var(--teal); transition: transform .25s; }
+    .faq details[open] summary::after { transform: rotate(45deg); }
+    .faq details p { color: var(--muted); margin-top: .8rem; }
+
+    /* CTA */
+    .cta { position: relative; text-align: center; border-radius: 32px; padding: 4rem 2rem; background: var(--grad); overflow: hidden; }
+    .cta::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 20% 0%, rgba(255,255,255,.25), transparent 50%); }
+    .cta > * { position: relative; z-index: 1; }
+    .cta h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; margin-bottom: .8rem; }
+    .cta p { opacity: .9; margin-bottom: 2rem; font-size: 1.05rem; }
+    .cta .btn { background: #fff; color: #0b1a33; }
+    .cta .btn:hover { transform: translateY(-2px); }
+
+    /* Legal pages */
+    .legal { max-width: 820px; margin: 3rem auto 4rem; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: 3rem; }
+    .legal h2 { font-size: 2rem; font-weight: 800; margin-bottom: .4rem; letter-spacing: -.02em; }
+    .legal .updated { color: var(--muted); font-size: .9rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .legal h3 { font-size: 1.2rem; margin: 2rem 0 .6rem; display: flex; align-items: center; gap: .6rem; }
+    .legal h3 span { width: 30px; height: 30px; border-radius: 9px; background: var(--grad); display: grid; place-items: center; font-size: .85rem; flex: none; }
+    .legal p, .legal li { color: #cbd5e1; margin-bottom: .75rem; }
+    .legal ul { padding-left: 1.4rem; }
+    .legal code { background: var(--surface-2); padding: .1rem .4rem; border-radius: 6px; font-size: .88em; color: #5eead4; }
+    .legal strong { color: var(--text); }
+    .contact-box { margin-top: 2rem; padding: 1.4rem; border-radius: 16px; background: linear-gradient(135deg, rgba(99,102,241,.12), rgba(20,184,166,.1)); border: 1px solid var(--border); }
+    .contact-box a { color: #5eead4; font-weight: 600; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 3.5rem 0 2rem; margin-top: 2rem; }
+    .foot { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem; }
+    .foot h5 { font-size: .85rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 1rem; }
+    .foot a, .foot button.link { display: block; color: #cbd5e1; margin-bottom: .55rem; font-size: .93rem; background: none; border: none; font: inherit; cursor: pointer; padding: 0; text-align: left; }
+    .foot a:hover, .foot button.link:hover { color: #5eead4; }
+    .foot p { color: var(--muted); font-size: .93rem; max-width: 320px; margin-top: .8rem; }
+    .dev { display: flex; align-items: center; gap: .6rem; margin-top: 1.2rem; font-size: .85rem; color: var(--muted); }
+    .dev img { width: 30px; height: 30px; border-radius: 8px; }
+    .copy { text-align: center; color: var(--muted); font-size: .85rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero, .showcase, .security { grid-template-columns: 1fr; }
+      .hero { text-align: center; padding-top: 3rem; }
+      .hero p.lead { margin-left: auto; margin-right: auto; }
+      .hero-cta, .trust { justify-content: center; }
+      .features { grid-template-columns: 1fr 1fr; }
+      .phone.back { display: none; }
+      .foot { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links { position: absolute; top: 72px; left: 1rem; right: 1rem; flex-direction: column; align-items: stretch; background: rgba(11,26,51,.97); border: 1px solid var(--border); border-radius: 18px; padding: .8rem; display: none; }
+      .nav-links.open { display: flex; }
+      .nav-btn { text-align: left; }
+      .features { grid-template-columns: 1fr; }
+      .float-card { display: none; }
+      .legal { padding: 1.8rem; border-radius: 20px; }
+      .foot { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
   </style>
 </head>
 <body>
+  <div class="bg-orbs"><div class="grid-bg"></div><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
 
-  <header>
-    <div class="nav-container">
-      <a href="#home" class="brand" onclick="showTab('home')">
-        📊 FinTrack Pro
+  <header id="header">
+    <div class="wrap nav">
+      <a class="brand" href="#home" onclick="showTab('home')">
+        <img src="assets/icon.png" alt="FinTrack Pro">
+        FinTrack <span class="grad-text">Pro</span>
       </a>
-      <nav class="nav-links">
+      <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+      <nav class="nav-links" id="navLinks">
         <button class="nav-btn active" id="btn-home" onclick="showTab('home')">Beranda</button>
+        <button class="nav-btn" onclick="goSection('fitur')">Fitur</button>
+        <button class="nav-btn" onclick="goSection('keamanan')">Keamanan</button>
+        <button class="nav-btn" onclick="goSection('faq')">FAQ</button>
         <button class="nav-btn" id="btn-privacy" onclick="showTab('privacy')">Privacy Policy</button>
         <button class="nav-btn" id="btn-terms" onclick="showTab('terms')">Terms of Service</button>
       </nav>
     </div>
   </header>
 
-  <div class="container">
-    <!-- HOME SECTION -->
-    <div id="section-home" class="page-section active">
-      <div class="hero">
-        <span class="badge">Offline-First & Terenkripsi</span>
-        <h1>Kelola Keuangan Anda dengan FinTrack Pro</h1>
-        <p>Aplikasi pelacak keuangan pribadi modern, tanpa server perantara. Data keuangan Anda sepenuhnya tersimpan aman di perangkat Anda dengan opsi pencadangan ke Google Drive pribadi.</p>
+  <main>
+    <!-- ================= HOME ================= -->
+    <div id="section-home" class="page active">
+      <div class="wrap">
+        <div class="hero">
+          <div>
+            <span class="pill"><b>BARU</b> AI Financial Advisor kini tersedia</span>
+            <h1>Kendalikan uangmu.<br><span class="grad-text">Cerdas, privat, aman.</span></h1>
+            <p class="lead">FinTrack Pro adalah aplikasi keuangan pribadi <strong>offline-first</strong> tanpa server perantara. Data Anda terenkripsi di perangkat sendiri, dengan asisten AI yang membantu Anda mengambil keputusan finansial lebih baik.</p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#home" onclick="goSection('fitur'); return false;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1Zm11.6 11.6 2.5 2.5-11.6 6.6 9.1-9.1Zm3.9-3.9 2.9 1.6c.8.5.8 1.3 0 1.8l-2.9 1.6-2.7-2.5 2.7-2.5ZM6.1 1.5l11.6 6.6-2.5 2.5L6.1 1.5Z"/></svg>
+                Segera di Google Play
+              </a>
+              <button class="btn btn-ghost" onclick="goSection('fitur')">Lihat Fitur →</button>
+            </div>
+            <div class="trust">
+              <div><strong>100%</strong>Data di perangkat</div>
+              <div><strong>AES-256</strong>Enkripsi SQLCipher</div>
+              <div><strong>0</strong>Server pihak ketiga</div>
+            </div>
+          </div>
+          <div class="phone-stage">
+            <div class="phone"><img src="assets/ss-dashboard.png" alt="Dashboard FinTrack Pro"></div>
+            <div class="phone back"><img src="assets/ss-ai.png" alt=""></div>
+            <div class="float-card one"><div class="ic">🔒</div><div>Terenkripsi<small>SQLCipher lokal</small></div></div>
+            <div class="float-card two"><div class="ic">🤖</div><div>Insight AI<small>Hemat 18% bulan ini</small></div></div>
+          </div>
+        </div>
       </div>
 
-      <div class="grid">
-        <div class="feature-card">
-          <h3>🔒 100% Offline & Terenkripsi</h3>
-          <p>Database tersimpan lokal di HP Anda dengan proteksi enkripsi SQLCipher tingkat tinggi.</p>
+      <!-- Features -->
+      <section class="block" id="fitur">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="eyebrow grad-text">Fitur Unggulan</span>
+            <h2>Semua yang Anda butuhkan untuk mengelola keuangan</h2>
+            <p>Dirancang untuk kecepatan, privasi, dan kecerdasan, tanpa iklan yang mengganggu.</p>
+          </div>
+          <div class="features">
+            <div class="card reveal"><div class="ic">🔒</div><h3>100% Offline & Terenkripsi</h3><p>Database tersimpan lokal di HP Anda dengan proteksi enkripsi SQLCipher tingkat tinggi.</p></div>
+            <div class="card reveal"><div class="ic">☁️</div><h3>Google Drive Backup</h3><p>Cadangkan dan pulihkan data transaksi langsung ke akun Google Drive pribadi Anda kapan saja.</p></div>
+            <div class="card reveal"><div class="ic">🤖</div><h3>AI Financial Insights</h3><p>Saran cerdas, analisis anggaran, dan evaluasi portofolio edukatif langsung di aplikasi.</p></div>
+            <div class="card reveal"><div class="ic">⚡</div><h3>Smart Input</h3><p>Catat transaksi dalam hitungan detik dengan input pintar yang mengenali nominal dan kategori.</p></div>
+            <div class="card reveal"><div class="ic">📈</div><h3>Portofolio Investasi</h3><p>Pantau aset dan investasi Anda dalam satu dasbor yang rapi dan mudah dipahami.</p></div>
+            <div class="card reveal"><div class="ic">📄</div><h3>Laporan PDF</h3><p>Ekspor laporan keuangan profesional dalam format PDF untuk arsip atau dibagikan.</p></div>
+          </div>
         </div>
-        <div class="feature-card">
-          <h3>☁️ Google Drive Backup</h3>
-          <p>Cadangkan dan pulihkan data transaksi langsung ke akun Google Drive pribadi Anda kapan saja.</p>
+      </section>
+
+      <!-- Showcase -->
+      <section class="block">
+        <div class="wrap showcase">
+          <div class="reveal">
+            <div class="sec-head" style="text-align:left;margin:0 0 2rem">
+              <span class="eyebrow grad-text">Lihat Lebih Dekat</span>
+              <h2>Antarmuka modern yang terasa natural</h2>
+            </div>
+            <div class="tabs" id="showTabs">
+              <button class="tab active" data-img="assets/ss-dashboard.png"><h4>📊 Dashboard</h4><p>Ringkasan saldo, pemasukan, dan pengeluaran dalam satu layar yang jelas.</p></button>
+              <button class="tab" data-img="assets/ss-ai.png"><h4>🤖 AI Advisor</h4><p>Tanyakan apa saja tentang keuangan Anda dan dapatkan insight edukatif secara instan.</p></button>
+              <button class="tab" data-img="assets/ss-input.png"><h4>⚡ Smart Input</h4><p>Pencatatan transaksi super cepat dengan saran kategori otomatis.</p></button>
+              <button class="tab" data-img="assets/ss-report.png"><h4>📄 Laporan PDF</h4><p>Laporan bulanan siap cetak lengkap dengan grafik dan rincian.</p></button>
+            </div>
+          </div>
+          <div class="show-phone reveal"><div class="phone"><img id="showImg" src="assets/ss-dashboard.png" alt="Tampilan aplikasi"></div></div>
         </div>
-        <div class="feature-card">
-          <h3>🤖 AI Financial Insights</h3>
-          <p>Dapatkan saran cerdas, analisis anggaran, dan evaluasi portofolio edukatif langsung di aplikasi.</p>
+      </section>
+
+      <!-- Security -->
+      <section class="block" id="keamanan">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="eyebrow grad-text">Privasi Sejak Desain</span>
+            <h2>Data keuangan Anda adalah milik Anda</h2>
+            <p>Kami tidak punya server untuk menyimpan data Anda, karena memang tidak perlu.</p>
+          </div>
+          <div class="security">
+            <div class="sec-big reveal">
+              <h3>Arsitektur offline-first, terenkripsi end-to-device.</h3>
+              <p>Setiap transaksi, dompet, dan portofolio disimpan di database terenkripsi pada perangkat Anda.</p>
+              <ul class="checks">
+                <li>Enkripsi database SQLCipher di perangkat</li>
+                <li>Akses Google Drive terbatas hanya ke file cadangan milik aplikasi</li>
+                <li>Kredensial dikelola oleh Google Play Services</li>
+                <li>Data AI tidak digunakan untuk melatih model publik</li>
+              </ul>
+            </div>
+            <div class="flow">
+              <div class="step reveal"><div class="num grad-text">01</div><div><h4>Catat transaksi</h4><p>Data langsung terenkripsi di perangkat Anda.</p></div></div>
+              <div class="step reveal"><div class="num grad-text">02</div><div><h4>Analisis dengan AI</h4><p>Hanya dikirim sementara saat Anda meminta insight.</p></div></div>
+              <div class="step reveal"><div class="num grad-text">03</div><div><h4>Backup ke Drive pribadi</h4><p>Opsional, ke akun Google Drive milik Anda sendiri.</p></div></div>
+              <div class="step reveal"><div class="num grad-text">04</div><div><h4>Pulihkan kapan saja</h4><p>Ganti HP tanpa kehilangan riwayat keuangan.</p></div></div>
+            </div>
+          </div>
         </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="block" id="faq">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="eyebrow grad-text">FAQ</span>
+            <h2>Pertanyaan yang sering diajukan</h2>
+          </div>
+          <div class="faq reveal">
+            <details open><summary>Apakah data saya dikirim ke server?</summary><p>Tidak. Semua data keuangan disimpan secara lokal dan terenkripsi di perangkat Anda. Satu-satunya salinan di luar perangkat adalah cadangan opsional di Google Drive pribadi Anda.</p></details>
+            <details><summary>Apakah aplikasi bisa digunakan tanpa internet?</summary><p>Ya. Pencatatan, laporan, dan dasbor berfungsi penuh secara offline. Internet hanya diperlukan untuk fitur AI dan backup Google Drive.</p></details>
+            <details><summary>Apakah FinTrack Pro bisa membaca file lain di Google Drive saya?</summary><p>Tidak. Aplikasi hanya meminta izin <code>drive.file</code>/<code>drive.appdata</code> sehingga hanya dapat mengakses file cadangan yang dibuatnya sendiri.</p></details>
+            <details><summary>Apakah saran AI merupakan nasihat keuangan resmi?</summary><p>Bukan. Seluruh analisis AI bersifat informasi dan edukasi. Keputusan finansial tetap menjadi tanggung jawab Anda.</p></details>
+            <details><summary>Bagaimana jika saya ganti HP?</summary><p>Gunakan fitur backup ke Google Drive, lalu pulihkan di perangkat baru dengan login akun Google yang sama.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="block" style="padding-top:2rem">
+        <div class="wrap">
+          <div class="cta reveal">
+            <h2>Mulai kelola keuangan dengan lebih cerdas</h2>
+            <p>FinTrack Pro segera hadir di Google Play Store.</p>
+            <a class="btn" href="mailto:mnahmadfikri@gmail.com?subject=FinTrack%20Pro">✉️ Hubungi Developer</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= PRIVACY ================= -->
+    <div id="section-privacy" class="page">
+      <div class="wrap">
+        <article class="legal">
+          <h2>Kebijakan Privasi <span class="grad-text">(Privacy Policy)</span></h2>
+          <p class="updated">Terakhir diperbarui: Oktober 2026</p>
+          <p>FinTrack Pro ("Aplikasi", "kami") berkomitmen penuh untuk melindungi privasi Anda. Kebijakan ini menjelaskan bagaimana data Anda dikelola di dalam Aplikasi.</p>
+
+          <h3><span>1</span>Penyimpanan Data Lokal & Offline-First</h3>
+          <p>FinTrack Pro dibangun dengan arsitektur <strong>offline-first</strong>. Seluruh data transaksi, kategori, dompet, dan portofolio investasi Anda disimpan langsung pada perangkat lokal Anda dalam database yang diamankan dengan enkripsi (SQLCipher). Kami tidak memiliki server eksternal untuk menyimpan atau membaca data finansial Anda.</p>
+
+          <h3><span>2</span>Penggunaan Google Drive & Layanan Pihak Ketiga</h3>
+          <p>Aplikasi menyediakan fitur opsional untuk mencadangkan data ke Google Drive pribadi Anda. Dalam fitur ini:</p>
+          <ul>
+            <li>Aplikasi hanya meminta izin untuk membuat dan mengakses file cadangan miliknya sendiri (<code>drive.file</code> atau <code>drive.appdata</code>).</li>
+            <li>Aplikasi <strong>tidak pernah</strong> membaca, mengubah, atau menghapus file lain yang berada di Google Drive Anda.</li>
+            <li>Kredensial Google Anda dikelola langsung oleh sistem Google Play Services dan tidak pernah disimpan di server kami.</li>
+          </ul>
+
+          <h3><span>3</span>Fitur Kecerdasan Buatan (AI)</h3>
+          <p>Aplikasi menyediakan fitur asisten finansial edukatif. Data yang diproses untuk fitur AI hanya dikirimkan sementara saat Anda meminta analisis dan tidak digunakan untuk pelatihan model publik.</p>
+
+          <h3><span>4</span>Hubungi Kami</h3>
+          <div class="contact-box">Jika ada pertanyaan terkait kebijakan privasi ini, silakan hubungi pengembang di: <a href="mailto:mnahmadfikri@gmail.com">mnahmadfikri@gmail.com</a> atau <a href="mailto:mn.nur.fikri@gmail.com">mn.nur.fikri@gmail.com</a></div>
+        </article>
       </div>
     </div>
 
-    <!-- PRIVACY POLICY SECTION -->
-    <div id="section-privacy" class="page-section">
-      <h2>Kebijakan Privasi (Privacy Policy)</h2>
-      <p><em>Terakhir diperbarui: Oktober 2026</em></p>
-      <br>
-      <p>FinTrack Pro ("Aplikasi", "kami") berkomitmen penuh untuk melindungi privasi Anda. Kebijakan ini menjelaskan bagaimana data Anda dikelola di dalam Aplikasi.</p>
-      
-      <h3>1. Penyimpanan Data Lokal & Offline-First</h3>
-      <p>FinTrack Pro dibangun dengan arsitektur <strong>offline-first</strong>. Seluruh data transaksi, kategori, dompet, dan portofolio investasi Anda disimpan langsung pada perangkat lokal Anda dalam database yang diamankan dengan enkripsi (SQLCipher). Kami tidak memiliki server eksternal untuk menyimpan atau membaca data finansial Anda.</p>
+    <!-- ================= TERMS ================= -->
+    <div id="section-terms" class="page">
+      <div class="wrap">
+        <article class="legal">
+          <h2>Syarat dan Ketentuan <span class="grad-text">(Terms of Service)</span></h2>
+          <p class="updated">Terakhir diperbarui: Oktober 2026</p>
+          <p>Selamat datang di FinTrack Pro. Dengan mengunduh atau menggunakan Aplikasi ini, Anda menyetujui ketentuan berikut:</p>
 
-      <h3>2. Penggunaan Google Drive & Layanan Pihak Ketiga</h3>
-      <p>Aplikasi menyediakan fitur opsional untuk mencadangkan data ke Google Drive pribadi Anda. Dalam fitur ini:</p>
-      <ul>
-        <li>Aplikasi hanya meminta izin untuk membuat dan mengakses file cadangan miliknya sendiri (<code>drive.file</code> atau <code>drive.appdata</code>).</li>
-        <li>Aplikasi <strong>tidak pernah</strong> membaca, mengubah, atau menghapus file lain yang berada di Google Drive Anda.</li>
-        <li>Kredensial Google Anda dikelola langsung oleh sistem Google Play Services dan tidak pernah disimpan di server kami.</li>
-      </ul>
+          <h3><span>1</span>Penggunaan Layanan</h3>
+          <p>FinTrack Pro disediakan sebagai alat bantu pencatatan dan evaluasi keuangan pribadi. Anda bertanggung jawab penuh atas keamanan fisik perangkat Anda dan salinan cadangan data Anda.</p>
 
-      <h3>3. Fitur Kecerdasan Buatan (AI)</h3>
-      <p>Aplikasi menyediakan fitur asisten finansial edukatif. Data yang diproses untuk fitur AI hanya dikirimkan sementara saat Anda meminta analisis dan tidak digunakan untuk pelatihan model publik.</p>
+          <h3><span>2</span>Penafian Nasihat Keuangan (Financial Disclaimer)</h3>
+          <p>Segala kalkulasi, simulasi portofolio, dan analisis AI di dalam FinTrack Pro bersifat <strong>hanya untuk tujuan informasi dan edukasi</strong>, bukan nasihat investasi profesional atau rekomendasi legal berlisensi. Segala keputusan finansial merupakan tanggung jawab penuh pengguna.</p>
 
-      <h3>4. Hubungi Kami</h3>
-      <p>Jika ada pertanyaan terkait kebijakan privasi ini, silakan hubungi pengembang di: <strong>mnahmadfikri@gmail.com atau mn.nur.fikri@gmail.com</strong></p>
+          <h3><span>3</span>Pembatasan Tanggung Jawab</h3>
+          <p>Aplikasi ini disediakan "SEBAGAIMANA ADANYA" (AS IS) tanpa jaminan apa pun. Pengembang tidak bertanggung jawab atas kerugian atau kehilangan data yang timbul akibat kerusakan perangkat atau kegagalan pihak ketiga.</p>
+
+          <h3><span>4</span>Kontak</h3>
+          <div class="contact-box">Email Pengembang: <a href="mailto:mnahmadfikri@gmail.com">mnahmadfikri@gmail.com</a> atau <a href="mailto:mn.nur.fikri@gmail.com">mn.nur.fikri@gmail.com</a></div>
+        </article>
+      </div>
     </div>
-
-    <!-- TERMS OF SERVICE SECTION -->
-    <div id="section-terms" class="page-section">
-      <h2>Syarat dan Ketentuan Layanan (Terms of Service)</h2>
-      <p><em>Terakhir diperbarui: Oktober 2026</em></p>
-      <br>
-      <p>Selamat datang di FinTrack Pro. Dengan mengunduh atau menggunakan Aplikasi ini, Anda menyetujui ketentuan berikut:</p>
-
-      <h3>1. Penggunaan Layanan</h3>
-      <p>FinTrack Pro disediakan sebagai alat bantu pencatatan dan evaluasi keuangan pribadi. Anda bertanggung jawab penuh atas keamanan fisik perangkat Anda dan salinan cadangan data Anda.</p>
-
-      <h3>2. Penafian Nasihat Keuangan (Financial Disclaimer)</h3>
-      <p>Segala kalkulasi, simulasi portofolio, dan analisis AI di dalam FinTrack Pro bersifat <strong>hanya untuk tujuan informasi dan edukasi</strong>, bukan nasihat investasi profesional atau rekomendasi legal berlisensi. Segala keputusan finansial merupakan tanggung jawab penuh pengguna.</p>
-
-      <h3>3. Pembatasan Tanggung Jawab</h3>
-      <p>Aplikasi ini disediakan "SEBAGAIMANA ADANYA" (AS IS) tanpa jaminan apa pun. Pengembang tidak bertanggung jawab atas kerugian atau kehilangan data yang timbul akibat kerusakan perangkat atau kegagalan pihak ketiga.</p>
-
-      <h3>4. Kontak</h3>
-      <p>Email Pengembang: <strong>mnahmadfikri@gmail.com atau mn.nur.fikri@gmail.com</strong></p>
-    </div>
-  </div>
+  </main>
 
   <footer>
-    <p>&copy; 2026 FinTrack Pro. Seluruh hak cipta dilindungi undang-undang.</p>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <a class="brand" href="#home" onclick="showTab('home')"><img src="assets/icon.png" alt="">FinTrack <span class="grad-text">Pro</span></a>
+          <p>Aplikasi keuangan pribadi offline-first, terenkripsi, dan didukung AI.</p>
+          <div class="dev"><img src="assets/emtitra.jpg" alt="Emtitra Production">Dikembangkan oleh <strong style="color:var(--text)">Emtitra Production</strong></div>
+        </div>
+        <div>
+          <h5>Produk</h5>
+          <button class="link" onclick="goSection('fitur')">Fitur</button>
+          <button class="link" onclick="goSection('keamanan')">Keamanan</button>
+          <button class="link" onclick="goSection('faq')">FAQ</button>
+        </div>
+        <div>
+          <h5>Legal & Kontak</h5>
+          <button class="link" onclick="showTab('privacy')">Privacy Policy</button>
+          <button class="link" onclick="showTab('terms')">Terms of Service</button>
+          <a href="mailto:mnahmadfikri@gmail.com">mnahmadfikri@gmail.com</a>
+        </div>
+      </div>
+      <div class="copy">&copy; 2026 FinTrack Pro by Emtitra Production. Seluruh hak cipta dilindungi undang-undang.</div>
+    </div>
   </footer>
 
   <script>
     function showTab(tabId) {
-      document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-      
-      const targetSec = document.getElementById('section-' + tabId);
-      const targetBtn = document.getElementById('btn-' + tabId);
-      if (targetSec) targetSec.classList.add('active');
-      if (targetBtn) targetBtn.classList.add('active');
-      window.location.hash = tabId;
+      const sec = document.getElementById('section-' + tabId);
+      const btn = document.getElementById('btn-' + tabId);
+      if (sec) sec.classList.add('active');
+      if (btn) btn.classList.add('active');
+      history.replaceState(null, '', '#' + tabId);
+      document.getElementById('navLinks').classList.remove('open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      observeReveals();
     }
 
+    function goSection(id) {
+      if (!document.getElementById('section-home').classList.contains('active')) showTab('home');
+      setTimeout(() => document.getElementById(id).scrollIntoView({ behavior: 'smooth' }), 60);
+      document.getElementById('navLinks').classList.remove('open');
+    }
+
+    // Header blur on scroll
+    const header = document.getElementById('header');
+    addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10), { passive: true });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    function observeReveals() { document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el)); }
+
+    // Card spotlight follows cursor
+    document.querySelectorAll('.card').forEach(c => c.addEventListener('mousemove', e => {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }));
+
+    // Showcase tabs
+    const showImg = document.getElementById('showImg');
+    document.querySelectorAll('#showTabs .tab').forEach(t => t.addEventListener('click', () => {
+      document.querySelectorAll('#showTabs .tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      showImg.style.opacity = 0;
+      setTimeout(() => { showImg.src = t.dataset.img; showImg.style.opacity = 1; }, 250);
+    }));
+
     window.addEventListener('DOMContentLoaded', () => {
-      const hash = window.location.hash.replace('#', '');
-      if (['home', 'privacy', 'terms'].includes(hash)) {
-        showTab(hash);
-      }
+      const hash = location.hash.replace('#', '');
+      if (['home', 'privacy', 'terms'].includes(hash)) showTab(hash);
+      observeReveals();
     });
   </script>
 </body>
