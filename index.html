@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTrack Pro - Kelola Keuangan Pribadi Cerdas & Aman</title>
+  
+  <!-- TEMPAT TAG VERIFIKASI GOOGLE SEARCH CONSOLE NANTI AKAN DITARUH DI SINI -->
+  <!-- Contoh: <meta name="google-site-verification" content="KODE_DARI_GOOGLE" /> -->
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+    header { background: #ffffff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+    .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; }
+    .brand { font-size: 1.25rem; font-weight: 700; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-links { display: flex; gap: 1rem; }
+    .nav-btn { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 500; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; background: none; border: none; }
+    .nav-btn:hover, .nav-btn.active { color: var(--primary); background: #eff6ff; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
+    .page-section { display: none; background: var(--card-bg); border-radius: 12px; padding: 2.5rem; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .page-section.active { display: block; }
+    .hero { text-align: center; padding: 3rem 1rem; }
+    .hero h1 { font-size: 2.5rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem; }
+    .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 2rem; }
+    .badge { display: inline-block; background: #e0e7ff; color: #3730a3; padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .feature-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 8px; background: #fdfdfd; }
+    .feature-card h3 { color: #1e3a8a; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.75rem; margin-bottom: 1.25rem; color: #0f172a; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+    h3 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; color: #1e293b; }
+    p, li { color: #334155; margin-bottom: 0.75rem; }
+    ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+    footer { text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="#home" class="brand" onclick="showTab('home')">
+        📊 FinTrack Pro
+      </a>
+      <nav class="nav-links">
+        <button class="nav-btn active" id="btn-home" onclick="showTab('home')">Beranda</button>
+        <button class="nav-btn" id="btn-privacy" onclick="showTab('privacy')">Privacy Policy</button>
+        <button class="nav-btn" id="btn-terms" onclick="showTab('terms')">Terms of Service</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- HOME SECTION -->
+    <div id="section-home" class="page-section active">
+      <div class="hero">
+        <span class="badge">Offline-First & Terenkripsi</span>
+        <h1>Kelola Keuangan Anda dengan FinTrack Pro</h1>
+        <p>Aplikasi pelacak keuangan pribadi modern, tanpa server perantara. Data keuangan Anda sepenuhnya tersimpan aman di perangkat Anda dengan opsi pencadangan ke Google Drive pribadi.</p>
+      </div>
+
+      <div class="grid">
+        <div class="feature-card">
+          <h3>🔒 100% Offline & Terenkripsi</h3>
+          <p>Database tersimpan lokal di HP Anda dengan proteksi enkripsi SQLCipher tingkat tinggi.</p>
+        </div>
+        <div class="feature-card">
+          <h3>☁️ Google Drive Backup</h3>
+          <p>Cadangkan dan pulihkan data transaksi langsung ke akun Google Drive pribadi Anda kapan saja.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🤖 AI Financial Insights</h3>
+          <p>Dapatkan saran cerdas, analisis anggaran, dan evaluasi portofolio edukatif langsung di aplikasi.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIVACY POLICY SECTION -->
+    <div id="section-privacy" class="page-section">
+      <h2>Kebijakan Privasi (Privacy Policy)</h2>
+      <p><em>Terakhir diperbarui: Oktober 2026</em></p>
+      <br>
+      <p>FinTrack Pro ("Aplikasi", "kami") berkomitmen penuh untuk melindungi privasi Anda. Kebijakan ini menjelaskan bagaimana data Anda dikelola di dalam Aplikasi.</p>
+      
+      <h3>1. Penyimpanan Data Lokal & Offline-First</h3>
+      <p>FinTrack Pro dibangun dengan arsitektur <strong>offline-first</strong>. Seluruh data transaksi, kategori, dompet, dan portofolio investasi Anda disimpan langsung pada perangkat lokal Anda dalam database yang diamankan dengan enkripsi (SQLCipher). Kami tidak memiliki server eksternal untuk menyimpan atau membaca data finansial Anda.</p>
+
+      <h3>2. Penggunaan Google Drive & Layanan Pihak Ketiga</h3>
+      <p>Aplikasi menyediakan fitur opsional untuk mencadangkan data ke Google Drive pribadi Anda. Dalam fitur ini:</p>
+      <ul>
+        <li>Aplikasi hanya meminta izin untuk membuat dan mengakses file cadangan miliknya sendiri (<code>drive.file</code> atau <code>drive.appdata</code>).</li>
+        <li>Aplikasi <strong>tidak pernah</strong> membaca, mengubah, atau menghapus file lain yang berada di Google Drive Anda.</li>
+        <li>Kredensial Google Anda dikelola langsung oleh sistem Google Play Services dan tidak pernah disimpan di server kami.</li>
+      </ul>
+
+      <h3>3. Fitur Kecerdasan Buatan (AI)</h3>
+      <p>Aplikasi menyediakan fitur asisten finansial edukatif. Data yang diproses untuk fitur AI hanya dikirimkan sementara saat Anda meminta analisis dan tidak digunakan untuk pelatihan model publik.</p>
+
+      <h3>4. Hubungi Kami</h3>
+      <p>Jika ada pertanyaan terkait kebijakan privasi ini, silakan hubungi pengembang di: <strong>mnahmadfikri@gmail.com</strong></p>
+    </div>
+
+    <!-- TERMS OF SERVICE SECTION -->
+    <div id="section-terms" class="page-section">
+      <h2>Syarat dan Ketentuan Layanan (Terms of Service)</h2>
+      <p><em>Terakhir diperbarui: Oktober 2026</em></p>
+      <br>
+      <p>Selamat datang di FinTrack Pro. Dengan mengunduh atau menggunakan Aplikasi ini, Anda menyetujui ketentuan berikut:</p>
+
+      <h3>1. Penggunaan Layanan</h3>
+      <p>FinTrack Pro disediakan sebagai alat bantu pencatatan dan evaluasi keuangan pribadi. Anda bertanggung jawab penuh atas keamanan fisik perangkat Anda dan salinan cadangan data Anda.</p>
+
+      <h3>2. Penafian Nasihat Keuangan (Financial Disclaimer)</h3>
+      <p>Segala kalkulasi, simulasi portofolio, dan analisis AI di dalam FinTrack Pro bersifat <strong>hanya untuk tujuan informasi dan edukasi</strong>, bukan nasihat investasi profesional atau rekomendasi legal berlisensi. Segala keputusan finansial merupakan tanggung jawab penuh pengguna.</p>
+
+      <h3>3. Pembatasan Tanggung Jawab</h3>
+      <p>Aplikasi ini disediakan "SEBAGAIMANA ADANYA" (AS IS) tanpa jaminan apa pun. Pengembang tidak bertanggung jawab atas kerugian atau kehilangan data yang timbul akibat kerusakan perangkat atau kegagalan pihak ketiga.</p>
+
+      <h3>4. Kontak</h3>
+      <p>Email Pengembang: <strong>mnahmadfikri@gmail.com</strong></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 FinTrack Pro. Seluruh hak cipta dilindungi undang-undang.</p>
+  </footer>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      
+      const targetSec = document.getElementById('section-' + tabId);
+      const targetBtn = document.getElementById('btn-' + tabId);
+      if (targetSec) targetSec.classList.add('active');
+      if (targetBtn) targetBtn.classList.add('active');
+      window.location.hash = tabId;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (['home', 'privacy', 'terms'].includes(hash)) {
+        showTab(hash);
+      }
+    });
+  </script>
+</body>
+</html>
