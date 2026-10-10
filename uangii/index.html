@@ -12,9 +12,6 @@
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/uangii_app_icon_512.png">
 
-  <!-- TEMPAT TAG VERIFIKASI GOOGLE SEARCH CONSOLE NANTI AKAN DITARUH DI SINI -->
-  <!-- Contoh: <meta name="google-site-verification" content="KODE_DARI_GOOGLE" /> -->
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -65,6 +62,8 @@
     .nav-btn { background: none; border: none; color: var(--muted); font: inherit; font-weight: 500; font-size: .93rem; padding: .5rem .9rem; border-radius: 10px; cursor: pointer; transition: all .2s; }
     .nav-btn:hover { color: var(--text); background: var(--surface-2); }
     .nav-btn.active { color: var(--text); background: var(--surface-2); }
+    .nav-dev-badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .84rem; padding: .45rem .85rem; border-radius: 12px; background: rgba(56,189,248,.12); color: #38bdf8; border: 1px solid rgba(56,189,248,.3); font-weight: 600; margin-left: .5rem; transition: all .2s; }
+    .nav-dev-badge:hover { background: rgba(56,189,248,.2); transform: translateY(-1px); }
     .btn { display: inline-flex; align-items: center; gap: .55rem; font: inherit; font-weight: 600; padding: .85rem 1.5rem; border-radius: 14px; border: none; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; }
     .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 10px 30px -10px rgba(16,185,129,.7); }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(6,182,212,.8); }
@@ -162,15 +161,16 @@
     .cta .btn:hover { transform: translateY(-2px); }
 
     /* Legal pages */
-    .legal { max-width: 820px; margin: 3rem auto 4rem; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: 3rem; }
+    .legal { max-width: 860px; margin: 3rem auto 4rem; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: 3rem; }
     .legal h2 { font-size: 2rem; font-weight: 800; margin-bottom: .4rem; letter-spacing: -.02em; }
     .legal .updated { color: var(--muted); font-size: .9rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
-    .legal h3 { font-size: 1.2rem; margin: 2rem 0 .6rem; display: flex; align-items: center; gap: .6rem; }
-    .legal h3 span { width: 30px; height: 30px; border-radius: 9px; background: var(--grad); display: grid; place-items: center; font-size: .85rem; flex: none; }
-    .legal p, .legal li { color: #cbd5e1; margin-bottom: .75rem; }
+    .legal h3 { font-size: 1.25rem; margin: 2rem 0 .6rem; display: flex; align-items: center; gap: .6rem; }
+    .legal h3 span { width: 32px; height: 32px; border-radius: 9px; background: var(--grad); display: grid; place-items: center; font-size: .88rem; flex: none; font-weight: 800; color: #fff; }
+    .legal p, .legal li { color: #cbd5e1; margin-bottom: .75rem; font-size: .97rem; }
     .legal ul { padding-left: 1.4rem; }
     .legal code { background: var(--surface-2); padding: .1rem .4rem; border-radius: 6px; font-size: .88em; color: #5eead4; }
     .legal strong { color: var(--text); }
+    .legal .law-tag { display: inline-block; padding: .2rem .6rem; border-radius: 6px; background: rgba(56,189,248,.15); color: #38bdf8; font-size: .82rem; font-weight: 600; margin-bottom: .5rem; }
     .contact-box { margin-top: 2rem; padding: 1.4rem; border-radius: 16px; background: linear-gradient(135deg, rgba(16,185,129,.12), rgba(6,182,212,.1)); border: 1px solid var(--border); }
     .contact-box a { color: #5eead4; font-weight: 600; }
 
@@ -181,8 +181,24 @@
     .foot a, .foot button.link { display: block; color: #cbd5e1; margin-bottom: .55rem; font-size: .93rem; background: none; border: none; font: inherit; cursor: pointer; padding: 0; text-align: left; }
     .foot a:hover, .foot button.link:hover { color: #5eead4; }
     .foot p { color: var(--muted); font-size: .93rem; max-width: 320px; margin-top: .8rem; }
-    .dev { display: flex; align-items: center; gap: .6rem; margin-top: 1.2rem; font-size: .85rem; color: var(--muted); }
-    .dev img { width: 30px; height: 30px; border-radius: 8px; object-fit: cover; }
+    .dev-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      margin-top: 1.2rem;
+      padding: .6rem 1rem;
+      border-radius: 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      transition: all .25s ease;
+      color: var(--text);
+    }
+    .dev-badge:hover {
+      border-color: #38bdf8;
+      background: rgba(56,189,248,.1);
+      transform: translateY(-2px);
+    }
+    .dev-badge img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; }
     .copy { text-align: center; color: var(--muted); font-size: .85rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
 
     /* Reveal */
@@ -204,6 +220,7 @@
       .nav-links { position: absolute; top: 72px; left: 1rem; right: 1rem; flex-direction: column; align-items: stretch; background: rgba(11,26,51,.97); border: 1px solid var(--border); border-radius: 18px; padding: .8rem; display: none; }
       .nav-links.open { display: flex; }
       .nav-btn { text-align: left; }
+      .nav-dev-badge { margin-left: 0; justify-content: center; margin-top: .4rem; }
       .features { grid-template-columns: 1fr; }
       .float-card { display: none; }
       .legal { padding: 1.8rem; border-radius: 20px; }
@@ -229,6 +246,7 @@
         <button class="nav-btn" onclick="goSection('faq')">FAQ</button>
         <button class="nav-btn" id="btn-privacy" onclick="showTab('privacy')">Privacy Policy</button>
         <button class="nav-btn" id="btn-terms" onclick="showTab('terms')">Terms of Service</button>
+        <a class="nav-dev-badge" href="../" title="Kembali ke Developer Hub">🏢 Emtitra Studio ↗</a>
       </nav>
     </div>
   </header>
@@ -306,18 +324,18 @@
       <section class="block" id="keamanan">
         <div class="wrap">
           <div class="sec-head reveal">
-            <span class="eyebrow grad-text">Privasi & Higienitas Data</span>
+            <span class="eyebrow grad-text">Privasi Sejak Desain</span>
             <h2>Uang Anda, Privasi Anda, Kendali Penuh Anda 🛡️</h2>
             <p>Kami tidak memiliki server penyimpanan data Anda. Keuangan Anda tetap murni milik Anda.</p>
           </div>
           <div class="security">
             <div class="sec-big reveal">
               <h3>Arsitektur offline-first, terlindungi dari hulu ke hilir.</h3>
-              <p>Setiap lembar transaksi, dompet, dan portofolio terkunci rapat di database terenkripsi perangkat HP Anda.</p>
+              <p>Setiap lembar transaksi, dompet, dan portofolio terkunci rapat di database terenkripsi perangkat HP Anda sesuai standar UU Perlindungan Data Pribadi.</p>
               <ul class="checks">
                 <li>Enkripsi database SQLCipher di perangkat sendiri</li>
-                <li>Akses Google Drive terbatas hanya ke file cadangan Uangii</li>
-                <li>Kredensial dikelola oleh Google Play Services</li>
+                <li>Akses Google Drive terbatas hanya ke file cadangan Uangii (AppData)</li>
+                <li>Kredensial biometrik dikelola langsung oleh OS Android</li>
                 <li>Data AI tidak pernah digunakan untuk melatih model publik</li>
               </ul>
             </div>
@@ -342,7 +360,7 @@
             <details open><summary>Apakah data keuangan saya dikirim ke server Uangii?</summary><p>Sama sekali tidak. Uangii tidak memiliki server database untuk menampung riwayat Anda. Semua data disimpan lokal dan terenkripsi. Satu-satunya salinan cadangan adalah file yang Anda putuskan sendiri untuk di-backup ke Google Drive pribadi Anda.</p></details>
             <details><summary>Apakah Uangii bisa digunakan tanpa koneksi internet?</summary><p>Tentu saja! Pencatatan uang keluar/masuk, dasbor, dan laporan bekerja 100% offline. Internet hanya dibutuhkan saat Anda menyinkronkan cadangan ke Google Drive atau menggunakan asisten AI.</p></details>
             <details><summary>Apakah Uangii bisa mengintip file lain di Google Drive saya?</summary><p>Tidak bisa. Uangii hanya memohon izin terbatas (<code>drive.file</code> / <code>drive.appdata</code>) yang hanya mengizinkan aplikasi membuka atau mengelola file cadangan yang dibuatnya sendiri.</p></details>
-            <details><summary>Apakah saran AI di Uangii adalah anjuran investasi resmi?</summary><p>Bukan. Seluruh saran AI ditujukan sebagai bahan edukasi dan wawasan keuangan pribadi, bukan nasihat penasihat keuangan bersertifikat.</p></details>
+            <details><summary>Apakah saran AI di Uangii adalah anjuran investasi resmi?</summary><p>Bukan. Seluruh saran AI ditujukan sebagai bahan edukasi dan wawasan keuangan pribadi, bukan nasihat penasihat keuangan bersertifikat OJK.</p></details>
             <details><summary>Bagaimana jika saya ganti HP?</summary><p>Cukup gunakan fitur Backup ke Google Drive di perangkat lama, lalu unduh Uangii di perangkat baru dan pilih Pulihkan Data dengan akun Google yang sama.</p></details>
           </div>
         </div>
@@ -364,26 +382,46 @@
     <div id="section-privacy" class="page">
       <div class="wrap">
         <article class="legal">
+          <span class="law-tag">Kepatuhan UU No. 27 Tahun 2022 (UU PDP) & UU ITE</span>
           <h2>Kebijakan Privasi <span class="grad-text">(Privacy Policy)</span> 🔒</h2>
-          <p class="updated">Terakhir diperbarui: Oktober 2026</p>
-          <p>Uangii ("Aplikasi", "kami") berkomitmen penuh untuk menjaga kebersihan dan keamanan privasi data Anda. Kebijakan ini menjabarkan bagaimana data Anda diproses di dalam Aplikasi.</p>
+          <p class="updated">Terakhir diperbarui: 10 Oktober 2026 • Versi 2.0</p>
+          <p>Selamat datang di <strong>Uangii</strong> ("Aplikasi", "Kami"), produk perangkat lunak yang dikembangkan oleh <strong>Emtitra Production</strong>. Kami menghargai dan berkomitmen penuh untuk melindungi data pribadi pengguna sesuai dengan <strong>Undang-Undang Republik Indonesia No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP)</strong> serta <strong>UU Informasi dan Transaksi Elektronik (UU ITE)</strong>.</p>
 
-          <h3><span>1</span>Penyimpanan Data Lokal & Arsitektur Offline-First</h3>
-          <p>Uangii dibangun dengan prinsip <strong>offline-first</strong>. Seluruh data transaksi, kategori belanja, dompet, dan portofolio Anda tersimpan langsung pada ruang penyimpanan lokal perangkat Anda dalam database yang diamankan enkripsi kuat (SQLCipher). Kami tidak memiliki server eksternal untuk menyimpan, membaca, maupun memonetisasi catatan finansial Anda.</p>
+          <h3><span>1</span>Prinsip Desain Offline-First & Lokalisasi Data</h3>
+          <p>Uangii dirancang dengan arsitektur <em>Privacy by Design</em> dan <em>Offline-First</em>. Seluruh catatan transaksi, saldo dompet, pos anggaran, target tabungan, dan catatan hutang-piutang Anda disimpan secara eksklusif pada media penyimpanan internal perangkat Anda dalam basis data lokal terenkripsi (SQLCipher / Room). <strong>Kami tidak mengoperasikan server eksternal perantara</strong> untuk menyimpan, memproses, memonetisasi, atau menjual riwayat keuangan Anda.</p>
 
-          <h3><span>2</span>Pencadangan Google Drive & Layanan Pihak Ketiga</h3>
-          <p>Aplikasi menyediakan fitur opsional untuk mencadangkan data ke Google Drive pribadi Anda. Dalam implementasinya:</p>
+          <h3><span>2</span>Izin Notifikasi Transaksi (Notification Listener)</h3>
+          <p>Aplikasi menyediakan fitur opsional untuk mendeteksi pesan mutasi perbankan atau dompet digital (e-wallet). Pemindaian teks notifikasi dilakukan <strong>100% di perangkat (on-device processing)</strong> tanpa transmisi jaringan. Izin ini hanya digunakan secara spesifik untuk mengenali nominal, jenis transaksi, dan nama merchant guna mempermudah pencatatan otomatis.</p>
+
+          <h3><span>3</span>Pemrosesan Asisten Cerdas (Fio AI)</h3>
+          <p>Saat Anda berkonsultasi atau mencatat secara interaktif dengan Fio AI, kueri kontekstual diproses melalui API model kecerdasan buatan (Google Gemini API). Data yang dikirimkan hanyalah teks pertanyaan atau ringkasan nominal tanpa nama lengkap, nomor rekening, PIN, atau data kredensial rahasia. Data tersebut tidak digunakan untuk pelatihan model publik. Jika perangkat dalam kondisi luring (offline), Fio AI secara otomatis beralih ke logika analitik lokal di perangkat.</p>
+
+          <h3><span>4</span>Pencadangan Google Drive (Cloud Backup)</h3>
+          <p>Aplikasi menyediakan fitur opsional untuk mencadangkan data ke Google Drive pribadi Anda. Dalam fitur ini:</p>
           <ul>
-            <li>Aplikasi hanya meminta izin untuk membuat dan mengakses file cadangan miliknya sendiri (<code>drive.file</code> atau <code>drive.appdata</code>).</li>
-            <li>Aplikasi <strong>tidak akan pernah</strong> membaca, mengubah, menyalin, atau menghapus file lain di Google Drive Anda.</li>
-            <li>Kredensial akun Google dikelola langsung oleh sistem Google Play Services dan tidak pernah melewati server pengembang.</li>
+            <li>Aplikasi hanya meminta cakupan akses terbatas (<code>drive.appdata</code> / <code>drive.file</code>) ke direktori privat khusus aplikasi Uangii.</li>
+            <li>Aplikasi <strong>tidak dapat mengakses, membaca, mengubah, atau menghapus</strong> berkas lain di Google Drive Anda.</li>
+            <li>Kredensial akun Google Anda dikelola langsung oleh sistem Google Play Services dan tidak pernah disimpan oleh Emtitra Production.</li>
           </ul>
 
-          <h3><span>3</span>Fitur Kecerdasan Buatan (AI Advisor)</h3>
-          <p>Uangii menyediakan asisten finansial edukatif. Data ringkasan yang dikirimkan ke model AI hanya diproses secara temporer ketika Anda meminta evaluasi/tips, dan tidak dijadikan basis pelatihan model publik.</p>
+          <h3><span>5</span>Hak Subjek Data (Sesuai UU PDP Bab VI)</h3>
+          <p>Sebagai pemilik data pribadi, Anda memiliki kendali penuh:</p>
+          <ul>
+            <li><strong>Hak Akses & Portabilitas:</strong> Anda dapat mengekspor seluruh catatan keuangan Anda kapan saja ke format CSV, Excel, atau JSON cadangan lokal.</li>
+            <li><strong>Hak Koreksi & Penghapusan:</strong> Anda dapat mengedit atau menghapus sebagian maupun seluruh database secara permanen melalui menu Pengaturan di dalam aplikasi.</li>
+            <li><strong>Hak Menarik Persetujuan:</strong> Anda dapat menonaktifkan fitur AI, backup Google Drive, atau izin pembaca notifikasi kapan pun melalui pengaturan perangkat.</li>
+          </ul>
 
-          <h3><span>4</span>Hubungi Kami</h3>
-          <div class="contact-box">Jika Anda memiliki pertanyaan mengenai kebijakan privasi Uangii, silakan hubungi tim pengembang di: <a href="mailto:mnahmadfikri@gmail.com">mnahmadfikri@gmail.com</a> atau <a href="mailto:mn.nur.fikri@gmail.com">mn.nur.fikri@gmail.com</a></div>
+          <h3><span>6</span>Keamanan & Autentikasi Biometrik</h3>
+          <p>Fitur Kunci Aplikasi mendukung perlindungan PIN lokal dan autentikasi biometrik (sidik jari / pemindai wajah). Autentikasi biometrik diproses langsung oleh modul keamanan perangkat keras Android melalui API <code>BiometricPrompt</code> resmi. Data sidik jari dan wajah Anda tidak pernah dapat diakses atau disimpan oleh Uangii.</p>
+
+          <h3><span>7</span>Kontak Pengendali Data</h3>
+          <div class="contact-box">
+            Jika Anda memiliki pertanyaan, saran, atau permohonan terkait pelaksanaan hak privasi Anda, silakan hubungi pengembang kami di:
+            <br><strong>Emtitra Production</strong>
+            <br>Email Pengembang: <a href="mailto:mnahmadfikri@gmail.com">mnahmadfikri@gmail.com</a>
+            <br>Developer Portal: <a href="../">https://fintrack.digital/</a>
+          </div>
         </article>
       </div>
     </div>
@@ -392,21 +430,40 @@
     <div id="section-terms" class="page">
       <div class="wrap">
         <article class="legal">
+          <span class="law-tag">Perjanjian Penggunaan Berdasarkan Hukum Indonesia</span>
           <h2>Syarat dan Ketentuan <span class="grad-text">(Terms of Service)</span> 📜</h2>
-          <p class="updated">Terakhir diperbarui: Oktober 2026</p>
-          <p>Selamat datang di Uangii. Dengan mengunduh atau memakai Aplikasi ini, Anda menyepakati poin-poin berikut:</p>
+          <p class="updated">Terakhir diperbarui: 10 Oktober 2026 • Versi 2.0</p>
+          <p>Selamat datang di Uangii. Perjanjian Syarat dan Ketentuan Penggunaan ini ("Ketentuan") merupakan kesepakatan yang mengikat secara hukum antara Anda sebagai pengguna ("Pengguna") dan <strong>Emtitra Production</strong> ("Pengembang"). Dengan mengunduh, memasang, atau menggunakan Aplikasi Uangii, Anda menyatakan telah membaca, memahami, dan menyetujui Ketentuan ini.</p>
 
-          <h3><span>1</span>Penggunaan Layanan</h3>
-          <p>Uangii disediakan sebagai instrumen pencatatan dan evaluasi keuangan pribadi. Anda bertanggung jawab penuh atas keamanan fisik perangkat pribadi dan manajemen salinan cadangan data Anda.</p>
+          <h3><span>1</span>Ruang Lingkup Layanan</h3>
+          <p>Uangii disediakan sebagai alat bantu digital untuk pencatatan, pengorganisasian anggaran, dan evaluasi keuangan pribadi secara mandiri. Aplikasi ini <strong>bukan lembaga perbankan, bukan penyelenggara jasa pembayaran (PJP), bukan manajer investasi, dan tidak menghimpun dana masyarakat</strong>.</p>
 
-          <h3><span>2</span>Penafian Finansial (Financial Disclaimer)</h3>
-          <p>Segala kalkulasi, evaluasi portofolio, dan analisis asisten AI di Uangii disajikan <strong>hanya untuk kepentingan edukasi dan informasi mandiri</strong>, bukan rekomendasi legal, pajak, maupun investasi berizin profesional. Keputusan alokasi uang Anda adalah tanggung jawab pribadi Anda seutuhnya.</p>
+          <h3><span>2</span>Penafian Nasihat Keuangan (Financial Disclaimer)</h3>
+          <p>Segala visualisasi grafik, estimasi tabungan, ringkasan arus kas, dan tanggapan asisten AI (Fio AI) di dalam Uangii disajikan <strong>murni untuk tujuan edukasi dan referensi pribadi</strong>. Saran AI tidak dapat dianggap sebagai nasihat keuangan resmi, rekomendasi investasi bersertifikasi, pertimbangan perpajakan, atau anjuran hukum dari perencana keuangan berlisensi Otoritas Jasa Keuangan (OJK). Segala keputusan finansial dan investasi yang Anda ambil merupakan tanggung jawab pribadi Anda seutuhnya.</p>
 
-          <h3><span>3</span>Batasan Tanggung Jawab</h3>
-          <p>Uangii disediakan "SEBAGAIMANA ADANYA" (AS IS) tanpa garansi tersirat maupun tersurat. Pengembang tidak bertanggung jawab atas kerugian finansial atau kehilangan data akibat kerusakan perangkat fisik maupun kendala pihak ketiga.</p>
+          <h3><span>3</span>Tanggung Jawab Keamanan Perangkat & Cadangan</h3>
+          <p>Karena Uangii beroperasi secara <em>offline-first</em> di mana data tersimpan di perangkat keras ponsel Anda:</p>
+          <ul>
+            <li>Pengguna bertanggung jawab penuh atas keamanan fisik perangkat, kerahasiaan PIN aplikasi, serta pembuatan salinan cadangan berkala (Google Drive / JSON lokal).</li>
+            <li>Pengembang tidak dapat memulihkan data yang hilang akibat kerusakan perangkat fisik, pembersihan data (clear data), ponsel hilang, atau penghapusan aplikasi tanpa cadangan sebelumnya.</li>
+          </ul>
 
-          <h3><span>4</span>Kontak Pengembang</h3>
-          <div class="contact-box">Email Pengembang Uangii: <a href="mailto:mnahmadfikri@gmail.com">mnahmadfikri@gmail.com</a> atau <a href="mailto:mn.nur.fikri@gmail.com">mn.nur.fikri@gmail.com</a></div>
+          <h3><span>4</span>Hak Kekayaan Intelektual (HAKI)</h3>
+          <p>Seluruh hak cipta, merek dagang, desain antarmuka, kode sumber, logo, dan nama "Uangii" adalah hak milik eksklusif <strong>Emtitra Production</strong> yang dilindungi oleh <strong>UU No. 28 Tahun 2014 tentang Hak Cipta</strong>. Pengguna dilarang merekayasa balik (reverse engineer), membongkar kode, atau mendistribusikan ulang aplikasi tanpa persetujuan tertulis dari Pengembang.</p>
+
+          <h3><span>5</span>Batasan Tanggung Jawab & Jaminan</h3>
+          <p>Aplikasi disediakan "SEBAGAIMANA ADANYA" (<em>AS IS</em>) dan "SEBAGAIMANA TERSEDIA" (<em>AS AVAILABLE</em>) tanpa jaminan apa pun baik tersurat maupun tersirat. Sepanjang diizinkan oleh hukum Republik Indonesia, Pengembang tidak bertanggung jawab atas kerugian finansial langsung maupun tidak langsung, kehilangan keuntungan, atau kesalahan kalkulasi yang disebabkan oleh kelalaian input Pengguna atau keterbatasan sistem pihak ketiga.</p>
+
+          <h3><span>6</span>Hukum yang Berlaku & Yurisdiksi</h3>
+          <p>Ketentuan ini diatur dan ditafsirkan berdasarkan hukum Negara Kesatuan Republik Indonesia. Setiap perselisihan yang timbul akan diupayakan untuk diselesaikan terlebih dahulu secara musyawarah untuk mufakat.</p>
+
+          <h3><span>7</span>Hubungi Pengembang</h3>
+          <div class="contact-box">
+            Pertanyaan seputar Syarat dan Ketentuan ini dapat disampaikan ke:
+            <br><strong>Emtitra Production</strong>
+            <br>Email: <a href="mailto:mnahmadfikri@gmail.com">mnahmadfikri@gmail.com</a>
+            <br>Developer Hub: <a href="../">https://fintrack.digital/</a>
+          </div>
         </article>
       </div>
     </div>
@@ -418,7 +475,14 @@
         <div>
           <a class="brand" href="#home" onclick="showTab('home')"><img src="assets/uangii_app_icon_512.png" alt="Uangii"><span class="brand-name">Uang<span class="grad-text">ii</span></span> ✨</a>
           <p>Aplikasi pencatat keuangan pribadi offline-first, terenkripsi, bikin alur kas selalu rapi dan wangi.</p>
-          <div class="dev"><img src="assets/logo dev.jpg" alt="Emtitra Production">Dikembangkan oleh <strong style="color:var(--text)">Emtitra Production</strong></div>
+          <!-- Tombol Track Back ke Developer Studio Emtitra Production -->
+          <a class="dev-badge" href="../" title="Kunjungi Website Developer Emtitra Production">
+            <img src="assets/logo dev.jpg" alt="Emtitra Production">
+            <div>
+              <span style="font-size:.75rem;color:var(--muted);display:block;">Dikembangkan oleh</span>
+              <strong style="color:var(--text);font-size:.92rem;">Emtitra Production ↗</strong>
+            </div>
+          </a>
         </div>
         <div>
           <h5>Menu</h5>
@@ -428,8 +492,9 @@
         </div>
         <div>
           <h5>Legalitas & Bantuan</h5>
-          <button class="link" onclick="showTab('privacy')">Kebijakan Privasi</button>
+          <button class="link" onclick="showTab('privacy')">Kebijakan Privasi (UU PDP)</button>
           <button class="link" onclick="showTab('terms')">Syarat & Ketentuan</button>
+          <a href="../">Portal Developer Emtitra</a>
           <a href="mailto:mnahmadfikri@gmail.com">mnahmadfikri@gmail.com</a>
         </div>
       </div>
