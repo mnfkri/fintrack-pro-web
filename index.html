@@ -210,7 +210,11 @@
       .foot { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
-  </style>
+  
+    .media-panel{max-width:900px;margin:2rem auto;padding:2rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+    .media-form{display:grid;gap:.8rem;max-width:520px}.media-form input{width:100%;padding:.8rem;border-radius:10px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);font:inherit}
+    .media-status{margin-top:1rem;padding:.8rem 1rem;border-radius:10px;background:var(--surface-2);overflow-wrap:anywhere}.media-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1.25rem}.media-item{padding:.8rem;border:1px solid var(--border);border-radius:14px;background:var(--surface);min-width:0}.media-item img{width:100%;height:130px;object-fit:contain;background:rgba(0,0,0,.15);border-radius:8px;margin-bottom:.6rem}.media-name{overflow-wrap:anywhere;font-size:.85rem;margin-bottom:.5rem}
+</style>
 </head>
 <body>
   <div class="bg-orbs"><div class="grid-bg"></div><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
@@ -229,6 +233,7 @@
         <button class="nav-btn" onclick="goSection('faq')">FAQ</button>
         <button class="nav-btn" id="btn-privacy" onclick="showTab('privacy')">Privacy Policy</button>
         <button class="nav-btn" id="btn-terms" onclick="showTab('terms')">Terms of Service</button>
+        <button class="nav-btn" id="btn-media" onclick="showTab('media')">Media Manager</button>
       </nav>
     </div>
   </header>
@@ -388,6 +393,8 @@
       </div>
     </div>
 
+
+    <div id="section-media" class="page"><div class="wrap"><div class="media-panel"><h2>Media Manager</h2><p>Kelola gambar website. Upload menggunakan Supabase Storage karena GitHub Pages tidak dapat menyimpan upload secara langsung.</p><div id="mediaSetupNotice" class="media-status">Isi konfigurasi Supabase pada kode untuk mengaktifkan fitur ini.</div><div id="mediaLoginPanel" class="media-form" hidden><label>Email admin</label><input id="mediaEmail" type="email" autocomplete="username" placeholder="Email admin"><label>Password</label><input id="mediaPassword" type="password" autocomplete="current-password" placeholder="Password"><button class="btn btn-primary" type="button" onclick="mediaLogin()">Login admin</button></div><div id="mediaAdminPanel" hidden><p>Format JPG, PNG, WebP, GIF; maksimal 5 MB per gambar.</p><div class="media-form"><label for="mediaFiles">Pilih gambar</label><input id="mediaFiles" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple><button class="btn btn-primary" type="button" onclick="uploadMediaFiles()">Upload gambar</button><button class="btn btn-ghost" type="button" onclick="mediaLogout()">Logout</button></div><div id="mediaGallery" class="media-gallery"></div></div><div id="mediaStatus" class="media-status" role="status" aria-live="polite">Menunggu konfigurasi.</div></div></div></div>
     <!-- ================= TERMS ================= -->
     <div id="section-terms" class="page">
       <div class="wrap">
@@ -485,9 +492,25 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const hash = location.hash.replace('#', '');
-      if (['home', 'privacy', 'terms'].includes(hash)) showTab(hash);
+      if (['home', 'privacy', 'terms', 'media'].includes(hash)) showTab(hash);
       observeReveals();
     });
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL='https://YOUR_PROJECT_ID.supabase.co';
+    const SUPABASE_ANON_KEY='YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY';
+    const MEDIA_BUCKET='fintrack-media'; let mediaSupabase=null;
+    function mediaStatus(m){document.getElementById('mediaStatus').textContent=m;}
+    function mediaInit(){if(!window.supabase||SUPABASE_URL.includes('YOUR_PROJECT_ID')||SUPABASE_ANON_KEY.includes('YOUR_SUPABASE'))return;mediaSupabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);document.getElementById('mediaSetupNotice').hidden=true;document.getElementById('mediaLoginPanel').hidden=false;mediaSupabase.auth.getSession().then(({data,error})=>{if(error)mediaStatus(error.message);else mediaSession(Boolean(data.session));});}
+    function mediaSession(yes){document.getElementById('mediaLoginPanel').hidden=yes;document.getElementById('mediaAdminPanel').hidden=!yes;if(yes)loadMediaGallery();}
+    async function mediaLogin(){const email=document.getElementById('mediaEmail').value.trim(),password=document.getElementById('mediaPassword').value;if(!email||!password)return mediaStatus('Masukkan email dan password.');const {data,error}=await mediaSupabase.auth.signInWithPassword({email,password});if(error)return mediaStatus('Login gagal: '+error.message);mediaSession(Boolean(data.session));}
+    async function mediaLogout(){const {error}=await mediaSupabase.auth.signOut();if(error)mediaStatus(error.message);else mediaSession(false);}
+    async function uploadMediaFiles(){const files=Array.from(document.getElementById('mediaFiles').files||[]);if(!files.length)return mediaStatus('Pilih gambar terlebih dahulu.');for(const file of files){if(!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type))return mediaStatus('Format tidak didukung: '+file.name);if(file.size>5242880)return mediaStatus('Ukuran melebihi 5 MB: '+file.name);}for(const file of files){mediaStatus('Mengunggah '+file.name+'...');const safe=file.name.replace(/[^a-zA-Z0-9._-]+/g,'-');const path=Date.now()+'-'+Math.random().toString(36).slice(2,8)+'-'+(safe||'image');const {error}=await mediaSupabase.storage.from(MEDIA_BUCKET).upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});if(error)return mediaStatus('Upload gagal: '+error.message);}document.getElementById('mediaFiles').value='';await loadMediaGallery();mediaStatus('Upload selesai. Salin URL gambar dari galeri.');}
+    async function loadMediaGallery(){const g=document.getElementById('mediaGallery');g.replaceChildren();const {data,error}=await mediaSupabase.storage.from(MEDIA_BUCKET).list('',{limit:100,sortBy:{column:'created_at',order:'desc'}});if(error)return mediaStatus('Galeri gagal dimuat: '+error.message);if(!data||!data.length)return mediaStatus('Belum ada gambar.');for(const item of data){if(!item.name)continue;const {data:u}=mediaSupabase.storage.from(MEDIA_BUCKET).getPublicUrl(item.name);const card=document.createElement('article');card.className='media-item';const img=document.createElement('img');img.src=u.publicUrl;img.alt=item.name;const name=document.createElement('div');name.className='media-name';name.textContent=item.name;const copy=document.createElement('button');copy.className='btn btn-ghost btn-sm';copy.textContent='Salin URL';copy.onclick=async()=>{try{await navigator.clipboard.writeText(u.publicUrl);mediaStatus('URL disalin.');}catch(e){mediaStatus('URL gambar: '+u.publicUrl);}};const open=document.createElement('button');open.className='btn btn-ghost btn-sm';open.textContent='Buka';open.onclick=()=>window.open(u.publicUrl,'_blank','noopener');const del=document.createElement('button');del.className='btn btn-ghost btn-sm';del.textContent='Hapus';del.onclick=async()=>{if(!confirm('Hapus '+item.name+'?'))return;const {error:e}=await mediaSupabase.storage.from(MEDIA_BUCKET).remove([item.name]);if(e)return mediaStatus(e.message);loadMediaGallery();};card.append(img,name,copy,open,del);g.append(card);}mediaStatus('Galeri dimuat: '+data.length+' item.');}
+    window.addEventListener('DOMContentLoaded',mediaInit);
+  </script>
+
 </body>
 </html>
