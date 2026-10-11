@@ -533,21 +533,22 @@
     /* Sticky Bottom Download Bar */
     .sticky-download-bar {
       position: fixed;
-      bottom: 20px;
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(120px);
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(16,185,129,0.35);
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(16,185,129,0.38);
       border-radius: 999px;
-      padding: .6rem 1.25rem .6rem .8rem;
+      padding: .5rem 1rem .5rem .75rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: .85rem;
       z-index: 99;
-      box-shadow: 0 20px 45px -10px rgba(0,0,0,0.8), 0 0 20px rgba(16,185,129,0.2);
+      box-shadow: 0 20px 45px -10px rgba(0,0,0,0.8), 0 0 25px rgba(16,185,129,0.22);
       transition: transform .4s cubic-bezier(.2,.8,.2,1);
+      max-width: 90vw;
     }
     .sticky-download-bar.show {
       transform: translateX(-50%) translateY(0);
@@ -556,23 +557,35 @@
       display: flex;
       align-items: center;
       gap: .65rem;
+      min-width: 0;
     }
     .sticky-bar-info img {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      flex-shrink: 0;
     }
     .sticky-bar-text {
       font-size: .84rem;
-      line-height: 1.2;
+      line-height: 1.25;
+      min-width: 0;
     }
     .sticky-bar-text strong {
       display: block;
       color: var(--text);
+      white-space: nowrap;
     }
     .sticky-bar-text span {
       color: var(--muted);
       font-size: .75rem;
+      white-space: nowrap;
+    }
+    .sticky-download-btn {
+      padding: .48rem 1.1rem;
+      font-size: .84rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* Legal pages */
@@ -604,16 +617,16 @@
     /* Floating Scroll-to-Top Button */
     .btn-scroll-top {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 46px;
-      height: 46px;
+      bottom: 84px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: rgba(15,23,42,.85);
+      background: rgba(15,23,42,.88);
       backdrop-filter: blur(10px);
       border: 1px solid var(--border);
       color: #fff;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       cursor: pointer;
       display: grid;
       place-items: center;
@@ -665,9 +678,27 @@
       .float-card { display: none; }
       .hero-cta .btn { width: 100%; }
       .showcase { gap: 2rem; }
-      .comp-card { padding: 1.5rem; }
+      .comp-card { padding: 1.3rem; }
+      .comp-row { grid-template-columns: 36px 1fr; gap: .75rem; }
       .calc-metrics { grid-template-columns: 1fr; }
+      .calc-card { padding: 1.5rem; }
+      .fio-sim { padding: 1.5rem; }
+      
+      /* Mobile Sticky Bar: Clean & Non-colliding */
+      .sticky-download-bar {
+        bottom: 14px;
+        width: calc(100% - 24px);
+        max-width: 440px;
+        padding: .45rem .65rem .45rem .55rem;
+        gap: .5rem;
+        justify-content: space-between;
+      }
+      .sticky-bar-info { gap: .5rem; }
+      .sticky-bar-info img { width: 32px; height: 32px; border-radius: 8px; }
+      .sticky-bar-text strong { font-size: .8rem; }
       .sticky-bar-text span { display: none; }
+      .sticky-download-btn { padding: .42rem .85rem; font-size: .78rem; }
+      .btn-scroll-top { bottom: 74px; right: 14px; width: 40px; height: 40px; font-size: 1.1rem; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
   </style>
@@ -1159,7 +1190,7 @@
         <span>Catat rapi, dompet wangi ✨</span>
       </div>
     </div>
-    <a href="#home" class="btn btn-primary" style="padding:.5rem 1rem;font-size:.84rem;border-radius:999px;" onclick="goSection('fitur'); return false;">
+    <a href="#home" class="btn btn-primary sticky-download-btn" onclick="goSection('fitur'); return false;">
       Download 🚀
     </a>
   </div>
