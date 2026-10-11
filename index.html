@@ -112,18 +112,77 @@
     /* Header */
     header { position: sticky; top: 0; z-index: 100; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
     header.scrolled { background: rgba(7,15,31,.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-color: var(--border); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .brand { display: inline-flex; align-items: center; gap: .65rem; font-weight: 800; font-size: 1.25rem; cursor: pointer; letter-spacing: -.01em; }
+    /* Header Desktop & Responsive */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      gap: 1.2rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      font-weight: 800;
+      font-size: 1.25rem;
+      cursor: pointer;
+      letter-spacing: -.01em;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
     .brand-name { display: inline-flex; align-items: center; letter-spacing: -0.02em; }
-    .brand img { width: 38px; height: 38px; border-radius: 10px; }
-    .nav-links { display: flex; align-items: center; gap: .25rem; }
-    .nav-btn { background: none; border: none; color: var(--muted); font: inherit; font-weight: 500; font-size: .92rem; padding: .5rem .85rem; border-radius: 10px; cursor: pointer; transition: all .2s; }
+    .brand img { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+      flex-shrink: 1;
+    }
+    .nav-btn {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font: inherit;
+      font-weight: 600;
+      font-size: .88rem;
+      padding: .45rem .75rem;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .2s;
+    }
     .nav-btn:hover { color: var(--text); background: var(--surface-2); }
-    .nav-btn.active { color: #5eead4; background: rgba(16,185,129,.14); border: 1px solid rgba(16,185,129,.3); }
-    .nav-right { display: flex; align-items: center; gap: .75rem; }
-    .nav-dev-badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .82rem; padding: .45rem .85rem; border-radius: 12px; background: rgba(56,189,248,.12); color: #38bdf8; border: 1px solid rgba(56,189,248,.3); font-weight: 600; transition: all .2s; }
+    .nav-btn.active { color: #5eead4; background: rgba(16,185,129,.14); border-color: rgba(16,185,129,.3); }
+    
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .nav-dev-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .8rem;
+      padding: .42rem .75rem;
+      border-radius: 12px;
+      background: rgba(56,189,248,.12);
+      color: #38bdf8;
+      border: 1px solid rgba(56,189,248,.3);
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all .2s;
+    }
     .nav-dev-badge:hover { background: rgba(56,189,248,.22); transform: translateY(-1px); }
-    .nav-app-btn { padding: .45rem 1.15rem; font-size: .84rem; border-radius: 999px; }
+    .nav-app-btn {
+      padding: .48rem 1rem;
+      font-size: .84rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; font: inherit; font-weight: 600; padding: .85rem 1.5rem; border-radius: 14px; border: none; cursor: pointer; transition: transform .2s, box-shadow .2s, filter .2s; }
     .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 10px 30px -10px rgba(16,185,129,.7); }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(6,182,212,.8); filter: brightness(1.08); }
@@ -135,16 +194,17 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: .5rem;
+      gap: .45rem;
       background: var(--surface-2);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: .45rem .85rem;
+      padding: .42rem .75rem;
       border-radius: 12px;
       cursor: pointer;
       font: inherit;
-      font-size: .88rem;
+      font-size: .85rem;
       font-weight: 600;
+      white-space: nowrap;
       transition: all .2s;
     }
     .menu-toggle:hover {
@@ -785,8 +845,12 @@
       .calc-card { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
       .fio-sim { grid-template-columns: 1fr; gap: 1.8rem; }
     }
+    /* Responsive Navigation Breakpoints */
+    @media (max-width: 1080px) {
+      .nav-dev-badge { display: none; } /* Sembunyikan badge studio di laptop kecil/tablet agar 3 menu utama tetap leluasa */
+    }
     @media (max-width: 880px) {
-      .nav-links { display: none; }
+      .nav-links { display: none; } /* Beralih penuh ke Drawer Menu */
     }
     @media (max-width: 680px) {
       /* Mobile Header Fix - No more stacking or overflow */
