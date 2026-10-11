@@ -192,123 +192,98 @@
     .foot-nav { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
     .copy { text-align: center; color: var(--muted); font-size: .83rem; padding-top: 1.4rem; border-top: 1px solid var(--border); }
 
-    /* Story & Philosophy Section */
-    .story-card {
-      background: linear-gradient(135deg, rgba(37,99,235,0.1) 0%, rgba(99,102,241,0.08) 50%, rgba(16,185,129,0.08) 100%);
-      border: 1px solid rgba(99,102,241,0.3);
-      border-radius: 28px;
-      padding: 3rem;
+    /* About & Origin (The Genesis) - Professional Tech Studio */
+    .genesis-card {
+      background: linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(11,26,51,0.6) 100%);
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 24px;
+      padding: 2.5rem;
       position: relative;
       overflow: hidden;
       margin-top: 1.5rem;
     }
-    .story-card::before {
+    .genesis-card::before {
       content: "";
       position: absolute;
-      top: -100px;
-      right: -100px;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%);
+      top: -80px;
+      right: -80px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(56,189,248,0.15) 0%, transparent 70%);
       pointer-events: none;
     }
-    .story-grid {
+    .genesis-grid {
       display: grid;
       grid-template-columns: 1.25fr 0.75fr;
-      gap: 3rem;
+      gap: 2.5rem;
       align-items: center;
     }
-    .story-tag {
+    .genesis-tag {
       display: inline-flex;
       align-items: center;
-      gap: .5rem;
-      padding: .35rem .85rem;
+      gap: .45rem;
+      padding: .3rem .8rem;
       border-radius: 999px;
-      background: rgba(99,102,241,0.15);
-      border: 1px solid rgba(99,102,241,0.35);
-      color: #a5b4fc;
-      font-size: .8rem;
+      background: rgba(56,189,248,0.12);
+      border: 1px solid rgba(56,189,248,0.3);
+      color: #38bdf8;
+      font-size: .78rem;
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
     }
-    .story-text h3 {
-      font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    .genesis-text h3 {
+      font-size: clamp(1.4rem, 2.8vw, 2rem);
       font-weight: 800;
       line-height: 1.25;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
       letter-spacing: -.02em;
     }
-    .story-text p {
+    .genesis-text p {
       color: #cbd5e1;
-      font-size: 1.02rem;
-      line-height: 1.75;
-      margin-bottom: 1.2rem;
+      font-size: .98rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
     }
-    .story-quote {
-      border-left: 3px solid #38bdf8;
-      padding-left: 1.2rem;
-      margin: 1.5rem 0;
+    .genesis-quote {
+      border-left: 3px solid #10b981;
+      padding-left: 1.1rem;
+      margin: 1.2rem 0;
       font-style: italic;
-      color: #93c5fd;
-      font-size: 1rem;
+      color: #a7f3d0;
+      font-size: .95rem;
       line-height: 1.6;
     }
-    .pillars-tiga-putra {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .pillar-item {
-      background: rgba(15,23,42,0.65);
+    .genesis-side {
+      background: rgba(7,15,31,0.7);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 1.4rem 1.2rem;
+      border-radius: 20px;
+      padding: 1.8rem;
       text-align: left;
     }
-    .pillar-item .p-num {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--grad);
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: .85rem;
-      margin-bottom: .8rem;
-    }
-    .pillar-item h4 {
-      font-size: 1rem;
+    .genesis-badge-label {
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #94a3b8;
       font-weight: 700;
-      margin-bottom: .4rem;
-      color: #f1f5f9;
+      margin-bottom: .8rem;
+      display: block;
     }
-    .pillar-item p {
-      font-size: .86rem;
-      color: var(--muted);
-      line-height: 1.5;
+    .spec-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      margin-bottom: .85rem;
+      font-size: .88rem;
+      color: #cbd5e1;
     }
-    .story-side-visual {
-      background: rgba(11,26,51,0.7);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 2.2rem;
-      text-align: center;
-    }
-    .family-emblem {
-      width: 90px;
-      height: 90px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(99,102,241,0.25));
-      border: 2px solid rgba(56,189,248,0.4);
-      display: grid;
-      place-items: center;
-      font-size: 2.8rem;
-      margin: 0 auto 1.2rem;
-      box-shadow: 0 10px 30px rgba(56,189,248,0.25);
+    .spec-item .dot {
+      color: #38bdf8;
+      font-weight: 800;
+      font-size: 1.1rem;
+      line-height: 1;
     }
 
     /* Responsive & Mobile Optimization */
@@ -317,20 +292,19 @@
       .feature-highlights { justify-content: center; }
       .upcoming-grid { grid-template-columns: 1fr; }
       .services-grid { grid-template-columns: 1fr; }
-      .story-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .pillars-tiga-putra { grid-template-columns: 1fr; }
+      .genesis-grid { grid-template-columns: 1fr; gap: 2rem; }
       .about-box { grid-template-columns: 1fr; text-align: center; padding: 2.2rem 1.5rem; }
       .contact-item { text-align: left; }
     }
 
     @media (max-width: 720px) {
-      .nav { height: 64px; }
+      .nav { height: 60px; }
       .brand { font-size: 1.05rem; }
-      .brand img { width: 34px; height: 34px; }
+      .brand img { width: 32px; height: 32px; }
       .menu-toggle { display: inline-flex; }
       .nav-links {
         position: absolute;
-        top: 66px;
+        top: 64px;
         left: 1rem;
         right: 1rem;
         flex-direction: column;
@@ -350,7 +324,7 @@
       .hero-cta { flex-direction: column; align-items: stretch; max-width: 320px; margin: 0 auto; }
       .hero-cta .btn { width: 100%; }
       .feature-highlights { grid-template-columns: 1fr; text-align: left; max-width: 280px; margin-left: auto; margin-right: auto; }
-      .story-card { padding: 1.8rem 1.25rem; }
+      .genesis-card { padding: 1.8rem 1.25rem; }
       
       .featured-preview img {
         max-width: 220px;
@@ -451,65 +425,52 @@
       </div>
     </section>
 
-    <!-- Sejarah & Filosofi: Emak Tiga Putra -->
+    <!-- About & Genesis (The Engineering Creed) -->
     <section class="block" id="sejarah">
       <div class="sec-head">
-        <span class="eyebrow grad-text">Asal Usul & Nilai Luhur</span>
-        <h2>Dari "Emak Tiga Putra" Menjadi Studio Rekayasa Teknologi</h2>
-        <p>Sebuah nama yang lahir dari ketulusan hati, cinta keluarga tanpa syarat, dan tekad membangun karya berintegritas tinggi.</p>
+        <span class="eyebrow grad-text">Identitas & Fondasi Moral</span>
+        <h2>The Genesis: Dedikasi di Balik Nama Emtitra</h2>
+        <p>Mengkombinasikan integritas etika yang jujur dengan standar rekayasa perangkat lunak kelas industri.</p>
       </div>
 
-      <div class="story-card">
-        <div class="story-grid">
-          <div class="story-text">
-            <span class="story-tag">❤️ Kisah di Balik Nama</span>
-            <h3>Bukan Sekadar Studio, Ini Adalah Dedikasi Seorang Anak untuk Sang Ibunda</h3>
+      <div class="genesis-card">
+        <div class="genesis-grid">
+          <div class="genesis-text">
+            <span class="genesis-tag">🏛️ Origin & Philosophy</span>
+            <h3>Fondasi Kejujuran dalam Setiap Arsitektur Software</h3>
             <p>
-              Nama <strong>Emtitra</strong> adalah akronim dari <strong>"Emak Tiga Putra"</strong>. Nama penuh makna ini dicetuskan secara tulus oleh <strong>anak pertama (sulung)</strong> dari seorang ibu tangguh yang berjuang membesarkan tiga orang anak laki-laki.
+              <strong>Emtitra</strong> lahir dari akronim <strong>"Emak Tiga Putra"</strong> — nama yang dicetuskan oleh pendiri kami sebagai penghormatan atas nilai integritas, disiplin, dan ketulusan tanpa kompromi yang ditanamkan oleh seorang ibu.
             </p>
+            <div class="genesis-quote">
+              "Kami menolak monetisasi data dan pelacak invasif. Kami memperlakukan privasi setiap pengguna dengan rasa aman dan penghormatan mutlak."
+            </div>
             <p>
-              Di balik setiap baris kode, arsitektur data, dan rancangan antarmuka yang kami lahirkan, ada pelajaran hidup tak ternilai yang diwariskan oleh sang Emak: <em>kejujuran yang tidak bisa ditawar, ketulusan melayani, disiplin kerja keras, dan kehangatan dalam menjaga amanah</em>.
+              Filosofi ini kami terjemahkan langsung ke dalam standar rekayasa modern: membangun aplikasi <strong>100% Offline-First</strong>, menerapkan enkripsi lokal tingkat bank (SQLCipher AES-256), dan menghadirkan kecerdasan buatan (AI) yang edukatif tanpa ketergantungan server perantara.
             </p>
-            <div class="story-quote">
-              "Kami menolak memandang pengguna sebagai komoditas data iklan. Kami memperlakukan privasi setiap pengguna sebagaimana seorang ibu menjaga rasa aman dan kehormatan anak-anaknya di rumah."
-            </div>
-            <p style="color:var(--muted);font-size:.95rem;">
-              Filosofi inilah yang mendasari mengapa Emtitra Production konsisten mengusung arsitektur <strong>Offline-First & Zero-Server Harvesting</strong>. Kami tidak mengejar pertumbuhan instan dengan memanen privasi, melainkan membangun kepercayaan jangka panjang melalui software yang tulus, tangguh, dan elegan.
-            </p>
-
-            <div class="pillars-tiga-putra">
-              <div class="pillar-item">
-                <div class="p-num">01</div>
-                <h4>Anak Pertama</h4>
-                <p>Kepemimpinan & Tanggung Jawab. Mencetuskan visi studio dan memastikan integritas moral di setiap teknologi yang dirilis.</p>
-              </div>
-              <div class="pillar-item">
-                <div class="p-num">02</div>
-                <h4>Anak Kedua</h4>
-                <p>Keseimbangan & Ketekunan. Menjaga arsitektur kode tetap terstruktur, efisien, dan ramah pengguna di segala kondisi.</p>
-              </div>
-              <div class="pillar-item">
-                <div class="p-num">03</div>
-                <h4>Anak Ketiga</h4>
-                <p>Inovasi & Semangat Muda. Mendorong eksplorasi kecerdasan buatan (AI) lokal dan eksplorasi desain modern masa depan.</p>
-              </div>
-            </div>
           </div>
 
-          <div class="story-side-visual">
-            <div class="family-emblem">👑</div>
-            <h4 style="font-size:1.25rem;font-weight:800;margin-bottom:.4rem;">Emak Tiga Putra</h4>
-            <span style="display:inline-block;padding:.2rem .75rem;border-radius:999px;background:rgba(56,189,248,.15);color:#38bdf8;font-size:.78rem;font-weight:700;margin-bottom:1rem;">NILAI UTAMA STUDIO</span>
-            <p style="color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:1.5rem;">
-              "Diberi nama oleh anak sulung sebagai bukti cinta abadi kepada Ibu yang mengajarkan bahwa kehormatan dan kejujuran di atas segalanya."
-            </p>
-            <div style="background:var(--surface-2);border-radius:16px;padding:1rem;border:1px solid var(--border);text-align:left;">
-              <div style="font-size:.82rem;color:#34d399;font-weight:700;margin-bottom:.3rem;">🛡️ Integritas Emtitra:</div>
-              <ul style="padding-left:1.1rem;font-size:.82rem;color:#cbd5e1;line-height:1.5;">
-                <li>Nol monetisasi data pribadi</li>
-                <li>Tanpa pelacak jahat & iklan mengganggu</li>
-                <li>Karya lokal berstandar global</li>
-              </ul>
+          <div class="genesis-side">
+            <span class="genesis-badge-label">Standar Rekayasa Emtitra</span>
+            <div class="spec-item">
+              <span class="dot">✓</span>
+              <div>
+                <strong>Zero-Data Harvesting</strong>
+                <p style="color:var(--muted);font-size:.82rem;margin-top:.15rem;">Tidak menyimpan, menjual, atau mentransfer riwayat finansial pengguna ke server manapun.</p>
+              </div>
+            </div>
+            <div class="spec-item">
+              <span class="dot">✓</span>
+              <div>
+                <strong>Deterministic Performance</strong>
+                <p style="color:var(--muted);font-size:.82rem;margin-top:.15rem;">Kode native Kotlin dengan arsitektur reaktif yang hemat memori dan baterai.</p>
+              </div>
+            </div>
+            <div class="spec-item">
+              <span class="dot">✓</span>
+              <div>
+                <strong>Regulatory Compliance</strong>
+                <p style="color:var(--muted);font-size:.82rem;margin-top:.15rem;">Kepatuhan ketat terhadap prinsip minimasi data UU PDP No. 27/2022.</p>
+              </div>
             </div>
           </div>
         </div>
