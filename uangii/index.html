@@ -62,12 +62,14 @@
     .brand { display: inline-flex; align-items: center; gap: .65rem; font-weight: 800; font-size: 1.25rem; cursor: pointer; letter-spacing: -.01em; }
     .brand-name { display: inline-flex; align-items: center; letter-spacing: -0.02em; }
     .brand img { width: 38px; height: 38px; border-radius: 10px; }
-    .nav-links { display: flex; align-items: center; gap: .35rem; }
+    .nav-links { display: flex; align-items: center; gap: .25rem; }
     .nav-btn { background: none; border: none; color: var(--muted); font: inherit; font-weight: 500; font-size: .92rem; padding: .5rem .85rem; border-radius: 10px; cursor: pointer; transition: all .2s; }
     .nav-btn:hover { color: var(--text); background: var(--surface-2); }
     .nav-btn.active { color: var(--text); background: var(--surface-2); }
-    .nav-dev-badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .82rem; padding: .45rem .8rem; border-radius: 12px; background: rgba(56,189,248,.12); color: #38bdf8; border: 1px solid rgba(56,189,248,.3); font-weight: 600; margin-left: .5rem; transition: all .2s; }
+    .nav-cta-group { display: flex; align-items: center; gap: .6rem; }
+    .nav-dev-badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .82rem; padding: .45rem .8rem; border-radius: 12px; background: rgba(56,189,248,.12); color: #38bdf8; border: 1px solid rgba(56,189,248,.3); font-weight: 600; transition: all .2s; }
     .nav-dev-badge:hover { background: rgba(56,189,248,.22); transform: translateY(-1px); }
+    .nav-app-btn { padding: .45rem 1rem; font-size: .84rem; border-radius: 999px; }
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; font: inherit; font-weight: 600; padding: .85rem 1.5rem; border-radius: 14px; border: none; cursor: pointer; transition: transform .2s, box-shadow .2s, filter .2s; }
     .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 10px 30px -10px rgba(16,185,129,.7); }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(6,182,212,.8); filter: brightness(1.08); }
@@ -656,6 +658,7 @@
       .nav-links { display: none; position: absolute; top: 72px; left: 0; right: 0; background: rgba(7,15,31,.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); flex-direction: column; padding: 1.25rem; gap: .5rem; }
       .nav-links.open { display: flex; }
       .menu-toggle { display: inline-flex; }
+      .nav-cta-group { display: none; }
       .legal { padding: 1.5rem; }
       .phone-bezel { width: 260px; border-radius: 38px; }
       .phone-bezel.back { display: none; }
@@ -681,15 +684,16 @@
       <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
       <nav class="nav-links" id="navLinks">
         <button class="nav-btn active" id="btn-home" onclick="showTab('home')">Beranda</button>
+        <button class="nav-btn" onclick="goSection('fitur')">Fitur</button>
         <button class="nav-btn" onclick="goSection('komparasi')">Komparasi</button>
         <button class="nav-btn" onclick="goSection('kalkulator')">Simulasi</button>
-        <button class="nav-btn" onclick="goSection('fitur')">Fitur</button>
         <button class="nav-btn" onclick="goSection('keamanan')">Keamanan</button>
         <button class="nav-btn" onclick="goSection('faq')">FAQ</button>
-        <button class="nav-btn" id="btn-privacy" onclick="showTab('privacy')">Privacy Policy</button>
-        <button class="nav-btn" id="btn-terms" onclick="showTab('terms')">Terms of Service</button>
         <a class="nav-dev-badge" href="../" title="Kembali ke Developer Hub">← Emtitra Studio</a>
       </nav>
+      <div class="nav-cta-group">
+        <a href="#fitur" class="btn btn-primary nav-app-btn" onclick="goSection('fitur'); return false;">Unduh APK 🚀</a>
+      </div>
     </div>
   </header>
 
