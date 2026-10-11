@@ -62,6 +62,10 @@
     .brand { display: inline-flex; align-items: center; gap: .65rem; font-weight: 800; font-size: 1.25rem; cursor: pointer; letter-spacing: -.01em; }
     .brand-name { display: inline-flex; align-items: center; letter-spacing: -0.02em; }
     .brand img { width: 38px; height: 38px; border-radius: 10px; }
+    .nav-links { display: flex; align-items: center; gap: .25rem; }
+    .nav-btn { background: none; border: none; color: var(--muted); font: inherit; font-weight: 500; font-size: .92rem; padding: .5rem .85rem; border-radius: 10px; cursor: pointer; transition: all .2s; }
+    .nav-btn:hover { color: var(--text); background: var(--surface-2); }
+    .nav-btn.active { color: #5eead4; background: rgba(16,185,129,.14); border: 1px solid rgba(16,185,129,.3); }
     .nav-right { display: flex; align-items: center; gap: .75rem; }
     .nav-dev-badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .82rem; padding: .45rem .85rem; border-radius: 12px; background: rgba(56,189,248,.12); color: #38bdf8; border: 1px solid rgba(56,189,248,.3); font-weight: 600; transition: all .2s; }
     .nav-dev-badge:hover { background: rgba(56,189,248,.22); transform: translateY(-1px); }
@@ -727,6 +731,9 @@
       .calc-card { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
       .fio-sim { grid-template-columns: 1fr; gap: 1.8rem; }
     }
+    @media (max-width: 880px) {
+      .nav-links { display: none; }
+    }
     @media (max-width: 680px) {
       .features { grid-template-columns: 1fr; }
       .foot { grid-template-columns: 1fr; }
@@ -753,8 +760,15 @@
     <div class="wrap nav">
       <a class="brand" href="#home" onclick="showTab('home')">
         <img src="assets/uangii_app_icon_512.png" alt="Uangii">
-        <span class="brand-name">Uangii</span></span> ✨
+        <span class="brand-name">Uang<span class="grad-text">ii</span></span> ✨
       </a>
+
+      <!-- 3 Menu Utama di Header Desktop -->
+      <nav class="nav-links">
+        <button class="nav-btn" id="btn-fitur-nav" onclick="showTab('fitur-detail')">Fitur Andalan</button>
+        <button class="nav-btn" id="btn-komparasi-nav" onclick="showTab('komparasi-detail')">Komparasi Arsitektur</button>
+        <button class="nav-btn" id="btn-keamanan-nav" onclick="showTab('keamanan-detail')">Privasi & Kriptografi</button>
+      </nav>
       
       <div class="nav-right">
         <a class="nav-dev-badge" href="../" title="Kembali ke Developer Hub">← Emtitra Studio</a>
@@ -773,16 +787,16 @@
     <div class="drawer-head">
       <strong>
         <img src="assets/uangii_app_icon_512.png" alt="Uangii" style="width:26px;height:26px;border-radius:7px;">
-        Uangii</span> Menu
+        Uang<span class="grad-text">ii</span> Menu
       </strong>
       <button class="drawer-close" aria-label="Tutup Menu" onclick="toggleNav(false)">✕</button>
     </div>
     <div class="drawer-menu">
       <button class="drawer-item active" id="btn-home" onclick="showTab('home')"><span class="icon">🏠</span> Beranda</button>
-      <button class="drawer-item" onclick="goSection('fitur')"><span class="icon">✨</span> Fitur Andalan</button>
-      <button class="drawer-item" onclick="goSection('komparasi')"><span class="icon">🛡️</span> Komparasi Arsitektur</button>
+      <button class="drawer-item" id="btn-drawer-fitur" onclick="showTab('fitur-detail')"><span class="icon">✨</span> Fitur Andalan (Detail)</button>
+      <button class="drawer-item" id="btn-drawer-komparasi" onclick="showTab('komparasi-detail')"><span class="icon">🛡️</span> Komparasi Arsitektur (Detail)</button>
+      <button class="drawer-item" id="btn-drawer-keamanan" onclick="showTab('keamanan-detail')"><span class="icon">🔐</span> Privasi & Kriptografi (Detail)</button>
       <button class="drawer-item" onclick="goSection('kalkulator')"><span class="icon">🧮</span> Kalkulator Keuangan</button>
-      <button class="drawer-item" onclick="goSection('keamanan')"><span class="icon">🔐</span> Privasi & Kriptografi</button>
       <button class="drawer-item" onclick="goSection('faq')"><span class="icon">❓</span> Tanya Jawab (FAQ)</button>
       <button class="drawer-item" id="btn-privacy" onclick="showTab('privacy')"><span class="icon">📜</span> Kebijakan Privasi (UU PDP)</button>
       <button class="drawer-item" id="btn-terms" onclick="showTab('terms')"><span class="icon">⚖️</span> Syarat & Ketentuan</button>
@@ -1247,6 +1261,164 @@
         </div>
       </div>
     </div>
+
+    <!-- ================= SUB-PAGE 1: FITUR ANDALAN DETAIL ================= -->
+    <div id="section-fitur-detail" class="page">
+      <div class="wrap">
+        <div class="legal">
+          <button class="nav-btn" style="margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .8rem;border:1px solid var(--border);" onclick="showTab('home')">← Kembali ke Beranda</button>
+          <span class="law-tag">Deep-Dive Ekosistem</span>
+          <h2>Eksplorasi Fitur Andalan Uangii ✨💸</h2>
+          <div class="updated">Kupas tuntas teknologi di balik pencatatan cerdas, higienis, dan ramah pengguna.</div>
+
+          <p>Uangii dirancang bukan sekadar sebagai kalkulator pengeluaran, melainkan sebuah instrumen keuangan pribadi yang memberi ketenangan batin (*peace of mind*). Berikut adalah rincian teknis dari fitur-fitur utama kami:</p>
+
+          <h3><span>1</span> 100% Offline-First Engine (Zero Cloud Latency)</h3>
+          <p>Aplikasi menggunakan basis data lokal terenkripsi yang berjalan langsung di thread pemrosesan ponsel Anda:</p>
+          <ul>
+            <li><strong>Kecepatan Input < 2 Detik:</strong> Tidak ada <em>spinning loader</em>, tidak ada jeda HTTP request, dan tidak bergantung pada sinyal tower operator seluler.</li>
+            <li><strong>Toleransi Penuh Terhadap Zona Tanpa Internet:</strong> Catat belanja di pasar tradisional bawah tanah, kabin pesawat, atau wilayah pedesaan tanpa hambatan.</li>
+          </ul>
+
+          <h3><span>2</span> Fio AI Financial Advisor (Local-Driven Insights)</h3>
+          <p>Kecerdasan buatan yang bertindak sebagai mentor finansial objektif:</p>
+          <ul>
+            <li><strong>Metrik Rasio 50/30/20 Otomatis:</strong> Menganalisis apakah proporsi kebutuhan pokok, keinginan, dan tabungan Anda berada di zona aman.</li>
+            <li><strong>Evaluasi Anggaran Edukatif:</strong> Memberikan saran penghematan taktis tanpa pernah meminta akses kredensial login perbankan (No PIN/Password Banking).</li>
+            <li><strong>Pencegah Bocor Halus:</strong> Mengidentifikasi akumulasi pengeluaran mikro (kopi harian, jajan sore) yang sering kali menguras anggaran bulanan.</li>
+          </ul>
+
+          <h3><span>3</span> Pencadangan Mandiri Google Drive AppData</h3>
+          <p>Kedaulatan data cadangan sejati tanpa campur tangan server pengembang:</p>
+          <ul>
+            <li>File cadangan diunggah secara terenkripsi langsung ke folder privat tersembunyi (Google Drive <code>appDataFolder</code>) milik akun Google Anda sendiri.</li>
+            <li>Pihak Emtitra Production tidak pernah memiliki hak akses atau kemampuan membuka file cadangan tersebut.</li>
+          </ul>
+
+          <h3><span>4</span> Generator Laporan Keuangan PDF Standar Audit</h3>
+          <p>Ekspor rangkuman bulanan siap cetak dalam hitungan detik:</p>
+          <ul>
+            <li>Tata letak elegan dan bersih dengan tabel rincian transaksi serta ringkasan pie chart grafis.</li>
+            <li>Dapat digunakan untuk rekonsiliasi pribadi, evaluasi keluarga, atau pencatatan usaha mandiri (freelance).</li>
+          </ul>
+
+          <div class="contact-box" style="margin-top:2.5rem;text-align:center;">
+            <p style="margin-bottom:1rem;color:var(--text);font-weight:600;">Ingin langsung mencoba seluruh fitur ini di perangkat Anda?</p>
+            <a class="btn btn-primary" href="#home" onclick="showTab('home'); setTimeout(() => goSection('fitur'), 100); return false;">Unduh Uangii Sekarang 🚀</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SUB-PAGE 2: KOMPARASI ARSITEKTUR DETAIL ================= -->
+    <div id="section-komparasi-detail" class="page">
+      <div class="wrap">
+        <div class="legal">
+          <button class="nav-btn" style="margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .8rem;border:1px solid var(--border);" onclick="showTab('home')">← Kembali ke Beranda</button>
+          <span class="law-tag" style="background:rgba(16,185,129,.15);color:#34d399;">Analisis Arsitektur Sistem</span>
+          <h2>Arsitektur Cloud Konvensional vs Offline-First Uangii 🛡️</h2>
+          <div class="updated">Mengapa model penyimpanan lokal adalah masa depan privasi finansial pribadi.</div>
+
+          <p>Dalam era digital di mana kebocoran data (*data breaches*) marak terjadi, cara sebuah aplikasi menyimpan nominal uang dan transaksi Anda adalah hal yang paling krusial. Uangii menolak model sentralisasi cloud konvensional.</p>
+
+          <h3><span>1</span> Titik Kerentanan Cloud Database (Single Point of Failure)</h3>
+          <p>Pada aplikasi cloud tradisional:</p>
+          <ul>
+            <li>Data jutaan pengguna disimpan dalam satu klaster server terpusat. Ini menjadikannya target bernilai tinggi bagi peretas (*honeypot*).</li>
+            <li>Data riwayat belanja sering kali diproses oleh algoritma analitik pihak ketiga untuk penargetan iklan atau penawaran kredit konsumtif.</li>
+          </ul>
+
+          <h3><span>2</span> Keunggulan Zero-Server Architecture Uangii</h3>
+          <p>Dengan filosofi <em>Zero-Knowledge & Zero-Server</em>:</p>
+          <ul>
+            <li><strong>Tidak Ada Server Pusat:</strong> Kami sengaja tidak membangun database yang menyimpan riwayat belanja Anda. Apa yang tidak kami miliki, mustahil bisa bocor dari pihak kami.</li>
+            <li><strong>Penyimpanan Terisolasi (Sandboxed Storage):</strong> Basis data berada dalam folder privat aplikasi di dalam sistem operasi Android Anda yang dilindungi oleh Linux kernel permission.</li>
+          </ul>
+
+          <h3><span>3</span> Perbandingan Matriks Spesifikasi Teknis</h3>
+          <div style="overflow-x:auto;margin:1.5rem 0;">
+            <table style="width:100%;border-collapse:collapse;font-size:.9rem;text-align:left;">
+              <thead>
+                <tr style="border-bottom:1px solid var(--border);color:var(--text);">
+                  <th style="padding:.8rem;">Parameter Evaluasi</th>
+                  <th style="padding:.8rem;color:#f87171;">Aplikasi Cloud Konvensional</th>
+                  <th style="padding:.8rem;color:#34d399;">Uangii (Offline-First)</th>
+                </tr>
+              </thead>
+              <tbody style="color:#cbd5e1;">
+                <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                  <td style="padding:.8rem;font-weight:600;">Lokasi Database Utama</td>
+                  <td style="padding:.8rem;">Server Cloud Pihak Ketiga</td>
+                  <td style="padding:.8rem;color:#34d399;">100% Memori HP Pengguna</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                  <td style="padding:.8rem;font-weight:600;">Risiko Kebocoran Massal</td>
+                  <td style="padding:.8rem;">Tinggi (Jika server pusat jebol)</td>
+                  <td style="padding:.8rem;color:#34d399;">Nol (Tidak ada server pusat)</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.05);">
+                  <td style="padding:.8rem;font-weight:600;">Ketergantungan Sinyal</td>
+                  <td style="padding:.8rem;">Wajib online & kuota aktif</td>
+                  <td style="padding:.8rem;color:#34d399;">Bebas luring tanpa sinyal</td>
+                </tr>
+                <tr>
+                  <td style="padding:.8rem;font-weight:600;">Kepemilikan Kunci Cadangan</td>
+                  <td style="padding:.8rem;">Dikelola oleh perusahaan penyedia</td>
+                  <td style="padding:.8rem;color:#34d399;">Hanya akun Google pribadi Anda</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="contact-box" style="margin-top:2rem;">
+            <strong>Kesimpulan Arsitektur:</strong><br>
+            Uangii mengembalikan kendali dan kedaulatan data finansial sepenuhnya kepada pemiliknya yang sah: yaitu Anda sendiri.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SUB-PAGE 3: PRIVASI & KRIPTOGRAFI DETAIL ================= -->
+    <div id="section-keamanan-detail" class="page">
+      <div class="wrap">
+        <div class="legal">
+          <button class="nav-btn" style="margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .8rem;border:1px solid var(--border);" onclick="showTab('home')">← Kembali ke Beranda</button>
+          <span class="law-tag" style="background:rgba(99,102,241,.18);color:#a78bfa;">Standar Kriptografi Kelas Militer</span>
+          <h2>Privasi, Kriptografi & Keamanan Data Uangii 🔐</h2>
+          <div class="updated">Standar enkripsi SQLCipher AES-256 dan kepatuhan regulasi UU PDP No. 27/2022.</div>
+
+          <p>Keamanan data di Uangii tidak sekadar berupa janji pemasaran, melainkan diimplementasikan melalui lapisan algoritma kriptografis yang teruji secara global.</p>
+
+          <h3><span>1</span> Enkripsi Database SQLCipher (AES-256)</h3>
+          <p>Basis data SQLite lokal dienkripsi secara penuh (*full database encryption*):</p>
+          <ul>
+            <li><strong>Algoritma AES-256:</strong> Standar enkripsi simetris yang diadopsi oleh lembaga perbankan global dan militer untuk melindungi data rahasia tinggi.</li>
+            <li><strong>Enkripsi Page-by-Page:</strong> Setiap halaman (*page*) data dienkripsi sebelum ditulis ke media penyimpanan fisik. File database yang disalin secara ilegal melalui sambungan kabel USB ke komputer hanya akan berupa deretan biner tak terbaca.</li>
+            <li><strong>Derivasi Kunci PBKDF2:</strong> Kunci enkripsi diproteksi dengan fungsi derivasi ribuan iterasi untuk menangkal serangan <em>brute-force</em> atau <em>dictionary attacks</em>.</li>
+          </ul>
+
+          <h3><span>2</span> Kepatuhan Terhadap UU PDP Indonesia (UU No. 27 Tahun 2022)</h3>
+          <p>Prinsip Pelindungan Data Pribadi diterapkan secara <em>by design</em>:</p>
+          <ul>
+            <li><strong>Hak Akses & Portabilitas:</strong> Pengguna berhak mengekspor data dalam format PDF atau basis data cadangan kapan saja tanpa dipersulit.</li>
+            <li><strong>Hak Penghapusan Permanen:</strong> Menghapus catatan transaksi atau meng-uninstall aplikasi secara otomatis melenyapkan data lokal tanpa jejak tersisa di pihak kami.</li>
+            <li><strong>Prinsip Minimalisasi Data:</strong> Aplikasi hanya meminta izin perangkat yang mutlak dibutuhkan (misal: izin penyimpanan untuk ekspor PDF).</li>
+          </ul>
+
+          <h3><span>3</span> Perlindungan Aplikasi & Sandi Biometrik</h3>
+          <p>Lapisan proteksi fisik perangkat:</p>
+          <ul>
+            <li>Mendukung proteksi PIN lokal dan autentikasi biometrik (sidik jari / fingerprint) sebelum dasbor finansial dapat dibuka.</li>
+            <li>Mencegah orang lain yang sedang meminjam ponsel Anda melihat rincian saldo dan transaksi pribadi Anda.</li>
+          </ul>
+
+          <div class="contact-box" style="margin-top:2.5rem;">
+            <strong>Punya pertanyaan mengenai audit kriptografi atau keamanan data?</strong><br>
+            Tim teknis Emtitra Production siap berdiskusi: <a href="mailto:contact@fintrack.digital">contact@fintrack.digital</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <button id="btnScrollTop" class="btn-scroll-top" aria-label="Kembali ke atas" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
@@ -1304,10 +1476,26 @@
     function showTab(tabId) {
       document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.drawer-item').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      
       const sec = document.getElementById('section-' + tabId);
-      const btn = document.getElementById('btn-' + tabId);
       if (sec) sec.classList.add('active');
-      if (btn) btn.classList.add('active');
+
+      // Update drawer active status
+      const drawerBtn = document.getElementById('btn-' + tabId) || document.getElementById('btn-drawer-' + tabId.replace('-detail', ''));
+      if (drawerBtn) drawerBtn.classList.add('active');
+
+      // Update desktop nav-btn active status
+      const navMap = {
+        'fitur-detail': 'btn-fitur-nav',
+        'komparasi-detail': 'btn-komparasi-nav',
+        'keamanan-detail': 'btn-keamanan-nav'
+      };
+      if (navMap[tabId]) {
+        const topNavBtn = document.getElementById(navMap[tabId]);
+        if (topNavBtn) topNavBtn.classList.add('active');
+      }
+
       history.replaceState(null, '', '#' + tabId);
       toggleNav(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1437,7 +1625,8 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const hash = location.hash.replace('#', '');
-      if (['home', 'privacy', 'terms'].includes(hash)) showTab(hash);
+      const validTabs = ['home', 'privacy', 'terms', 'fitur-detail', 'komparasi-detail', 'keamanan-detail'];
+      if (validTabs.includes(hash)) showTab(hash);
       observeReveals();
       updateCalculator();
     });
