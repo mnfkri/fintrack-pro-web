@@ -45,17 +45,25 @@
     img { max-width: 100%; display: block; height: auto; }
     .wrap { max-width: 1180px; margin: 0 auto; padding: 0 1.25rem; }
     .grad-text {
-      background: linear-gradient(135deg, #10b981, #06b6d4, #8b5cf6, #10b981);
-      background-size: 300% 300%;
+      background: linear-gradient(135deg, #10b981 0%, #06b6d4 40%, #8b5cf6 80%, #10b981 100%);
+      background-size: 200% 200%;
       -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       background-clip: text;
       color: transparent;
-      animation: gradShimmer 8s ease infinite;
+      display: inline-block;
+      animation: gradShimmer 6s ease-in-out infinite;
     }
     @keyframes gradShimmer {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+    .emoji-clean {
+      -webkit-text-fill-color: initial !important;
+      color: initial !important;
+      display: inline-block;
+      background: none !important;
     }
 
     /* Teaser Cards for Home Page Streamlining */
@@ -956,7 +964,7 @@
         <div class="hero">
           <div>
             <span class="pill"><b>SEGAR & CERDAS 🌿</b> AI Financial Advisor kini hadir</span>
-            <h1>Bikin uangmu rapi,<br><span class="grad-text">keuangan makin wangi. 💸✨</span></h1>
+            <h1>Bikin uangmu rapi,<br><span class="grad-text">keuangan makin wangi.</span> <span class="emoji-clean">💸✨</span></h1>
             <p class="lead"><strong>Uangii</strong> adalah aplikasi pencatat keuangan pribadi <strong>offline-first</strong> tanpa server perantara. Catatan rapi, dompet berseri, dan data aman terenkripsi di perangkatmu sendiri bersama asisten AI cerdas.</p>
             <div class="hero-cta">
               <a class="btn btn-primary" href="#home" onclick="goSection('fitur'); return false;">
@@ -1129,10 +1137,10 @@
               <h2>Antarmuka modern yang harum dilihat, nyaman disentuh ✨</h2>
             </div>
             <div class="tabs-wrap" id="showTabs">
-              <button class="tab active" data-img="assets/screenshot_1_dashboard.png"><h4>📊 Dasbor Saldo</h4><p>Ringkasan saldo, pemasukan, dan pengeluaran dalam satu layar bersih nan teratur.</p></button>
-              <button class="tab" data-img="assets/screenshot_2_fio_ai.png"><h4>🤖 Konsultasi Fio AI</h4><p>Tanyakan tips keuangan harian dan dapatkan insight edukatif yang menyegarkan pikiran.</p></button>
-              <button class="tab" data-img="assets/screenshot_3_analisis.png"><h4>📈 Analisis Pengeluaran</h4><p>Grafik pie dan batang interaktif untuk melihat pos mana yang paling dominan.</p></button>
-              <button class="tab" data-img="assets/screenshot_4_laporan_pdf.png"><h4>📄 Ekspor Laporan</h4><p>Unduh laporan bulanan format PDF siap cetak kapan saja tanpa koneksi internet.</p></button>
+              <button class="tab active" data-img="assets/screenshot_1_dashboard.png"><h4>📊 Dasbor Saldo & Kekayaan</h4><p>Ringkasan total kekayaan bersih, uang aman belanja harian, dan mutasi dompet dalam satu tampilan modern.</p></button>
+              <button class="tab" data-img="assets/screenshot_2_fio_ai.png"><h4>🤖 Konsultasi Fio AI</h4><p>Tanya tips hemat, reverse budgeting, dan analisis pengeluaran langsung secara privat tanpa kuota internet.</p></button>
+              <button class="tab" data-img="assets/screenshot_3_analisis.png"><h4>📈 Analisis Rasio 50/30/20</h4><p>Diagnosis kesehatan finansial real-time, evaluasi kebutuhan pokok vs keinginan, dan deteksi bocor halus.</p></button>
+              <button class="tab" data-img="assets/screenshot_4_laporan_pdf.png"><h4>📄 Ekspor Laporan PDF Audit</h4><p>Unduh laporan arus kas bulanan dan statement ledger format A4 resmi siap cetak tanpa internet.</p></button>
             </div>
           </div>
           <div class="show-phone reveal">
