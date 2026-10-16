@@ -4362,22 +4362,11 @@
         localStorage.setItem('uangii_waitlist_leads', JSON.stringify(savedLeads));
       }
 
-      // Google Sheets Integration (Dual Mode: Image Beacon GET + POST)
+      // Google Sheets Integration (Kirim 1 kali via Image Beacon yang 100% tembus CORS)
       const q = `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&platform=${encodeURIComponent(platform)}&ticket=${encodeURIComponent(ticketNum)}`;
 
-      // 1. Image Beacon (Bypass 100% CORS & Redirect issues on browser)
-      try {
-        const beacon = new Image();
-        beacon.src = `${SCRIPT_URL}?${q}&_t=${Date.now()}`;
-      } catch (e) {}
-
-      // 2. Fetch POST backup
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ name, email, platform, ticket: ticketNum })
-      }).catch(() => {});
+      const beacon = new Image();
+      beacon.src = `${SCRIPT_URL}?${q}&_t=${Date.now()}`;
 
       // Instant decrement quota on UI
       if (!existing && currentRemainingSlots > 0) {
