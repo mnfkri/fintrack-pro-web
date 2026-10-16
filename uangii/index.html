@@ -3749,6 +3749,17 @@
         </form>
       </div>
 
+      <!-- Closed / Full State Container -->
+      <div id="waitlistFull" style="display:none;text-align:center;padding:1.5rem 0;">
+        <div style="font-size:3rem;margin-bottom:.6rem;">🔒</div>
+        <span class="badge-pill" style="background:rgba(239,68,68,0.18);border-color:rgba(239,68,68,0.35);color:#f87171;margin-bottom:.8rem;">KUOTA BATCH 1 PENUH</span>
+        <h4 style="font-size:1.45rem;font-weight:800;color:var(--text);margin-bottom:.5rem;">Slot Early Access Sudah Habis!</h4>
+        <p style="font-size:.88rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.6;max-width:380px;margin-left:auto;margin-right:auto;">
+          Seluruh <strong>15 kuota VIP Beta Tester</strong> Batch 1 telah terisi penuh. Nantikan pembukaan <strong>Batch 2</strong> saat rilis publik di Google Play Store!
+        </p>
+        <button type="button" class="btn btn-ghost" style="width:100%;" onclick="closeWaitlistModal()">Kembali & Eksplorasi Fitur</button>
+      </div>
+
       <div id="waitlistSuccess" style="display:none;text-align:center;padding:1rem 0;">
         <div style="font-size:2.8rem;margin-bottom:.5rem;">🎉</div>
         <h4 style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:.4rem;">Slot Berhasil Diamankan!</h4>
@@ -4227,17 +4238,76 @@
     });
 
     // ==========================================
-    // WAITLIST MODAL SYSTEM
+    // WAITLIST MODAL SYSTEM & LIVE QUOTA SYNC
     // ==========================================
+    const TOTAL_SLOTS = 15;
+    let currentRemainingSlots = 15;
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoi9wn1Q6dxR8wo2kgLZH-_bqVzdX9N8SAJqzZMOqyDwhgyqk2WbtGsdZO-9kM1K0/exec';
+
+    function updateQuotaUI(remaining) {
+      currentRemainingSlots = Math.max(0, Math.min(TOTAL_SLOTS, remaining));
+      const topQuota = document.getElementById('topQuota');
+      if (topQuota) {
+        topQuota.textContent = `${currentRemainingSlots} slot`;
+      }
+
+      // If full (0 slot remaining)
+      const isFull = currentRemainingSlots <= 0;
+      const heroBtn = document.querySelector('.waitlist-hero-btn');
+      const heroInput = document.getElementById('heroWaitlistEmail');
+
+      if (heroBtn) {
+        if (isFull) {
+          heroBtn.textContent = 'Kuota Penuh 🔒';
+          heroBtn.classList.remove('btn-primary');
+          heroBtn.classList.add('btn-ghost');
+        } else {
+          heroBtn.textContent = 'Gabung Waitlist 🚀';
+          heroBtn.classList.add('btn-primary');
+          heroBtn.classList.remove('btn-ghost');
+        }
+      }
+    }
+
+    // JSONP callback from Google Sheets
+    window.onQuotaReceived = function(data) {
+      if (data && typeof data.remaining !== 'undefined') {
+        updateQuotaUI(data.remaining);
+      }
+    };
+
+    function fetchLiveQuota() {
+      // JSONP bypasses 100% of browser CORS restrictions
+      const script = document.createElement('script');
+      script.src = `${SCRIPT_URL}?action=getQuota&callback=onQuotaReceived&_t=${Date.now()}`;
+      script.onerror = function() {
+        // Fallback to local count if offline
+        const savedLeads = JSON.parse(localStorage.getItem('uangii_waitlist_leads') || '[]');
+        updateQuotaUI(Math.max(0, TOTAL_SLOTS - savedLeads.length));
+      };
+      document.body.appendChild(script);
+    }
+
     function openWaitlistModal(email = '') {
       const modal = document.getElementById('waitlistModal');
       const container = document.getElementById('waitlistFormContainer');
       const success = document.getElementById('waitlistSuccess');
-      if (modal && container && success) {
-        modal.classList.add('open');
-        container.style.display = 'block';
-        success.style.display = 'none';
-        document.body.style.overflow = 'hidden';
+      const full = document.getElementById('waitlistFull');
+
+      if (!modal) return;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      if (currentRemainingSlots <= 0) {
+        // Show Full Card
+        if (container) container.style.display = 'none';
+        if (success) success.style.display = 'none';
+        if (full) full.style.display = 'block';
+      } else {
+        // Show Normal Form
+        if (container) container.style.display = 'block';
+        if (success) success.style.display = 'none';
+        if (full) full.style.display = 'none';
         if (email) {
           const emailInput = document.getElementById('modalEmail');
           if (emailInput) emailInput.value = email;
@@ -4268,6 +4338,11 @@
 
     function submitWaitlistModal(e) {
       e.preventDefault();
+      if (currentRemainingSlots <= 0) {
+        openWaitlistModal();
+        return;
+      }
+
       const name = document.getElementById('modalName').value.trim();
       const email = document.getElementById('modalEmail').value.trim().toLowerCase();
       const platform = document.getElementById('modalPlatform').value;
@@ -4287,31 +4362,31 @@
         localStorage.setItem('uangii_waitlist_leads', JSON.stringify(savedLeads));
       }
 
-      // Google Sheets Webhook Integration
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoi9wn1Q6dxR8wo2kgLZH-_bqVzdX9N8SAJqzZMOqyDwhgyqk2WbtGsdZO-9kM1K0/exec';
-      const payload = {
-        name: name,
-        email: email,
-        platform: platform,
-        ticket: ticketNum
-      };
+      // Google Sheets Integration (Dual Mode: Image Beacon GET + POST)
+      const q = `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&platform=${encodeURIComponent(platform)}&ticket=${encodeURIComponent(ticketNum)}`;
 
-      // Using text/plain prevents CORS preflight OPTIONS rejection by Google Apps Script
+      // 1. Image Beacon (Bypass 100% CORS & Redirect issues on browser)
+      try {
+        const beacon = new Image();
+        beacon.src = `${SCRIPT_URL}?${q}&_t=${Date.now()}`;
+      } catch (e) {}
+
+      // 2. Fetch POST backup
       fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8'
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(() => {
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ name, email, platform, ticket: ticketNum })
+      }).catch(() => {});
+
+      // Instant decrement quota on UI
+      if (!existing && currentRemainingSlots > 0) {
+        updateQuotaUI(currentRemainingSlots - 1);
+      }
+
+      setTimeout(() => {
         handleWaitlistSuccess(name, email, platform, ticketNum, existing);
-      })
-      .catch((err) => {
-        console.warn('Network issue sending to Sheets, fallback local saved:', err);
-        handleWaitlistSuccess(name, email, platform, ticketNum, existing);
-      });
+      }, 400);
     }
 
     function handleWaitlistSuccess(name, email, platform, ticketNum, existing) {
@@ -4322,14 +4397,13 @@
       }
 
       document.getElementById('waitlistFormContainer').style.display = 'none';
+      const full = document.getElementById('waitlistFull');
+      if (full) full.style.display = 'none';
       document.getElementById('waitlistSuccess').style.display = 'block';
       document.getElementById('waitlistSuccessMsg').innerHTML = existing
         ? `Email <strong>${email}</strong> sudah terdaftar dalam antrean prioritas kami. Slot tetap terjamin!`
         : `Terima kasih <strong>${name}</strong>! Akses awal untuk <strong>${platform}</strong> akan dikirimkan ke <strong>${email}</strong> segera saat batch testing dibuka.`;
       document.getElementById('waitlistTicketId').textContent = `Nomor Antrean Resmi: ${ticketNum}`;
-      
-      const quotaEl = document.getElementById('topQuota');
-      if (quotaEl) quotaEl.textContent = '14 slot';
     }
 
     // ==========================================
@@ -4399,6 +4473,7 @@
       initCounterAnimation();
       initPhoneTilt();
       handleSmartInput("Beli Kopi Kenangan 28rb pakai QRIS BCA");
+      fetchLiveQuota();
     });
   </script>
 </body>
