@@ -2545,92 +2545,280 @@
       .nav-dev-badge {
         display: none;
       }
-
-      /* Sembunyikan badge studio di laptop kecil/tablet agar 3 menu utama tetap leluasa */
     }
 
-    @media (max-width: 880px) {
+    @media (max-width: 900px) {
       .nav-links {
         display: none;
       }
-
-      /* Beralih penuh ke Drawer Menu */
+      .studio-pill-btn {
+        display: none; /* Already easily accessible inside the main page & drawer */
+      }
+      .bento-studio-card {
+        padding: 1.8rem 1.2rem;
+      }
+      .fio-bento-grid,
+      .calc-bento-grid,
+      .smart-input-grid {
+        grid-template-columns: 1fr;
+        gap: 1.6rem;
+      }
+      .bento-studio-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .bento-nav-tabs {
+        width: 100%;
+        overflow-x: auto;
+        padding: .25rem;
+        -webkit-overflow-scrolling: touch;
+      }
+      .bento-tab-btn {
+        padding: .45rem .85rem;
+        font-size: .82rem;
+      }
     }
 
     @media (max-width: 680px) {
+      /* Fluid Container Padding */
+      .wrap {
+        padding: 0 1rem;
+      }
 
-      /* Mobile Header Fix - No more stacking or overflow */
+      /* Mobile Header Fix */
       .nav {
-        height: 60px;
+        height: 58px;
+        gap: .5rem;
       }
 
       .brand {
         font-size: 1.1rem;
-        gap: .5rem;
-      }
-
-      .brand img {
-        width: 30px;
-        height: 30px;
-      }
-
-      .nav-right {
         gap: .45rem;
       }
 
-      .nav-dev-badge {
-        display: none;
+      .brand img {
+        width: 28px;
+        height: 28px;
       }
 
-      /* Tersembunyi di header HP, sudah ada di dalam drawer menu */
+      .nav-right {
+        gap: .4rem;
+      }
+
       .nav-app-btn {
-        padding: .4rem .75rem;
-        font-size: .78rem;
+        padding: .35rem .7rem;
+        font-size: .75rem;
         white-space: nowrap;
       }
 
       .menu-toggle {
-        padding: .4rem .65rem;
-        font-size: .8rem;
+        padding: .35rem .6rem;
+        font-size: .78rem;
       }
 
       .menu-toggle svg {
-        width: 16px;
-        height: 16px;
+        width: 15px;
+        height: 15px;
       }
 
-      /* Drawer Mobile Enhancement */
-      .nav-drawer {
-        width: 88vw;
-        max-width: 340px;
-        padding: 1.25rem 1rem;
+      /* Top Announcement Mobile Fix */
+      .top-announcement {
+        padding: .4rem .75rem;
+        font-size: .75rem;
       }
 
-      .drawer-head {
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
+      .top-announcement-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .3rem;
       }
 
-      .drawer-item {
-        padding: .75rem .85rem;
-        font-size: .9rem;
+      .top-announcement-left {
+        font-size: .74rem;
+        line-height: 1.4;
       }
 
-      .features {
+      .announcement-cta {
+        font-size: .74rem;
+        padding: 0;
+      }
+
+      /* Hero Section Mobile */
+      .hero {
+        padding: 2.2rem 0 3rem;
+        gap: 2rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.85rem, 7.8vw, 2.5rem);
+        line-height: 1.2;
+      }
+
+      .hero p.lead {
+        font-size: .95rem;
+        line-height: 1.55;
+        margin-bottom: 1.5rem;
+      }
+
+      .trust {
+        gap: 1.2rem;
+        font-size: .82rem;
+      }
+
+      .trust strong {
+        font-size: 1.35rem;
+      }
+
+      /* Waitlist Inline Hero Form */
+      .waitlist-hero-form {
+        flex-direction: column;
+        padding: .5rem;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .waitlist-hero-input {
+        width: 100%;
+        padding: .65rem .75rem;
+        font-size: .88rem;
+      }
+
+      .waitlist-hero-btn {
+        width: 100%;
+        padding: .75rem;
+        font-size: .88rem;
+        text-align: center;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        gap: .6rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .hero-cta .btn {
+        width: 100%;
+      }
+
+      /* Bento Studio Mobile */
+      .bento-studio-card {
+        padding: 1.4rem 1rem;
+        border-radius: 22px;
+        margin: 2.5rem 0 1.5rem;
+      }
+
+      .chat-mockup {
+        height: 380px;
+        padding: 1rem;
+      }
+
+      .chat-bubble {
+        max-width: 92%;
+        font-size: .84rem;
+        padding: .75rem 1rem;
+      }
+
+      .chat-input-bar {
+        gap: .4rem;
+      }
+
+      .chat-input-bar input {
+        padding: .55rem .75rem;
+        font-size: .82rem;
+      }
+
+      .chat-input-bar button {
+        padding: .55rem .85rem;
+        font-size: .82rem;
+      }
+
+      /* Smart Input Simulator Mobile */
+      .smart-input-box,
+      .smart-parsed-card {
+        padding: 1.2rem 1rem;
+        border-radius: 18px;
+      }
+
+      .smart-input-field {
+        font-size: .88rem;
+        padding-left: 2.5rem;
+      }
+
+      .smart-quick-tags {
+        display: flex;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: .4rem;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .smart-tag-btn {
+        flex-shrink: 0;
+        font-size: .74rem;
+      }
+
+      /* Calculator Mobile */
+      .calc-result-box {
+        padding: 1.4rem 1rem;
+      }
+
+      .calc-metrics {
         grid-template-columns: 1fr;
+        gap: .75rem;
       }
 
-      .foot {
+      /* Teaser & Security Cards Mobile */
+      .teaser-section-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.4rem 1.1rem;
+        gap: 1.2rem;
+      }
+
+      .teaser-btn-action {
+        width: 100%;
+      }
+
+      .teaser-btn-action .btn {
+        width: 100%;
+      }
+
+      .sec-vault-card {
+        padding: 1.4rem 1.1rem;
+      }
+
+      .sec-vault-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
 
-      .legal {
-        padding: 1.5rem;
+      .sec-layer-btn {
+        padding: .85rem 1rem;
+        font-size: .88rem;
       }
 
+      .stage-console {
+        padding: 1rem;
+        font-size: .76rem;
+      }
+
+      /* Migrator Card Mobile */
+      .migrator-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.4rem 1.1rem;
+      }
+
+      .migrator-preview-box {
+        padding: 1rem;
+      }
+
+      /* Showcase Phone Mobile */
       .phone-bezel {
-        width: 260px;
-        border-radius: 38px;
+        width: 250px;
+        border-radius: 36px;
       }
 
       .phone-bezel.back {
@@ -2641,67 +2829,57 @@
         display: none;
       }
 
-      .hero-cta .btn {
-        width: 100%;
-      }
-
       .showcase {
-        gap: 2rem;
+        gap: 1.8rem;
       }
 
-      .comp-card {
-        padding: 1.3rem;
+      /* Drawer Mobile */
+      .nav-drawer {
+        width: 88vw;
+        max-width: 320px;
+        padding: 1.2rem 1rem;
       }
 
-      .comp-row {
-        grid-template-columns: 36px 1fr;
-        gap: .75rem;
+      .drawer-item {
+        padding: .7rem .8rem;
+        font-size: .88rem;
       }
 
-      .calc-metrics {
+      /* Modal Mobile */
+      .modal-card {
+        padding: 1.4rem 1.1rem;
+        border-radius: 20px;
+      }
+
+      .modal-input,
+      .modal-select {
+        padding: .75rem .85rem;
+        font-size: .88rem;
+      }
+
+      /* Subpage Legal Pages Mobile */
+      .legal {
+        padding: 1.4rem 1.1rem;
+      }
+
+      .subpage-card-grid {
         grid-template-columns: 1fr;
       }
 
-      .calc-card {
-        padding: 1.5rem;
+      .features {
+        grid-template-columns: 1fr;
       }
 
-      .fio-sim {
-        padding: 1.5rem;
+      .foot {
+        grid-template-columns: 1fr;
       }
 
       .btn-scroll-top {
-        bottom: 20px;
-        right: 16px;
-        width: 42px;
-        height: 42px;
-        font-size: 1.15rem;
-      }
-
-      .migrator-card {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 1.5rem;
-      }
-
-      .waitlist-hero-form {
-        flex-direction: column;
-        padding: .6rem;
-      }
-
-      .waitlist-hero-btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .modal-card {
-        padding: 1.5rem;
-      }
-    }
-
-    @media (max-width: 992px) {
-      .migrator-card {
-        grid-template-columns: 1fr;
+        bottom: 16px;
+        right: 14px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.05rem;
       }
     }
 
@@ -2758,6 +2936,7 @@
         <button class="nav-btn" id="btn-keamanan-nav" onclick="showTab('keamanan-detail')">Privasi & Kriptografi</button>
       </nav>
 
+      <div class="nav-right">
         <!-- Quick Interactive Studio Pill -->
         <button type="button" class="studio-pill-btn" onclick="goSection('interactive-studio')" title="Coba Interactive Studio Uangii">
           <span class="live-dot"></span>
