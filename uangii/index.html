@@ -4280,27 +4280,55 @@
 
       const savedLeads = JSON.parse(localStorage.getItem('uangii_waitlist_leads') || '[]');
       const existing = savedLeads.find(item => item.email === email);
-
       const ticketNum = existing ? existing.ticket : `#UANGII-${2080 + savedLeads.length}`;
+
       if (!existing) {
         savedLeads.push({ name, email, platform, ticket: ticketNum, time: new Date().toISOString() });
         localStorage.setItem('uangii_waitlist_leads', JSON.stringify(savedLeads));
       }
 
-      setTimeout(() => {
+      // Google Sheets Webhook Integration
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoi9wn1Q6dxR8wo2kgLZH-_bqVzdX9N8SAJqzZMOqyDwhgyqk2WbtGsdZO-9kM1K0/exec';
+      const payload = {
+        name: name,
+        email: email,
+        platform: platform,
+        ticket: ticketNum
+      };
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(() => {
+        handleWaitlistSuccess(name, email, platform, ticketNum, existing);
+      })
+      .catch((err) => {
+        console.warn('Network issue sending to Sheets, fallback local saved:', err);
+        handleWaitlistSuccess(name, email, platform, ticketNum, existing);
+      });
+    }
+
+    function handleWaitlistSuccess(name, email, platform, ticketNum, existing) {
+      const btn = document.getElementById('waitlistSubmitBtn');
+      if (btn) {
         btn.disabled = false;
         btn.innerHTML = '<span>Kirim & Klaim Slot Early Access ✨</span>';
-        
-        document.getElementById('waitlistFormContainer').style.display = 'none';
-        document.getElementById('waitlistSuccess').style.display = 'block';
-        document.getElementById('waitlistSuccessMsg').innerHTML = existing
-          ? `Email <strong>${email}</strong> sudah terdaftar dalam antrean prioritas kami. Slot tetap terjamin!`
-          : `Terima kasih <strong>${name}</strong>! Akses awal untuk <strong>${platform}</strong> akan dikirimkan ke <strong>${email}</strong> segera saat batch testing dibuka.`;
-        document.getElementById('waitlistTicketId').textContent = `Nomor Antrean Resmi: ${ticketNum}`;
-        
-        const quotaEl = document.getElementById('topQuota');
-        if (quotaEl) quotaEl.textContent = '14 slot';
-      }, 350);
+      }
+
+      document.getElementById('waitlistFormContainer').style.display = 'none';
+      document.getElementById('waitlistSuccess').style.display = 'block';
+      document.getElementById('waitlistSuccessMsg').innerHTML = existing
+        ? `Email <strong>${email}</strong> sudah terdaftar dalam antrean prioritas kami. Slot tetap terjamin!`
+        : `Terima kasih <strong>${name}</strong>! Akses awal untuk <strong>${platform}</strong> akan dikirimkan ke <strong>${email}</strong> segera saat batch testing dibuka.`;
+      document.getElementById('waitlistTicketId').textContent = `Nomor Antrean Resmi: ${ticketNum}`;
+      
+      const quotaEl = document.getElementById('topQuota');
+      if (quotaEl) quotaEl.textContent = '14 slot';
     }
 
     // ==========================================
@@ -4369,7 +4397,7 @@
       updateCalculator();
       initCounterAnimation();
       initPhoneTilt();
-      init3DStudioTilt();
+      handleSmartInput("Beli Kopi Kenangan 28rb pakai QRIS BCA");
     });
   </script>
 </body>
