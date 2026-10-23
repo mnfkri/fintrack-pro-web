@@ -1,4 +1,5 @@
 /* Shared readability and uncropped product artwork. Loaded after redesign.css. */
+.u-page-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}.u-page-links .u-panel-copy{padding:30px}.u-page-links .u-story-link{display:inline-block;margin-top:16px}.u-page-links h3{font-size:27px}.u-page-links .u-panel{min-width:0}@media(max-width:850px){.u-page-links{grid-template-columns:1fr}}
 @media(max-width:380px){.nav-app-btn{display:none!important}}
 body{font-size:16px;line-height:1.75}
 .nav-btn,.nav-app-btn,.btn,.u-text-link,.u-story-link{font-size:15px}
