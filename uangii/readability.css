@@ -1,0 +1,39 @@
+/* Shared readability and uncropped product artwork. Loaded after redesign.css. */
+@media(max-width:380px){.nav-app-btn{display:none!important}}
+body{font-size:16px;line-height:1.75}
+.nav-btn,.nav-app-btn,.btn,.u-text-link,.u-story-link{font-size:15px}
+.nav-btn{display:inline-flex;align-items:center;cursor:pointer;text-decoration:none}
+.nav-links{gap:22px}.nav{gap:28px}.u-motion,.menu-toggle{min-width:38px;min-height:38px}
+.top-announcement-inner{flex-wrap:wrap;font-size:14px;line-height:1.6;gap:8px 18px}
+.top-announcement-left{flex-wrap:wrap;justify-content:center;gap:6px 14px}
+.top-announcement-left>span:last-child,.announcement-cta,.top-announcement .badge-pill{font-size:14px}
+.u-eyebrow,.u-section-number,.u-panel small,.u-demo-tag,.u-quote>span{font-size:14px;letter-spacing:.1em}
+.u-hero-copy>p,.u-section-heading p,.u-heading-row>p,.u-story-copy p,.u-panel p,.u-closing p{font-size:17px;line-height:1.85}
+.u-hero-copy>p{max-width:490px}.u-hero-note,.u-hero-bottom,.u-caption,.u-chip,.u-closing-note{font-size:14px;line-height:1.7}
+.u-story-list li{font-size:16px;line-height:1.75}.u-story-copy{max-width:520px}
+.u-panel-copy{padding:32px 32px 22px}.u-panel h3{font-size:29px;line-height:1.25}.u-panel p{max-width:390px}
+.u-mini-panel{padding:28px}.u-mini-panel h3{font-size:27px}.u-mini-panel .u-panel-copy{max-width:310px}
+.u-panel-main{display:flex;flex-direction:column;min-width:0}
+.u-panel-main img{display:block;width:100%;height:auto;max-height:none;aspect-ratio:3/2;object-fit:contain;object-position:center;padding:16px 22px 28px;mix-blend-mode:normal;transform:none!important}
+.u-panel:hover img{transform:none}
+.u-hero-art{margin-right:0;min-width:0;padding:24px 8px}
+.u-hero-art img{width:100%;height:auto;max-height:none;object-fit:contain;aspect-ratio:1122/1402}
+.u-story-image{min-width:0;padding:22px 10px}
+.u-story-image img{width:100%;height:auto;max-height:none;object-fit:contain;aspect-ratio:1122/1402}
+.u-product-frame{height:auto;min-height:0;padding:72px 40px 48px;isolation:isolate}
+.u-product-frame img{position:relative;z-index:1;width:100%;height:auto;max-height:680px;aspect-ratio:1122/1402;object-fit:contain;transform:none}
+.u-product-frame:after{z-index:0}.u-product-controls button{font-size:15px;padding:12px 20px}
+.u-product-caption{font-size:15px;line-height:1.7;align-items:start}
+.bento-studio-title p,.bento-studio-card p,.sec-vault-card p{font-size:16px!important;line-height:1.85!important}
+.bento-studio-card button,.bento-studio-card input,.prompt-btn,.smart-tag-btn{font-size:15px!important}
+.bento-nav-tabs{flex-wrap:wrap;border-radius:20px}.bento-tab-btn{font-size:15px;padding:12px 18px}
+.chat-head span,.parsed-badge,.calc-score-badge,.smart-parsed-card small{font-size:14px!important}
+.chat-bubble,.parsed-row,.slider-header,.calc-metrics,.layer-info strong,.layer-info span{font-size:16px;line-height:1.75}
+.stage-console{font-size:14px;line-height:1.8;overflow-wrap:anywhere}
+.sec-layer-btn{font-size:16px}.faq summary,.faq details p{font-size:16px;line-height:1.8}
+.waitlist-hero-form{max-width:570px}.waitlist-hero-input,.waitlist-hero-btn{font-size:16px;min-height:52px}
+.foot{gap:48px}.foot p,.foot .link,.foot a:not(.brand),.foot h5,.copy{font-size:14px;line-height:1.85}
+.foot .link{padding-block:7px}.u-marquee-set{font-size:17px}
+@media(max-width:1100px){.nav-links{display:none}.nav-right{margin-left:auto}.u-hero h1{font-size:58px}.u-hero{min-height:auto}.u-heading-row{align-items:start}.u-heading-row>p{max-width:300px}.u-mini-panel{padding:25px}.u-glyph{width:56px}.u-hero-note{max-width:350px}.u-product-controls{flex-wrap:wrap;border-radius:20px}}
+@media(max-width:850px){.u-hero{grid-template-columns:1fr;padding-top:45px}.u-hero-copy>p{max-width:600px}.u-hero h1{font-size:64px}.u-hero-art{width:min(100%,560px);justify-self:center;margin:0;padding:30px 14px}.u-hero-art img{min-height:0}.u-overview-grid{grid-template-columns:1fr}.u-panel-stack{grid-template-columns:1fr 1fr;grid-template-rows:auto}.u-mini-panel{align-items:start}.u-glyph{display:none}.u-story{gap:28px}.u-story h2{font-size:42px}.u-story-list li{font-size:15px}.u-story-image{padding:20px 0}.u-product-controls{width:auto}.u-hero-bottom{flex-wrap:wrap;gap:12px}.u-hero-bottom>span:nth-child(2){display:none}}
+@media(max-width:600px){.wrap{padding-inline:20px}.top-announcement-inner{padding-inline:18px;gap:5px}.top-announcement-left{gap:4px}.top-announcement-left>span:last-child,.top-announcement .badge-pill,.announcement-cta{font-size:14px}.nav{height:auto;min-height:82px;gap:10px;padding-block:12px}.nav-right{gap:7px}.nav-app-btn{font-size:14px;padding:12px 14px}.brand-name{font-size:22px}.u-motion,.menu-toggle{min-width:34px;min-height:38px}.u-motion{display:none}.brand{gap:7px}.brand img{width:30px;height:30px}.u-hero h1{font-size:clamp(43px,11.6vw,62px);letter-spacing:-.06em}.u-hero-copy>p,.u-section-heading p,.u-heading-row>p,.u-story-copy p,.u-panel p,.u-closing p{font-size:16px}.u-actions{gap:8px 14px}.u-actions .btn,.u-text-link{font-size:15px}.u-hero-note{font-size:14px;align-items:start}.u-hero-note svg{flex-shrink:0;margin-top:5px}.u-eyebrow,.u-section-number,.u-panel small,.u-demo-tag{font-size:14px;letter-spacing:.06em}.u-hero-bottom{font-size:14px}.u-scroll-label{font-size:14px}.u-hero-art{padding:24px 12px;margin:0}.u-panel-stack{grid-template-columns:1fr}.u-mini-panel{padding:26px}.u-mini-panel .u-panel-copy{max-width:none}.u-panel-copy{padding:26px 26px 12px}.u-panel-main img{height:auto;padding:16px 18px 26px}.u-panel h3{font-size:28px}.u-story-image img{height:auto;max-height:none}.u-story-copy h2{font-size:40px}.u-story-list li{font-size:16px}.u-caption{font-size:14px}.u-chip{font-size:14px}.u-product-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-radius:18px;width:100%;gap:5px}.u-product-controls button{font-size:15px;padding:12px}.u-product-frame{height:auto;padding:72px 18px 36px}.u-product-frame img{width:100%;height:auto;max-height:none}.u-demo-tag{font-size:14px;top:20px;left:18px;right:18px;line-height:1.6}.u-product-caption{font-size:14px;flex-direction:column;gap:8px}.u-product-caption>span{max-width:none;text-align:left}.u-story-link{font-size:16px;display:inline-block}.bento-nav-tabs{flex-direction:column;border-radius:18px;gap:6px}.bento-tab-btn{width:100%;font-size:15px}.bento-studio-card button,.bento-studio-card input{font-size:16px!important}.chat-input-bar{flex-wrap:wrap}.chat-input-bar input{min-width:0;width:100%}.sec-vault-card p{font-size:16px!important}.sec-vault-card h2{font-size:29px!important}.sec-layer-btn{align-items:start}.layer-info strong,.layer-info span{font-size:15px}.faq summary,.faq details p{font-size:16px}.foot{grid-template-columns:1fr;gap:28px}.foot>div:first-child{grid-column:auto}.foot .link,.foot a:not(.brand),.foot p,.foot h5,.copy{font-size:15px}.waitlist-hero-input,.waitlist-hero-btn{font-size:16px}.u-closing-note{font-size:14px}.u-closing{padding-inline:24px}.u-quote>span{font-size:14px}}
