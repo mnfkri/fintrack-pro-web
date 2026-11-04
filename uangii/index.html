@@ -9,9 +9,9 @@
   <meta name="theme-color" content="#080c0b">
   <meta property="og:title" content="Uangii — A Calmer Relationship with Money">
   <meta property="og:description" content="Built for investors. Designed for everyday life. Kenali uangmu dengan lebih jernih bersama Uangii.">
-  <meta property="og:image" content="assets/uangii_app_icon_512.png">
+  <meta property="og:image" content="https://fintrack.digital/uangii/assets/brand/uangii-social.jpg">
   <meta property="og:type" content="website">
-  <link rel="icon" href="assets/uangii_app_icon_512.png">
+  <link rel="icon" href="assets/brand/favicon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2898,6 +2898,8 @@
   </style>
   <link rel="stylesheet" href="redesign.css">
   <link rel="stylesheet" href="readability.css">
+<link rel="stylesheet" href="launch.css">
+<link rel="canonical" href="https://fintrack.digital/uangii/">
 </head>
 
 <body>
@@ -2913,24 +2915,16 @@
   <div id="scrollProgressBar" class="scroll-progress-bar"></div>
 
   <!-- TOP ANNOUNCEMENT BAR (PRE-RELEASE NOTICE) -->
-  <aside class="top-announcement" aria-label="Pengumuman Pra-Rilis Uangii">
-    <div class="wrap top-announcement-inner">
-      <div class="top-announcement-left">
-        <span class="badge-pill">EARLY ACCESS / BATCH 01</span>
-        <span>Android beta. Sisa <strong id="topQuota">15 slot</strong> untuk perjalanan pertama.</span>
-      </div>
-      <button type="button" class="announcement-cta" onclick="openWaitlistModal()">Join the waitlist ↗</button>
-    </div>
-  </aside>
+  <aside class="top-announcement" aria-label="Uangii tersedia di Google Play"><div class="wrap launch-available"><strong>UANGII SUDAH RILIS</strong><span>Kenali uangmu. Mulai dari Android.</span><a href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh di Google Play ↗</a></div></aside>
 
-  <header id="header"><div class="wrap nav"><a class="brand" href="#home" onclick="showTab('home')" aria-label="Uangii — Beranda"><img src="assets/uangii_app_icon_512.png" width="38" height="38" alt=""><span class="brand-name">uangii<span style="color:#b7f58a">.</span></span></a><nav class="nav-links" aria-label="Navigasi utama"><a class="nav-btn" href="fitur.html">Fitur Andalan</a><a class="nav-btn" href="investasi.html">Investasi</a><a class="nav-btn" href="arsitektur.html">Arsitektur</a><a class="nav-btn" href="privasi.html">Privasi</a></nav><div class="nav-right"><button class="u-motion" id="motionToggle" aria-label="Jeda animasi" aria-pressed="false" title="Jeda animasi">Ⅱ</button><button type="button" class="btn btn-primary nav-app-btn" onclick="openWaitlistModal()">Get early access ↗</button><button class="menu-toggle" aria-label="Buka menu" onclick="toggleNav(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button></div></div></header>
+  <header id="header"><div class="wrap nav"><a class="brand" href="#home" onclick="showTab('home')" aria-label="Uangii — Beranda"><img src="assets/brand/uangii-icon.webp" width="38" height="38" alt=""><span class="brand-name">uangii<span style="color:#b7f58a">.</span></span></a><nav class="nav-links" aria-label="Navigasi utama"><a class="nav-btn" href="fitur.html">Fitur Andalan</a><a class="nav-btn" href="investasi.html">Investasi</a><a class="nav-btn" href="arsitektur.html">Arsitektur</a><a class="nav-btn" href="privasi.html">Privasi</a></nav><div class="nav-right"><button class="u-motion" id="motionToggle" aria-label="Jeda animasi" aria-pressed="false" title="Jeda animasi">Ⅱ</button><a type="button" class="btn btn-primary nav-app-btn" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh aplikasi ↗</a><button class="menu-toggle" aria-label="Buka menu" onclick="toggleNav(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button></div></div></header>
 
   <!-- Flyout Nav Drawer (Untuk Komputer & HP) -->
   <div class="nav-overlay" id="navOverlay" onclick="toggleNav(false)"></div>
   <aside class="nav-drawer" id="navDrawer" aria-label="Menu Navigasi">
     <div class="drawer-head">
       <div style="display:flex;align-items:center;gap:.6rem;min-width:0;">
-        <img src="assets/uangii_app_icon_512.png" alt="Uangii"
+        <img src="assets/brand/uangii-icon.webp" alt="Uangii"
           style="width:28px;height:28px;border-radius:8px;flex-shrink:0;">
         <strong style="font-size:1.05rem;white-space:nowrap;font-weight:800;letter-spacing:-.01em;">
           <span>Uang<span class="grad-text">ii</span></span> <span
@@ -2957,8 +2951,7 @@
         Ketentuan</button>
     </div>
     <div class="drawer-foot">
-      <a class="btn btn-primary" style="width:100%;font-size:.9rem;padding:.75rem;" href="#fitur"
-        onclick="goSection('fitur'); toggleNav(false); return false;">Dapatkan Aplikasi 🚀</a>
+      <a class="btn btn-primary" style="width:100%;font-size:.9rem;padding:.75rem;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Dapatkan Aplikasi 🚀</a>
       <a class="dev-badge" href="../" style="margin-top:0;justify-content:center;width:100%;"
         title="Kunjungi Website Developer Emtitra Production">
         <img src="assets/logo dev.jpg" alt="Emtitra Production" style="width:24px!important;height:24px!important;">
@@ -2973,10 +2966,10 @@
   <div class="wrap">
     <section class="u-hero" aria-labelledby="heroTitle">
       <div class="u-hero-copy reveal">
-        <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> YOUR MONEY. A LITTLE MORE ZEN.</span>
+        <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> KINI TERSEDIA DI GOOGLE PLAY</span>
         <h1 id="heroTitle">A calmer<br>relationship<br>with <em>money.</em></h1>
         <p>Kenali uangmu. Rapikan hari-harimu. Dari pengeluaran kecil sampai rencana investasi, Uangii bantu melihat semuanya dengan lebih jernih.</p>
-        <div class="u-actions"><button class="btn btn-primary" onclick="openWaitlistModal()">Mulai bersama Uangii <span aria-hidden="true">↗</span></button><button class="u-text-link" onclick="goSection('product-tour')">Jelajahi aplikasinya <span aria-hidden="true">↗</span></button></div>
+        <div class="u-actions"><a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh Uangii <span aria-hidden="true">↗</span></a><button class="u-text-link" onclick="goSection('product-tour')">Jelajahi aplikasinya <span aria-hidden="true">↗</span></button></div>
         <div class="u-hero-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg> Offline-first. Terenkripsi. Tetap milikmu.</div>
       </div>
       <div class="u-hero-art reveal u-delay"><div class="u-orbit" aria-hidden="true"></div><div class="u-orbit second" aria-hidden="true"></div><div class="u-parallax"><div class="u-tilt" data-tilt><img src="assets/redesign/dashboard.webp" alt="Mockup 3D dashboard Uangii dengan ringkasan kekayaan, pemasukan, dan batas aman harian" width="1122" height="1402" fetchpriority="high" decoding="async"></div></div></div>
@@ -3051,7 +3044,7 @@
               <div class="chat-mockup">
                 <div class="chat-head">
                   <div style="display:flex;align-items:center;gap:.65rem;">
-                    <img src="assets/uangii_app_icon_512.png" alt="Fio AI">
+                    <img src="assets/brand/uangii-icon.webp" alt="Fio AI">
                     <div>
                       <strong style="font-size:.88rem;display:block;color:var(--text);">Fio AI Financial Advisor</strong>
                       <span style="font-size:.875rem;color:#34d399;display:flex;align-items:center;gap:.3rem;">
@@ -3266,8 +3259,8 @@
           </div>
           <div class="faq reveal">
             <details>
-              <summary>Kapan aplikasi Uangii resmi dirilis ke Google Play Store?</summary>
-              <p>Uangii saat ini berada di fase <strong>Pre-Release (Internal Beta Testing) Batch 1</strong>. Bergabunglah ke daftar Waitlist di halaman ini untuk mendapatkan tautan uji coba tertutup (*Closed Testing*) dan lencana Founding Member pertama!</p>
+              <summary>Di mana saya bisa mengunduh Uangii?</summary>
+              <p>Uangii sudah tersedia di <a href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Google Play untuk Android</a>. Buka halaman aplikasinya untuk mengunduh dan melihat informasi rilis terbaru.</p>
             </details>
             <details>
               <summary>Apakah Uangii benar-benar bisa dipakai tanpa internet?</summary>
@@ -3292,7 +3285,7 @@
           </div>
         </div>
       </section>
-  <div class="wrap"><section class="u-closing reveal" id="early-access"><span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> A FRESH START WITH YOUR FINANCES</span><h2>Good with money.<br><em>Better at living.</em></h2><p>Mulai hubungan yang lebih tenang dengan uangmu. Daftar early access dan jadi bagian dari perjalanan awal Uangii.</p><form class="waitlist-hero-form" onsubmit="handleHeroWaitlist(event)"><label class="u-sr-only" for="heroWaitlistEmail">Email untuk early access</label><input type="email" id="heroWaitlistEmail" class="waitlist-hero-input" placeholder="Alamat email kamu" required autocomplete="email"><button type="submit" class="btn btn-primary waitlist-hero-btn">Gabung waitlist ↗</button></form><span class="u-closing-note">Pre-release · Android beta · Emtitra Production</span></section></div>
+  <div class="wrap"><section class="launch-cta" id="download" aria-labelledby="launchTitle"><span id="early-access" class="launch-anchor" aria-hidden="true"></span><img class="launch-mark" src="assets/brand/uangii-mark.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><a class="launch-badge" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Uangii sudah hadir di Google Play <span aria-hidden="true">↗</span></a><h2 id="launchTitle"><span class="u-sr-only">Bikin keuanganmu lebih rapi, lebih tenang, dan lebih terarah.</span><span aria-hidden="true">Bikin keuanganmu<span class="launch-rotator" data-launch-rotator><span class="launch-word is-active">lebih rapi.</span><span class="launch-word">lebih tenang.</span><span class="launch-word">lebih terarah.</span></span></span></h2><p>Catat pengeluaran, pantau investasi, dan rapikan rencana keuanganmu bersama Uangii. Mulai sekarang dari perangkat Android-mu.</p><div class="launch-actions"><a class="btn btn-primary launch-store-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer"><svg class="launch-play-icon" viewBox="0 0 24 26" aria-hidden="true"><path d="M2 1.5 23 13 2 24.5Z"/></svg><span>Unduh di Google Play</span></a><a class="btn btn-ghost" href="fitur.html">Kenali fitur Uangii <span aria-hidden="true">↗</span></a></div><span class="launch-note">Tersedia untuk Android · Offline-first · Emtitra Production</span></section></div>
 </div>
 
     <!-- ================= PRIVACY POLICY (UU PDP INDONESIA) ================= -->
@@ -3438,62 +3431,7 @@
   </main>
 
   <!-- ================= WAITLIST MODAL ================= -->
-  <div id="waitlistModal" class="modal-overlay" onclick="handleModalOverlayClick(event)">
-    <div class="modal-card">
-      <button type="button" class="modal-close-btn" onclick="closeWaitlistModal()" aria-label="Tutup Modal">✕</button>
-      
-      <div id="waitlistFormContainer">
-        <span class="badge-pill">BATCH 1 EARLY ACCESS</span>
-        <h3 style="font-size:1.5rem;font-weight:800;color:var(--text);margin-top:.6rem;margin-bottom:.3rem;">Amankan Slot Uangii v1.0 🚀</h3>
-        <p style="font-size:.875rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.5;">Daftarkan email aktif Anda untuk menerima akses langsung ke Google Play Closed Testing & Founding Tester Badge.</p>
-
-        <form id="waitlistForm" onsubmit="submitWaitlistModal(event)">
-          <div class="modal-group">
-            <label for="modalName">Nama Lengkap / Panggilan</label>
-            <input type="text" id="modalName" class="modal-input" required placeholder="Contoh: Fikri" autocomplete="name">
-          </div>
-
-          <div class="modal-group">
-            <label for="modalEmail">Email Aktif (Akun Google Play)</label>
-            <input type="email" id="modalEmail" class="modal-input" required placeholder="nama@email.com" autocomplete="email">
-          </div>
-
-          <div class="modal-group">
-            <label for="modalPlatform">Perangkat & Fitur Paling Ditunggu</label>
-            <select id="modalPlatform" class="modal-select">
-              <option value="Android - SQLCipher Vault">🤖 Android — SQLCipher Offline Vault</option>
-              <option value="Android - Fio AI Advisor">🤖 Android — Fio AI Financial Advisor</option>
-              <option value="Android - CSV/Excel Migrator">🤖 Android — 1-Click CSV/Excel Migrator</option>
-              <option value="iOS - TestFlight">🍎 iOS — TestFlight Waitlist</option>
-            </select>
-          </div>
-
-          <button type="submit" id="waitlistSubmitBtn" class="btn btn-primary" style="width:100%;padding:.9rem;font-size:.92rem;margin-top:.5rem;">
-            <span>Kirim & Klaim Slot Early Access ✨</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- Closed / Full State Container -->
-      <div id="waitlistFull" style="display:none;text-align:center;padding:1.5rem 0;">
-        <div style="font-size:3rem;margin-bottom:.6rem;">🔒</div>
-        <span class="badge-pill" style="background:rgba(239,68,68,0.18);border-color:rgba(239,68,68,0.35);color:#f87171;margin-bottom:.8rem;">KUOTA BATCH 1 PENUH</span>
-        <h4 style="font-size:1.45rem;font-weight:800;color:var(--text);margin-bottom:.5rem;">Slot Early Access Sudah Habis!</h4>
-        <p style="font-size:.88rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.6;max-width:380px;margin-left:auto;margin-right:auto;">
-          Seluruh <strong>15 kuota VIP Beta Tester</strong> Batch 1 telah terisi penuh. Nantikan pembukaan <strong>Batch 2</strong> saat rilis publik di Google Play Store!
-        </p>
-        <button type="button" class="btn btn-ghost" style="width:100%;" onclick="closeWaitlistModal()">Kembali & Eksplorasi Fitur</button>
-      </div>
-
-      <div id="waitlistSuccess" style="display:none;text-align:center;padding:1rem 0;">
-        <div style="font-size:2.8rem;margin-bottom:.5rem;">🎉</div>
-        <h4 style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:.4rem;">Slot Berhasil Diamankan!</h4>
-        <p id="waitlistSuccessMsg" style="font-size:.88rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.5;"></p>
-        <div id="waitlistTicketId" style="display:inline-block;padding:.5rem 1rem;border-radius:12px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#34d399;font-family:monospace;font-weight:700;font-size:.9rem;margin-bottom:1.4rem;"></div>
-        <button type="button" class="btn btn-ghost" style="width:100%;" onclick="closeWaitlistModal()">Tutup & Jelajahi Fitur</button>
-      </div>
-    </div>
-  </div>
+  
 
   <button id="btnScrollTop" class="btn-scroll-top" aria-label="Kembali ke atas"
     onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
@@ -3502,7 +3440,7 @@
     <div class="wrap">
       <div class="foot">
         <div>
-          <a class="brand" href="#home" onclick="showTab('home')"><img src="assets/uangii_app_icon_512.png"
+          <a class="brand" href="#home" onclick="showTab('home')"><img src="assets/brand/uangii-icon.webp"
               alt="Uangii"><span class="brand-name">Uang<span class="grad-text">ii</span></span> ✨</a>
           <p>A calmer relationship with money. Catatan yang lebih rapi, keputusan yang lebih jernih, dan ruang untuk menikmati hidup.</p>
           <!-- Tombol Track Back ke Developer Studio Emtitra Production -->
@@ -3968,164 +3906,6 @@
     // ==========================================
     // WAITLIST MODAL SYSTEM & LIVE QUOTA SYNC
     // ==========================================
-    const TOTAL_SLOTS = 15;
-    let currentRemainingSlots = 15;
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoi9wn1Q6dxR8wo2kgLZH-_bqVzdX9N8SAJqzZMOqyDwhgyqk2WbtGsdZO-9kM1K0/exec';
-
-    function updateQuotaUI(remaining) {
-      currentRemainingSlots = Math.max(0, Math.min(TOTAL_SLOTS, remaining));
-      const topQuota = document.getElementById('topQuota');
-      if (topQuota) {
-        topQuota.textContent = `${currentRemainingSlots} slot`;
-      }
-
-      // If full (0 slot remaining)
-      const isFull = currentRemainingSlots <= 0;
-      const heroBtn = document.querySelector('.waitlist-hero-btn');
-      const heroInput = document.getElementById('heroWaitlistEmail');
-
-      if (heroBtn) {
-        if (isFull) {
-          heroBtn.textContent = 'Kuota Penuh 🔒';
-          heroBtn.classList.remove('btn-primary');
-          heroBtn.classList.add('btn-ghost');
-        } else {
-          heroBtn.textContent = 'Gabung Waitlist 🚀';
-          heroBtn.classList.add('btn-primary');
-          heroBtn.classList.remove('btn-ghost');
-        }
-      }
-    }
-
-    // JSONP callback from Google Sheets
-    window.onQuotaReceived = function(data) {
-      if (data && typeof data.remaining !== 'undefined') {
-        updateQuotaUI(data.remaining);
-      }
-    };
-
-    function fetchLiveQuota() {
-      // JSONP bypasses 100% of browser CORS restrictions
-      const script = document.createElement('script');
-      script.src = `${SCRIPT_URL}?action=getQuota&callback=onQuotaReceived&_t=${Date.now()}`;
-      script.onerror = function() {
-        // Fallback to local count if offline
-        const savedLeads = JSON.parse(localStorage.getItem('uangii_waitlist_leads') || '[]');
-        updateQuotaUI(Math.max(0, TOTAL_SLOTS - savedLeads.length));
-      };
-      document.body.appendChild(script);
-    }
-
-    function openWaitlistModal(email = '') {
-      const modal = document.getElementById('waitlistModal');
-      const container = document.getElementById('waitlistFormContainer');
-      const success = document.getElementById('waitlistSuccess');
-      const full = document.getElementById('waitlistFull');
-
-      if (!modal) return;
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-
-      if (currentRemainingSlots <= 0) {
-        // Show Full Card
-        if (container) container.style.display = 'none';
-        if (success) success.style.display = 'none';
-        if (full) full.style.display = 'block';
-      } else {
-        // Show Normal Form
-        if (container) container.style.display = 'block';
-        if (success) success.style.display = 'none';
-        if (full) full.style.display = 'none';
-        if (email) {
-          const emailInput = document.getElementById('modalEmail');
-          if (emailInput) emailInput.value = email;
-        }
-      }
-    }
-
-    function closeWaitlistModal() {
-      const modal = document.getElementById('waitlistModal');
-      if (modal) {
-        modal.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    }
-
-    function handleModalOverlayClick(e) {
-      if (e.target.id === 'waitlistModal') {
-        closeWaitlistModal();
-      }
-    }
-
-    function handleHeroWaitlist(e) {
-      e.preventDefault();
-      const heroEmail = document.getElementById('heroWaitlistEmail');
-      const val = heroEmail ? heroEmail.value.trim() : '';
-      openWaitlistModal(val);
-    }
-
-    function submitWaitlistModal(e) {
-      e.preventDefault();
-      if (currentRemainingSlots <= 0) {
-        openWaitlistModal();
-        return;
-      }
-
-      const name = document.getElementById('modalName').value.trim();
-      const email = document.getElementById('modalEmail').value.trim().toLowerCase();
-      const platform = document.getElementById('modalPlatform').value;
-      const btn = document.getElementById('waitlistSubmitBtn');
-
-      if (!name || !email) return;
-
-      btn.disabled = true;
-      btn.innerHTML = '<span>Menyimpan ke Antrean... ⏳</span>';
-
-      const savedLeads = JSON.parse(localStorage.getItem('uangii_waitlist_leads') || '[]');
-      const existing = savedLeads.find(item => item.email === email);
-      const ticketNum = existing ? existing.ticket : `#UANGII-${2080 + savedLeads.length}`;
-
-      if (!existing) {
-        savedLeads.push({ name, email, platform, ticket: ticketNum, time: new Date().toISOString() });
-        localStorage.setItem('uangii_waitlist_leads', JSON.stringify(savedLeads));
-      }
-
-      // Google Sheets Integration (Kirim 1 kali via Image Beacon yang 100% tembus CORS)
-      const q = `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&platform=${encodeURIComponent(platform)}&ticket=${encodeURIComponent(ticketNum)}`;
-
-      const beacon = new Image();
-      beacon.src = `${SCRIPT_URL}?${q}&_t=${Date.now()}`;
-
-      // Instant decrement quota on UI
-      if (!existing && currentRemainingSlots > 0) {
-        updateQuotaUI(currentRemainingSlots - 1);
-      }
-
-      setTimeout(() => {
-        handleWaitlistSuccess(name, email, platform, ticketNum, existing);
-      }, 400);
-    }
-
-    function handleWaitlistSuccess(name, email, platform, ticketNum, existing) {
-      const btn = document.getElementById('waitlistSubmitBtn');
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<span>Kirim & Klaim Slot Early Access ✨</span>';
-      }
-
-      document.getElementById('waitlistFormContainer').style.display = 'none';
-      const full = document.getElementById('waitlistFull');
-      if (full) full.style.display = 'none';
-      document.getElementById('waitlistSuccess').style.display = 'block';
-      document.getElementById('waitlistSuccessMsg').innerHTML = existing
-        ? `Email <strong>${email}</strong> sudah terdaftar dalam antrean prioritas kami. Slot tetap terjamin!`
-        : `Terima kasih <strong>${name}</strong>! Akses awal untuk <strong>${platform}</strong> akan dikirimkan ke <strong>${email}</strong> segera saat batch testing dibuka.`;
-      document.getElementById('waitlistTicketId').textContent = `Nomor Antrean Resmi: ${ticketNum}`;
-    }
-
-    // ==========================================
-    // INTERACTIVE SECURITY VAULT VISUALIZER TABS
-    // ==========================================
     const secLayersData = [
       {
         badge: "🛡️ LAYER 1: BIOMETRIC SHIELD",
@@ -4190,10 +3970,11 @@
       initCounterAnimation();
       initPhoneTilt();
       handleSmartInput("Beli Kopi Kenangan 28rb pakai QRIS BCA");
-      fetchLiveQuota();
+
     });
   </script>
   <script src="redesign.js" defer></script>
+<script src="launch.js" defer></script>
 </body>
 
 </html>
