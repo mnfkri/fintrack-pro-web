@@ -96,25 +96,12 @@
     if (open) drawer?.querySelector('button')?.focus();
     else if (drawer?.contains(document.activeElement)) lastFocus?.focus();
   };
-  const modal = document.getElementById('waitlistModal');
-  modal?.setAttribute('role','dialog');
-  modal?.setAttribute('aria-modal','true');
-  modal?.setAttribute('aria-label','Daftar early access Uangii');
-  let modalFocus;
-  const openModal = window.openWaitlistModal;
-  const closeModal = window.closeWaitlistModal;
-  window.openWaitlistModal = function(email) {
-    modalFocus = document.activeElement;
-    openModal(email);
-    setTimeout(() => modal?.querySelector('input:not([disabled]),button')?.focus(), 30);
-  };
-  window.closeWaitlistModal = function() { closeModal(); modalFocus?.focus(); };
   addEventListener('keydown', event => {
-    const activeDialog = modal?.classList.contains('open') ? modal : drawer?.classList.contains('open') ? drawer : null;
+    const activeDialog = drawer?.classList.contains('open') ? drawer : null;
     if (!activeDialog) return;
     if (event.key === 'Escape') {
       event.preventDefault();
-      if (activeDialog === modal) window.closeWaitlistModal(); else window.toggleNav(false);
+      window.toggleNav(false);
     }
     if (event.key === 'Tab') {
       const controls = [...activeDialog.querySelectorAll('a[href],button,input,select,[tabindex="0"]')].filter(el => !el.disabled && el.getClientRects().length);

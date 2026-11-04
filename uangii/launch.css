@@ -1,0 +1,25 @@
+/* Launch CTA: native HTML/CSS adaptation of the supplied animated React Hero. */
+.launch-cta{position:relative;isolation:isolate;text-align:center;margin:55px 0 80px;padding:70px 32px;border:1px solid #98d3a240;border-radius:28px;background:radial-gradient(ellipse at 50% 115%,#3b753e66,transparent 65%),#101c14;overflow:hidden}
+.launch-cta:before{content:'';position:absolute;width:80%;height:80%;left:10%;bottom:-55%;border:1px solid #b7f58a24;border-radius:50%;z-index:-1;transform:rotateX(45deg)}
+.launch-cta .launch-mark{display:block;width:96px;height:96px;object-fit:contain;margin:0 auto 25px;filter:drop-shadow(0 12px 24px #50d78730);animation:launch-float 7s ease-in-out infinite}
+.launch-cta .launch-badge{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid #b7f58a36;border-radius:999px;background:#b7f58a09;color:#c8e9bd;padding:10px 18px;font-size:14px;line-height:1.6;text-decoration:none;max-width:100%}
+.launch-cta h2{font-weight:500;letter-spacing:-.055em;line-height:1.2;font-size:clamp(38px,5vw,68px);margin:25px auto 20px;max-width:950px;color:#f1f5ee}
+.launch-cta .launch-rotator{display:grid;overflow:hidden;position:relative;padding:.1em 0 .18em;line-height:1.25;min-width:0}
+.launch-cta .launch-word{grid-area:1/1;display:block;color:#b7f58a;opacity:0;transform:translateY(115%);transition:transform .65s cubic-bezier(.2,.85,.25,1.15),opacity .4s ease;will-change:transform,opacity;white-space:nowrap}
+.launch-cta .launch-word.is-active{opacity:1;transform:translateY(0)}
+.launch-cta .launch-word.is-exiting{transform:translateY(-115%);opacity:0}
+.launch-cta p{font-size:17px;line-height:1.85;color:#afc4b1;max-width:650px;margin:0 auto 28px}
+.launch-actions{display:flex;justify-content:center;align-items:stretch;gap:12px;flex-wrap:wrap}
+.launch-actions .btn{min-height:54px;font-size:16px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:12px;white-space:normal;text-align:center}
+.launch-play-icon{width:20px;height:22px;flex-shrink:0;fill:currentColor}
+.launch-cta .launch-note{display:block;color:#a0b7a4;font-size:14px;line-height:1.8;margin-top:22px}
+.launch-cta--compact{margin-top:55px}.launch-cta--compact h2{font-size:clamp(36px,4.8vw,60px)}
+.launch-anchor{display:block;position:relative;top:-110px;visibility:hidden;pointer-events:none}
+.launch-store-link{display:inline-flex;align-items:center;justify-content:center;gap:9px}
+.launch-available{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;align-items:center;font-size:14px;line-height:1.6}
+.launch-available strong{font-weight:600;color:#b7f58a}.launch-available a{color:#d6f1d1;text-decoration:none}.launch-available a:hover{text-decoration:underline}
+.launch-logo{object-fit:contain}.u-hero-note a{color:#c5edbd;text-decoration:underline;text-underline-offset:4px}
+@keyframes launch-float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+.u-motion-paused .launch-word{transition:none!important}.u-motion-paused .launch-mark{animation:none!important}
+@media(max-width:600px){.launch-cta{padding:45px 20px;margin:35px 0 55px;border-radius:22px}.launch-cta .launch-mark{width:84px;height:84px;margin-bottom:22px}.launch-cta h2,.launch-cta--compact h2{font-size:clamp(32px,9.5vw,47px);letter-spacing:-.05em}.launch-cta p{font-size:16px}.launch-cta .launch-badge{font-size:14px;padding:10px 13px}.launch-actions{flex-direction:column;align-items:stretch}.launch-actions .btn{font-size:16px;padding:15px 16px}.launch-available{font-size:14px}.nav-app-btn.launch-store-link{font-size:14px;padding-inline:14px}}
+@media(prefers-reduced-motion:reduce){.launch-word{transition:none!important}.launch-mark{animation:none!important}}
