@@ -53,8 +53,7 @@
   const productImage = document.getElementById('productImage');
   window.openCalculatorStudio = function() {
     window.goSection('interactive-studio');
-    window.switchBentoStudioTab('calc', document.getElementById('tabBtnCalc'));
-    document.querySelectorAll('.bento-tab-btn').forEach(b => b.setAttribute('aria-selected', String(b.id === 'tabBtnCalc')));
+    document.getElementById('tabBtnCalc').click();
   };
   const productCaption = document.getElementById('productCaption');
   let imageTimer;
@@ -71,16 +70,43 @@
       }, reduced.matches ? 0 : 160);
     });
   });
-  // Keep the existing studio controls while exposing their selected state.
-  document.querySelectorAll('.bento-tab-btn').forEach(button => {
+  const tablist = document.querySelector('.bento-nav-tabs');
+  const tabs = [...tablist.querySelectorAll('.bento-tab-btn')];
+  const vertical = matchMedia('(max-width: 600px)');
+  function updateOrientation() { tablist.setAttribute('aria-orientation', vertical.matches ? 'vertical' : 'horizontal'); }
+  updateOrientation();
+  vertical.addEventListener('change', updateOrientation);
+  function updateTabs(selected) {
+    tabs.forEach(tab => {
+      tab.tabIndex = tab === selected ? 0 : -1;
+      tab.setAttribute('aria-selected', String(tab === selected));
+      document.getElementById(tab.getAttribute('aria-controls')).hidden = tab !== selected;
+    });
+  }
+  tabs.forEach(button => {
     button.setAttribute('role', 'tab');
     const name = button.id.replace('tabBtn', '');
     const suffix = {Fio:'fio',Calc:'calc',SmartInput:'smart-input'}[name];
     button.setAttribute('aria-controls', 'bentoTabContent-' + suffix);
-    button.setAttribute('aria-selected', String(button.classList.contains('active')));
-    button.addEventListener('click', () => document.querySelectorAll('.bento-tab-btn').forEach(b => b.setAttribute('aria-selected', String(b === button))));
+    const panel = document.getElementById(button.getAttribute('aria-controls'));
+    panel.setAttribute('role', 'tabpanel');
+    panel.setAttribute('aria-labelledby', button.id);
+    panel.tabIndex = 0;
+    button.addEventListener('click', () => updateTabs(button));
   });
-  document.querySelectorAll('.bento-tab-content').forEach(panel => panel.setAttribute('role', 'tabpanel'));
+  updateTabs(tabs.find(tab => tab.classList.contains('active')) || tabs[0]);
+  tablist.addEventListener('keydown', event => {
+    const index = tabs.indexOf(event.target);
+    if (index < 0) return;
+    const next = vertical.matches ? 'ArrowDown' : 'ArrowRight';
+    const prev = vertical.matches ? 'ArrowUp' : 'ArrowLeft';
+    const offset = event.key === next ? 1 : event.key === prev ? -1 : 0;
+    const target = event.key === 'Home' ? tabs[0] : event.key === 'End' ? tabs.at(-1) : offset ? tabs[(index + offset + tabs.length) % tabs.length] : null;
+    if (!target) return;
+    event.preventDefault();
+    target.focus();
+    target.click();
+  });
   const drawer = document.getElementById('navDrawer');
   const drawerToggle = document.querySelector('.menu-toggle');
   drawerToggle?.setAttribute('aria-controls', 'navDrawer');

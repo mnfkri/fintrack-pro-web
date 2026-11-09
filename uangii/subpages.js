@@ -47,7 +47,7 @@
   const layers = [
     {tag:'DEVICE ACCESS',title:'Mulai dari akses perangkat.',text:'Kunci aplikasi membantu membatasi akses ke catatan keuangan. Autentikasi biometrik memanfaatkan mekanisme keamanan Android di perangkat yang mendukungnya.',flow:['Kunci aplikasi','Autentikasi perangkat','Akses catatan']},
     {tag:'LOCAL DATABASE',title:'Catatan terlindungi saat disimpan.',text:'Database lokal menggunakan SQLCipher dengan enkripsi AES-256. Proteksi ini melindungi data tersimpan; keamanan perangkat dan pengelolaan kunci tetap menjadi bagian penting dari keseluruhan perlindungan.',flow:['Catatan keuangan','Enkripsi SQLCipher','Database lokal']},
-    {tag:'OPTIONAL CONNECTIONS',title:'Koneksi dengan konteks yang jelas.',text:'Cadangan Google Drive menggunakan enkripsi sebelum diunggah. Untuk konteks Fio, penyamaran informasi identitas membantu mengurangi data pribadi dalam teks yang diproses. Mode AI cloud dan pencadangan memerlukan koneksi internet.',flow:['Fitur yang dipilih','Enkripsi / penyamaran','Layanan terkait']}
+    {tag:'OPTIONAL CONNECTIONS',title:'Koneksi dengan konteks yang jelas.',text:'Cadangan Drive dienkripsi sebelum diunggah. Mode Fio offline memproses di perangkat. Gemini Cloud dapat menerima pertanyaan, riwayat terbaru, dan konteks nominal finansial; penyaringan teks tidak menghapus semua nominal. Sinkronisasi Ruang Keluarga mengikuti peran dan pengaturan berbagi.',flow:['Fitur yang dipilih','Data sesuai fungsi','Layanan terkait']}
   ];
   document.querySelectorAll('[data-layer]').forEach(button => button.addEventListener('click', () => {
     document.querySelectorAll('[data-layer]').forEach(b => b.setAttribute('aria-pressed', String(b===button)));

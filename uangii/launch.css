@@ -23,3 +23,5 @@
 .u-motion-paused .launch-word{transition:none!important}.u-motion-paused .launch-mark{animation:none!important}
 @media(max-width:600px){.launch-cta{padding:45px 20px;margin:35px 0 55px;border-radius:22px}.launch-cta .launch-mark{width:84px;height:84px;margin-bottom:22px}.launch-cta h2,.launch-cta--compact h2{font-size:clamp(32px,9.5vw,47px);letter-spacing:-.05em}.launch-cta p{font-size:16px}.launch-cta .launch-badge{font-size:14px;padding:10px 13px}.launch-actions{flex-direction:column;align-items:stretch}.launch-actions .btn{font-size:16px;padding:15px 16px}.launch-available{font-size:14px}.nav-app-btn.launch-store-link{font-size:14px;padding-inline:14px}}
 @media(prefers-reduced-motion:reduce){.launch-word{transition:none!important}.launch-mark{animation:none!important}}
+/* Compact headers have no pause control, so decorative motion stays off. */
+@media(max-width:600px){*,*::before,*::after{animation:none!important}.launch-word{transition:none!important}.u-parallax,.u-tilt,.s-tilt{transform:none!important}}

@@ -1,12 +1,13 @@
 (() => {
   'use strict';
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const compact = matchMedia('(max-width: 600px)');
   const rotators = [...document.querySelectorAll('[data-launch-rotator]')].map(el => ({words:[...el.querySelectorAll('.launch-word')],index:0}));
   let interval = null;
   function stop() { if(interval !== null) clearInterval(interval); interval = null; }
   function sync() {
     stop();
-    if (reduced.matches || document.hidden || document.body.classList.contains('u-motion-paused') || !rotators.length) return;
+    if (compact.matches || reduced.matches || document.hidden || document.body.classList.contains('u-motion-paused') || !rotators.length) return;
     interval = setInterval(() => {
       rotators.forEach(state => {
         state.words.forEach(word => word.classList.remove('is-exiting'));
@@ -17,6 +18,7 @@
     }, 2400);
   }
   reduced.addEventListener('change', sync);
+  compact.addEventListener('change', sync);
   document.addEventListener('visibilitychange',sync);
   new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['class']});
   addEventListener('pagehide',stop);
