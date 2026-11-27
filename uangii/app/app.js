@@ -518,8 +518,130 @@
     $('btnExportCsv').addEventListener('click', exportCSV);
   }
 
+  function renderVipGate(ev) {
+    const gate = $('vipGate');
+    const title = $('vipGateTitle');
+    const desc = $('vipGateDesc');
+    const meta = $('vipGateMeta');
+    const btnSignIn = $('btnVipGoogleSignIn');
+    const btnRefresh = $('btnVipRefresh');
+    const btnUpgrade = $('btnVipUpgrade');
+    const btnGateSignOut = $('btnVipGateSignOut');
+    const btnDemoBypass = $('btnVipDemoBypass');
+    const userBox = $('vipUserBox');
+    const btnSideSignOut = $('btnVipSignOut');
+
+    if (!window.UANGII_WEB_CONFIG?.vipGateEnabled) {
+      gate.hidden = true;
+      return;
+    }
+
+    const show = (el, yes) => { if (el) el.style.display = yes ? 'inline-flex' : 'none'; };
+
+    if (ev.status === 'vip_active') {
+      gate.hidden = true;
+      if (userBox) {
+        userBox.style.display = 'block';
+        $('vipUserTier').textContent = ev.entitlement?.label || 'VIP Aktif';
+        $('vipUserEmail').textContent = ev.user?.email || '';
+      }
+      show(btnSideSignOut, true);
+      return;
+    }
+
+    gate.hidden = false;
+    if (userBox) userBox.style.display = 'none';
+    show(btnSideSignOut, false);
+    meta.style.display = 'none';
+
+    if (ev.status === 'unconfigured') {
+      title.textContent = 'Konfigurasi Firebase Web Belum Diisi';
+      desc.textContent = 'Isi apiKey dan appId Web App untuk proyek fintrack-pro-2419e di uangii/app/config.js agar verifikasi VIP (users/{uid}/entitlements) aktif.';
+      show(btnSignIn, false);
+      show(btnRefresh, false);
+      show(btnUpgrade, false);
+      show(btnGateSignOut, false);
+      show(btnDemoBypass, true);
+      meta.style.display = 'block';
+      meta.innerHTML = '<strong>Langkah cepat:</strong> Buka Firebase Console → Project Settings → Your apps (Web App) → salin <code>apiKey</code> &amp; <code>appId</code> ke <code>uangii/app/config.js</code>.';
+    } else if (ev.status === 'signed_out') {
+      title.textContent = 'Masuk ke Uangii Web';
+      desc.textContent = 'Masuk dengan akun Google Uangii untuk memverifikasi status Personal Pro atau Family VIP Anda.';
+      show(btnSignIn, true);
+      show(btnRefresh, false);
+      show(btnUpgrade, false);
+      show(btnGateSignOut, false);
+      show(btnDemoBypass, false);
+    } else if (ev.status === 'checking') {
+      title.textContent = 'Memverifikasi Hak VIP…';
+      desc.textContent = `Memeriksa status langganan untuk ${ev.user?.email || 'akun Anda'}…`;
+      show(btnSignIn, false);
+      show(btnRefresh, false);
+      show(btnUpgrade, false);
+      show(btnGateSignOut, false);
+      show(btnDemoBypass, false);
+    } else if (ev.status === 'not_vip') {
+      title.textContent = 'Khusus Personal Pro & Family VIP';
+      desc.textContent = `Akun ${ev.user?.email || ''} belum memiliki paket Personal Pro atau Family VIP aktif. Aktifkan di aplikasi Android Uangii (mulai Rp 9.000/bln).`;
+      show(btnSignIn, false);
+      show(btnRefresh, true);
+      show(btnUpgrade, true);
+      show(btnGateSignOut, true);
+      show(btnDemoBypass, false);
+    } else {
+      title.textContent = 'Verifikasi Gagal';
+      desc.textContent = ev.error || 'Terjadi kendala saat memverifikasi status VIP. Periksa koneksi lalu coba lagi.';
+      show(btnSignIn, !ev.user);
+      show(btnRefresh, Boolean(ev.user));
+      show(btnUpgrade, false);
+      show(btnGateSignOut, Boolean(ev.user));
+      show(btnDemoBypass, false);
+    }
+  }
+
+  function setupVipGate() {
+    $('btnVipGoogleSignIn')?.addEventListener('click', async () => {
+      try {
+        await window.UangiiVipAuth.signInGoogle();
+      } catch (err) {
+        toast(err.message || 'Login Google gagal.');
+      }
+    });
+
+    $('btnVipRefresh')?.addEventListener('click', async () => {
+      try {
+        const ent = await window.UangiiVipAuth.refreshEntitlement();
+        renderVipGate({
+          status: ent ? 'vip_active' : 'not_vip',
+          user: window.UangiiVipAuth.getUser(),
+          entitlement: ent
+        });
+        toast(ent ? `VIP terverifikasi: ${ent.label}` : 'Belum ada paket VIP aktif pada akun ini.');
+      } catch (err) {
+        toast(err.message || 'Gagal memeriksa ulang status VIP.');
+      }
+    });
+
+    const handleSignOut = async () => {
+      await window.UangiiVipAuth.signOut();
+      toast('Berhasil keluar akun.');
+    };
+    $('btnVipGateSignOut')?.addEventListener('click', handleSignOut);
+    $('btnVipSignOut')?.addEventListener('click', handleSignOut);
+
+    $('btnVipDemoBypass')?.addEventListener('click', () => {
+      $('vipGate').hidden = true;
+      toast('Mode Pratinjau Lokal aktif (isi apiKey & appId untuk mengaktifkan VIP Gate).');
+    });
+
+    if (window.UangiiVipAuth) {
+      window.UangiiVipAuth.init(renderVipGate);
+    }
+  }
+
   window.addEventListener('DOMContentLoaded', async () => {
     bindEvents();
+    setupVipGate();
     await refreshState();
   });
 })();

@@ -397,3 +397,48 @@ dialog.app-modal::backdrop { background: rgba(0, 0, 0, .78); backdrop-filter: bl
     box-shadow: 0 8px 24px rgba(48, 209, 88, .4);
   }
 }
+
+/* VIP Auth Gate Overlay */
+.vip-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: radial-gradient(ellipse at 50% 0%, rgba(48, 209, 88, 0.14), transparent 55%), var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.vip-gate[hidden] { display: none; }
+.vip-gate-card {
+  width: min(460px, 100%);
+  background: var(--bg-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 22px;
+  padding: 28px 24px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, .75);
+  text-align: center;
+}
+.vip-gate-card img { width: 48px; height: 48px; border-radius: 13px; margin: 0 auto 14px; display: block; }
+.vip-gate-card h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 8px; }
+.vip-gate-card p { font-size: .88rem; color: var(--muted); line-height: 1.6; margin-bottom: 18px; }
+.vip-gate-actions { display: flex; flex-direction: column; gap: 10px; }
+.vip-gate-meta {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: .78rem;
+  color: var(--muted);
+  text-align: left;
+}
+.vip-user-box {
+  padding: 10px 11px;
+  border-radius: 11px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: .78rem;
+}
+.vip-user-box strong { display: block; color: var(--accent); font-size: .8rem; }
+.vip-user-box span { display: block; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }

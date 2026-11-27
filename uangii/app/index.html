@@ -7,13 +7,16 @@
   <meta name="description" content="Uangii Web (Tahap 1): Catat transaksi cepat, pantau dompet & arus kas lokal di browser, serta sinkronkan brankas terenkripsi AES-256-GCM ke Google Drive pribadi.">
   <meta name="theme-color" content="#080c0b">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://www.googleapis.com https://accounts.google.com; frame-src https://accounts.google.com; object-src 'none'; base-uri 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://lh3.googleusercontent.com; connect-src 'self' https://www.googleapis.com https://accounts.google.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com; frame-src https://accounts.google.com https://*.firebaseapp.com; object-src 'none'; base-uri 'self';">
   <link rel="icon" href="../assets/brand/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -45,10 +48,15 @@
       </nav>
 
       <div class="sidebar-foot">
+        <div class="vip-user-box" id="vipUserBox" style="display:none;">
+          <strong id="vipUserTier">VIP Aktif</strong>
+          <span id="vipUserEmail"></span>
+        </div>
         <div class="sync-pill">
           <span class="sync-dot" id="sidebarSyncDot"></span>
           <span id="sidebarSyncText">Lokal (IndexedDB)</span>
         </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="btnVipSignOut" style="display:none;">Keluar Akun</button>
         <a class="btn btn-ghost btn-sm" href="../">← Website Uangii</a>
       </div>
     </aside>
@@ -279,6 +287,25 @@
     </form>
   </dialog>
 
+  <!-- VIP Auth Gate Overlay -->
+  <div class="vip-gate" id="vipGate" role="dialog" aria-modal="true" aria-labelledby="vipGateTitle">
+    <div class="vip-gate-card">
+      <img src="../assets/brand/uangii-icon.webp" alt="Uangii">
+      <span class="brand-badge" style="display:inline-block;margin:0 0 10px;">AKSES KHUSUS PERSONAL PRO &amp; FAMILY VIP</span>
+      <h2 id="vipGateTitle">Masuk ke Uangii Web</h2>
+      <p id="vipGateDesc">Masuk dengan akun Google Uangii untuk memverifikasi status Personal Pro atau Family VIP Anda.</p>
+      <div class="vip-gate-actions" id="vipGateActions">
+        <button type="button" class="btn btn-primary" id="btnVipGoogleSignIn">Masuk dengan Google</button>
+        <button type="button" class="btn btn-ghost" id="btnVipRefresh" style="display:none;">Periksa Ulang Status VIP</button>
+        <a class="btn btn-primary" id="btnVipUpgrade" style="display:none;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Upgrade di Aplikasi Uangii ↗</a>
+        <button type="button" class="btn btn-ghost" id="btnVipGateSignOut" style="display:none;">Keluar Akun</button>
+        <button type="button" class="btn btn-ghost" id="btnVipDemoBypass" style="display:none;">Buka Mode Pratinjau Lokal</button>
+        <a class="btn btn-ghost btn-sm" href="../">← Kembali ke Website Uangii</a>
+      </div>
+      <div class="vip-gate-meta" id="vipGateMeta" style="display:none;"></div>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="../studio-parser.js"></script>
@@ -286,6 +313,7 @@
   <script src="crypto.js"></script>
   <script src="db.js"></script>
   <script src="drive-sync.js"></script>
+  <script src="vip-auth.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

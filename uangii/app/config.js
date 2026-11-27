@@ -3,6 +3,16 @@
 window.UANGII_WEB_CONFIG = {
   appVersion: '0.1.0-beta',
   schemaVersion: 1,
+  // Firebase Web Config — ambil apiKey & appId dari:
+  // Firebase Console -> Project Settings -> General -> Your apps (Web App)
+  firebase: {
+    apiKey: '',
+    authDomain: 'fintrack-pro-2419e.firebaseapp.com',
+    projectId: 'fintrack-pro-2419e',
+    appId: ''
+  },
+  // Kunci Uangii Web khusus akun dengan entitlement VIP aktif di users/{uid}/entitlements
+  vipGateEnabled: true,
   // Isi dengan Google OAuth 2.0 Web Client ID dari Google Cloud Console
   // Authorized JavaScript origins: https://fintrack.digital
   // Scope: https://www.googleapis.com/auth/drive.appdata
