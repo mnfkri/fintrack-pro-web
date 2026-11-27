@@ -121,6 +121,7 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 .sync-dot.online { background: var(--accent-strong); box-shadow: 0 0 8px var(--accent-strong); }
+.sync-dot.dirty { background: var(--warn); box-shadow: 0 0 8px var(--warn); }
 
 /* Main */
 .main {

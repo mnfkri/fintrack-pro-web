@@ -21,10 +21,10 @@ window.UANGII_WEB_CONFIG = {
   googleClientId: '897060124265-vcv2aho4mph0si8jahstmnsl3fk1pjef.apps.googleusercontent.com',
   driveFileName: 'uangii-web-vault-v1.json',
   defaultWallets: [
-    { id: 'w-cash', name: 'Tunai', type: 'cash', initialBalance: 500000, currency: 'IDR', color: '#30D158' },
-    { id: 'w-bca', name: 'Bank BCA', type: 'bank', initialBalance: 3500000, currency: 'IDR', color: '#0A84FF' },
-    { id: 'w-ewallet', name: 'E-Wallet', type: 'ewallet', initialBalance: 450000, currency: 'IDR', color: '#06B6D4' },
-    { id: 'w-rdn', name: 'Kas RDN', type: 'rdn', initialBalance: 2000000, currency: 'IDR', color: '#A78BFA' }
+    { id: 'w-cash', name: 'Tunai', type: 'cash', initialBalance: 0, currency: 'IDR', color: '#30D158' },
+    { id: 'w-bca', name: 'Bank BCA', type: 'bank', initialBalance: 0, currency: 'IDR', color: '#0A84FF' },
+    { id: 'w-ewallet', name: 'E-Wallet', type: 'ewallet', initialBalance: 0, currency: 'IDR', color: '#06B6D4' },
+    { id: 'w-rdn', name: 'Kas RDN', type: 'rdn', initialBalance: 0, currency: 'IDR', color: '#A78BFA' }
   ],
   categories: {
     expense: [

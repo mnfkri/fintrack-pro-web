@@ -7,7 +7,8 @@
     transactions: [],
     view: 'dashboard',
     modalType: 'expense',
-    editingTxId: null
+    editingTxId: null,
+    editingWalletId: null
   };
 
   const $ = (id) => document.getElementById(id);
@@ -68,22 +69,23 @@
 
   async function refreshState() {
     await window.UangiiDB.seedIfEmpty();
-    const [wallets, transactions, lastSync] = await Promise.all([
+    const [wallets, transactions, lastSync, lastModified] = await Promise.all([
       window.UangiiDB.getWallets(),
       window.UangiiDB.getTransactions(),
-      window.UangiiDB.getMeta('lastDriveSync')
+      window.UangiiDB.getMeta('lastDriveSync'),
+      window.UangiiDB.getMeta('lastModified')
     ]);
     state.wallets = wallets;
     state.transactions = transactions.sort((a, b) => (b.date + b.createdAt).localeCompare(a.date + a.createdAt));
-    renderAll(lastSync);
+    renderAll(lastSync, lastModified);
   }
 
-  function renderAll(lastSync) {
+  function renderAll(lastSync, lastModified) {
     const balances = window.UangiiDB.computeWalletBalances(state.wallets, state.transactions);
     renderDashboard(balances);
     renderTransactions();
     renderWallets(balances);
-    renderSyncStatus(lastSync);
+    renderSyncStatus(lastSync, lastModified);
     populateWalletSelects();
   }
 
@@ -198,9 +200,12 @@
           <span class="wallet-type">${escapeHtml(w.type)}</span>
         </div>
         <div class="wallet-bal">${fmtRp(bal)}</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;gap:6px;">
           <small style="color:var(--muted);">Saldo awal: ${fmtRp(w.initialBalance)}</small>
-          ${state.wallets.length > 1 ? `<button type="button" class="icon-btn" title="Hapus dompet" data-del-wallet="${escapeHtml(w.id)}">✕</button>` : ''}
+          <div style="display:flex;gap:4px;">
+            <button type="button" class="icon-btn" title="Edit dompet" aria-label="Edit dompet" data-edit-wallet="${escapeHtml(w.id)}">✎</button>
+            ${state.wallets.length > 1 ? `<button type="button" class="icon-btn" title="Hapus dompet" aria-label="Hapus dompet" data-del-wallet="${escapeHtml(w.id)}">✕</button>` : ''}
+          </div>
         </div>
       </article>`;
     }).join('');
@@ -222,16 +227,38 @@
     $('txCategory').innerHTML = list.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
   }
 
-  function renderSyncStatus(lastSync) {
+  function renderSyncStatus(lastSync, lastModified) {
     const connected = window.UangiiDriveSync.isConnected();
-    $('sidebarSyncDot').classList.toggle('online', connected);
-    $('sidebarSyncText').textContent = connected ? 'Google Drive terhubung' : 'Tersimpan Lokal';
+    const hasUnsynced = Boolean(
+      (lastModified && (!lastSync || lastModified > lastSync)) ||
+      (state.transactions.length > 0 && !lastSync)
+    );
+    const dot = $('sidebarSyncDot');
+    dot.classList.toggle('online', connected && !hasUnsynced);
+    dot.classList.toggle('dirty', hasUnsynced);
+
+    if (hasUnsynced) {
+      $('sidebarSyncText').textContent = 'Belum dicadangkan';
+    } else {
+      $('sidebarSyncText').textContent = connected ? 'Google Drive terhubung' : 'Tersimpan Lokal';
+    }
+
     $('driveStatusText').textContent = connected
       ? 'Terhubung ke Google Drive (folder khusus aplikasi)'
       : 'Belum terhubung · Data tersimpan aman di browser ini';
-    $('driveLastSync').textContent = lastSync
-      ? 'Cadangan terakhir: ' + new Date(lastSync).toLocaleString('id-ID')
-      : 'Belum pernah mencadangkan ke Google Drive';
+
+    const syncEl = $('driveLastSync');
+    if (hasUnsynced) {
+      syncEl.textContent = lastSync
+        ? `Ada perubahan baru sejak cadangan terakhir (${new Date(lastSync).toLocaleString('id-ID')})`
+        : 'Ada data baru yang belum dicadangkan ke Google Drive';
+      syncEl.style.color = 'var(--warn)';
+    } else {
+      syncEl.textContent = lastSync
+        ? 'Semua data sudah dicadangkan: ' + new Date(lastSync).toLocaleString('id-ID')
+        : 'Belum pernah mencadangkan ke Google Drive';
+      syncEl.style.color = 'var(--accent)';
+    }
     if ($('btnDriveDisconnect')) $('btnDriveDisconnect').style.display = connected ? 'inline-flex' : 'none';
   }
 
@@ -418,6 +445,22 @@
         toast('Transaksi dihapus.');
         return;
       }
+      const editW = e.target.closest('[data-edit-wallet]');
+      if (editW) {
+        const w = state.wallets.find((x) => x.id === editW.dataset.editWallet);
+        if (w) {
+          state.editingWalletId = w.id;
+          $('walletFormTitle').textContent = 'Edit Dompet';
+          $('walletSubmitBtn').textContent = 'Perbarui Dompet';
+          $('btnCancelEditWallet').style.display = 'inline-flex';
+          $('walletName').value = w.name;
+          $('walletType').value = w.type || 'cash';
+          $('walletBalance').value = Number(w.initialBalance) || 0;
+          $('walletColor').value = w.color || '#30D158';
+          $('walletName').focus();
+        }
+        return;
+      }
       const delW = e.target.closest('[data-del-wallet]');
       if (delW) {
         if (!confirm('Hapus dompet ini?')) return;
@@ -427,12 +470,24 @@
       }
     });
 
+    function resetWalletForm() {
+      state.editingWalletId = null;
+      $('walletFormTitle').textContent = 'Tambah Dompet Baru';
+      $('walletSubmitBtn').textContent = 'Simpan Dompet';
+      $('btnCancelEditWallet').style.display = 'none';
+      $('walletName').value = '';
+      $('walletBalance').value = '';
+    }
+
+    $('btnCancelEditWallet').addEventListener('click', resetWalletForm);
+
     $('walletForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = ($('walletName').value || '').trim();
       if (!name) return;
+      const isEdit = Boolean(state.editingWalletId);
       const w = {
-        id: 'w-' + Date.now(),
+        id: state.editingWalletId || ('w-' + Date.now()),
         name,
         type: $('walletType').value,
         initialBalance: Number($('walletBalance').value) || 0,
@@ -440,18 +495,16 @@
         color: $('walletColor').value || '#30D158'
       };
       await window.UangiiDB.putWallet(w);
-      $('walletName').value = '';
-      $('walletBalance').value = '';
+      resetWalletForm();
       await refreshState();
-      toast(`Dompet "${name}" ditambahkan.`);
+      toast(isEdit ? `Dompet "${name}" diperbarui.` : `Dompet "${name}" ditambahkan.`);
     });
 
     // Sync & Backup handlers
     $('btnDriveConnect').addEventListener('click', async () => {
       try {
         await window.UangiiDriveSync.connect();
-        const lastSync = await window.UangiiDB.getMeta('lastDriveSync');
-        renderSyncStatus(lastSync);
+        await refreshState();
         toast('Berhasil terhubung ke Google Drive!');
       } catch (err) {
         toast(err.message);
@@ -463,7 +516,7 @@
         const pass = $('vaultPassphrase').value;
         const res = await window.UangiiDriveSync.pushEncryptedSnapshot(pass);
         $('vaultPassphrase').value = '';
-        renderSyncStatus(res.syncedAt);
+        await refreshState();
         toast(`Upload terenkripsi berhasil (${res.count} transaksi).`);
       } catch (err) {
         toast(err.message);
@@ -554,10 +607,17 @@
 
     if (ev.status === 'vip_active') {
       gate.hidden = true;
+      const tierLabel = ev.entitlement?.label || 'VIP Aktif';
+      const email = ev.user?.email || '';
       if (userBox) {
         userBox.style.display = 'block';
-        $('vipUserTier').textContent = ev.entitlement?.label || 'VIP Aktif';
-        $('vipUserEmail').textContent = ev.user?.email || '';
+        $('vipUserTier').textContent = tierLabel;
+        $('vipUserEmail').textContent = email;
+      }
+      if ($('syncAccountCard')) {
+        $('syncAccountCard').style.display = 'block';
+        $('syncAccountTier').textContent = tierLabel;
+        $('syncAccountEmail').textContent = email;
       }
       show(btnSideSignOut, true);
       return;
@@ -565,6 +625,7 @@
 
     gate.hidden = false;
     if (userBox) userBox.style.display = 'none';
+    if ($('syncAccountCard')) $('syncAccountCard').style.display = 'none';
     show(btnSideSignOut, false);
     meta.style.display = 'none';
 
@@ -628,6 +689,7 @@
     };
     $('btnVipGateSignOut')?.addEventListener('click', handleSignOut);
     $('btnVipSignOut')?.addEventListener('click', handleSignOut);
+    $('btnSyncSignOut')?.addEventListener('click', handleSignOut);
 
     if (window.UangiiVipAuth) {
       window.UangiiVipAuth.init(renderVipGate);

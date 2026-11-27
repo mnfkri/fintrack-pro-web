@@ -144,7 +144,10 @@
             <div class="wallet-grid" id="walletGrid"></div>
           </article>
           <article class="card">
-            <div class="card-head"><h2>Tambah Dompet Baru</h2></div>
+            <div class="card-head">
+              <h2 id="walletFormTitle">Tambah Dompet Baru</h2>
+              <button type="button" class="btn btn-ghost btn-sm" id="btnCancelEditWallet" style="display:none;">Batal</button>
+            </div>
             <form id="walletForm">
               <div class="field">
                 <label for="walletName">Nama Dompet</label>
@@ -167,7 +170,7 @@
                 <label for="walletColor">Warna Penanda</label>
                 <input type="color" id="walletColor" value="#30D158" style="width:56px;height:36px;border:none;background:transparent;cursor:pointer;">
               </div>
-              <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Dompet</button>
+              <button type="submit" class="btn btn-primary" id="walletSubmitBtn" style="width:100%;">Simpan Dompet</button>
             </form>
           </article>
         </div>
@@ -176,26 +179,37 @@
       <!-- VIEW: SYNC & BACKUP -->
       <section class="view" id="view-sync">
         <div class="grid-2">
-          <article class="card">
-            <div class="card-head">
-              <h2>Cadangan Google Drive Terenkripsi</h2>
-            </div>
-            <p style="font-size:.86rem;color:var(--muted);margin-bottom:10px;" id="driveStatusText">Belum terhubung · Data tersimpan aman di browser ini</p>
-            <p style="font-size:.8rem;color:var(--accent);margin-bottom:16px;" id="driveLastSync"></p>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <article class="card" id="syncAccountCard" style="display:none;">
+              <div class="card-head">
+                <h2>Akun Uangii</h2>
+                <span class="brand-badge" id="syncAccountTier">VIP Aktif</span>
+              </div>
+              <p style="font-size:.88rem;color:var(--muted);margin-bottom:14px;" id="syncAccountEmail"></p>
+              <button type="button" class="btn btn-ghost btn-sm" id="btnSyncSignOut">Keluar Akun</button>
+            </article>
 
-            <div class="field">
-              <label for="vaultPassphrase">Sandi Brankas (enkripsi AES-256 · min. 8 karakter)</label>
-              <input type="password" id="vaultPassphrase" class="input" autocomplete="off" placeholder="Masukkan sandi untuk mengenkripsi atau memulihkan data">
-            </div>
+            <article class="card">
+              <div class="card-head">
+                <h2>Cadangan Google Drive Terenkripsi</h2>
+              </div>
+              <p style="font-size:.86rem;color:var(--muted);margin-bottom:8px;" id="driveStatusText">Belum terhubung · Data tersimpan aman di browser ini</p>
+              <p style="font-size:.82rem;color:var(--accent);margin-bottom:16px;" id="driveLastSync"></p>
 
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button type="button" class="btn btn-primary btn-sm" id="btnDriveConnect">Hubungkan Google Drive</button>
-              <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePush">Upload ke Drive ↑</button>
-              <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePull">Pulihkan dari Drive ↓</button>
-              <button type="button" class="btn btn-ghost btn-sm" id="btnDriveDisconnect" style="display:none;">Putuskan Drive</button>
-            </div>
-            <small style="display:block;color:var(--muted);font-size:.78rem;margin-top:14px;">Uangii hanya mengakses folder khusus aplikasi di Google Drive pribadimu dan tidak dapat melihat file Drive lain.</small>
-          </article>
+              <div class="field">
+                <label for="vaultPassphrase">Sandi Brankas (enkripsi AES-256 · min. 8 karakter)</label>
+                <input type="password" id="vaultPassphrase" class="input" autocomplete="off" placeholder="Masukkan sandi untuk mengenkripsi atau memulihkan data">
+              </div>
+
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button type="button" class="btn btn-primary btn-sm" id="btnDriveConnect">Hubungkan Google Drive</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePush">Upload ke Drive ↑</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePull">Pulihkan dari Drive ↓</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnDriveDisconnect" style="display:none;">Putuskan Drive</button>
+              </div>
+              <small style="display:block;color:var(--muted);font-size:.78rem;margin-top:14px;">Uangii hanya mengakses folder khusus aplikasi di Google Drive pribadimu dan tidak dapat melihat file Drive lain.</small>
+            </article>
+          </div>
 
           <div style="display:flex;flex-direction:column;gap:16px;">
             <article class="card">
