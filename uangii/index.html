@@ -18,13 +18,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="home-bundle.css">
   <noscript><style>.reveal,[data-stagger]>*{opacity:1!important;transform:none!important}</style></noscript>
-  <link rel="stylesheet" href="redesign.css">
-  <link rel="stylesheet" href="readability.css">
-  <link rel="stylesheet" href="launch.css">
-  <link rel="stylesheet" href="catalog.css">
-  <link rel="stylesheet" href="app-scenes.css">
   <script src="app-scenes.js" defer></script>
 </head>
 
@@ -96,7 +91,7 @@
       <a class="drawer-item" href="hapus-akun.html"><span class="icon">🗑️</span> Hapus Akun &amp; Data</a>
     </div>
     <div class="drawer-foot">
-      <a class="btn btn-primary" style="width:100%;font-size:.9rem;padding:.75rem;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Dapatkan Aplikasi 🚀</a>
+      <a class="btn btn-primary" style="width:100%;font-size:.9rem;padding:.75rem;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Dapatkan Aplikasi ↗</a>
       <a class="dev-badge" href="../" style="margin-top:0;justify-content:center;width:100%;" title="Kunjungi Website Developer Emtitra Production">
         <img src="assets/logo dev.jpg" alt="Emtitra Production" style="width:24px!important;height:24px!important;">
         <span style="font-size:.875rem;font-weight:600;color:var(--text);">Emtitra Production ↗</span>
@@ -182,7 +177,7 @@
               <div class="u-panel-copy">
                 <small>Private by design</small>
                 <h3>Your money.<br>Your business.</h3>
-                <p>Database lokal dienkripsi SQLCipher AES-256. Auto-Capture Notifikasi berjalan 100% lokal di memori tanpa mengirim teks mentah ke server.</p>
+                <p>Database lokal dienkripsi SQLCipher AES-256. Pencatatan berjalan offline-first, dan fitur cloud hanya aktif atas pilihanmu.</p>
                 <button type="button" class="u-story-link" onclick="goSection('keamanan')">Kenali perlindungannya ↗</button>
               </div>
               <div class="u-glyph" aria-hidden="true">
@@ -259,26 +254,6 @@
             <h3>Kalkulator Zakat</h3>
             <p>Alat bantu hitung estimasi Zakat Mal dan Zakat Penghasilan berdasarkan acuan umum BAZNAS (referensi hitung, bukan fatwa mengikat).</p>
           </article>
-        </div>
-
-        <div class="us-tour" style="margin-top:42px;" data-app-tour="toolsHub autoCapture rewind zakat" aria-label="Pratinjau interaktif Tools Uangii">
-          <div class="us-tour-layout">
-            <div class="us-tour-copy">
-              <span class="u-eyebrow">PRATINJAU INTERAKTIF TOOLS</span>
-              <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:500;letter-spacing:-.04em;margin:12px 0 8px;">Lihat cara kerja alat bantu harianmu.</h3>
-              <p class="us-example">Pilih salah satu modul di bawah untuk melihat pratinjau layar Tools Uangii.</p>
-              <div class="us-tour-controls" data-tour-controls role="group" aria-label="Pilih layar Tools Uangii" hidden></div>
-              <div class="us-tour-summary" data-tour-summary aria-live="polite" aria-atomic="true">
-                <small>TOOLS UANGII</small>
-                <h3>Tools Uangii (7-in-1)</h3>
-                <p>Pilih modul untuk melihat contoh antarmuka.</p>
-              </div>
-            </div>
-            <div class="us-tour-view">
-              <div data-tour-view></div>
-              <p class="us-art-note">Pratinjau antarmuka Tools Uangii 1.2.7 · Data demo</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -379,32 +354,6 @@
           <p>You don't need to think about money all the time.<br><em>Just understand it a little better.</em></p>
           <span>THAT'S THE UANGII WAY.</span>
         </div>
-
-        <!-- 07 / PRIVASI & VAULT -->
-        <section class="u-story" id="keamanan">
-          <div class="u-story-image reveal">
-            <div data-app-canvas="vault"></div>
-            <p class="us-art-note">Ilustrasi arsitektur keamanan berlapis Uangii 1.2.7</p>
-          </div>
-          <div class="u-story-copy reveal">
-            <span class="u-section-number">07 / YOUR SPACE. YOUR CONTROL.</span>
-            <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> PEACE OF MIND, BUILT IN.</span>
-            <h2>Your financial life.<br><em>Kept personal.</em></h2>
-            <p>Keuangan pribadi seharusnya tetap pribadi. Pencatatan berjalan offline-first, database terenkripsi di ponselmu, dan fitur cloud seperti Google Drive, Gemini Cloud, atau Ruang Keluarga hanya aktif atas pilihanmu.</p>
-            <div class="u-chip-row">
-              <span class="u-chip">SQLCipher · AES-256</span>
-              <span class="u-chip">Drive AES-256-GCM</span>
-              <span class="u-chip">Auto-Capture Ephemeral</span>
-              <span class="u-chip">Offline-first</span>
-            </div>
-            <ul class="u-story-list">
-              <li>Database lokal dilindungi SQLCipher + kunci opsional PIN / Biometrik</li>
-              <li>Cadangkan terenkripsi ke file <code>.fintrack</code> atau Google Drive pribadimu</li>
-              <li>Penghapusan akun cloud tersedia langsung di Pengaturan maupun halaman web</li>
-            </ul>
-            <a class="u-story-link" href="privasi.html">Lebih dekat dengan privasi &amp; kriptografi Uangii ↗</a>
-          </div>
-        </section>
       </div>
 
       <!-- 12-SCREEN INTERACTIVE PRODUCT TOUR -->
@@ -625,7 +574,7 @@
                 </div>
                 <form class="chat-input-bar" onsubmit="handleLiveChatSubmit(event)">
                   <input type="text" id="liveChatInput" placeholder="Ketik pertanyaan keuanganmu untuk Fio AI..." autocomplete="off">
-                  <button type="submit">Kirim ⚡</button>
+                  <button type="submit">Kirim</button>
                 </form>
               </div>
             </div>
@@ -636,7 +585,7 @@
             <div class="calc-bento-grid">
               <div class="calc-left">
                 <span class="badge-pill" style="margin-bottom:.8rem;display:inline-block;">METODE ANGGARAN 50/30/20</span>
-                <h4 style="font-size:1.45rem;font-weight:800;color:var(--text);margin-bottom:.6rem;">Evaluasi Kesehatan Cashflow Pribadi 🌸</h4>
+                <h4 style="font-size:1.45rem;font-weight:800;color:var(--text);margin-bottom:.6rem;">Evaluasi Kesehatan Cashflow Pribadi</h4>
                 <p style="color:var(--muted);font-size:.92rem;line-height:1.6;margin-bottom:1.8rem;">Geser parameter nominal untuk mengetahui alokasi kebutuhan pokok, tabungan, dan rekomendasi rasio pengeluaran ideal:</p>
                 <div class="slider-group">
                   <div class="slider-header"><label for="rangeIncome">Pemasukan Bulanan:</label><strong id="valIncome">Rp 7.500.000</strong></div>
@@ -666,7 +615,7 @@
             <div class="smart-input-grid">
               <div class="smart-input-box">
                 <span class="badge-pill" style="margin-bottom:.4rem;display:inline-block;">NATURAL LANGUAGE ON-DEVICE PARSER</span>
-                <h4 style="font-size:1.45rem;font-weight:800;color:var(--text);margin-bottom:.4rem;">Catat Transaksi Secepat Bicara ⚡</h4>
+                <h4 style="font-size:1.45rem;font-weight:800;color:var(--text);margin-bottom:.4rem;">Catat Transaksi Secepat Bicara</h4>
                 <p style="color:var(--muted);font-size:.9rem;line-height:1.5;margin-bottom:1rem;">Ketik kalimat pengeluaran dalam bahasa Indonesia sehari-hari. Parser lokal langsung membedah nominal, kategori, dan dompet:</p>
                 <div class="smart-input-field-wrap">
                   <span class="smart-input-icon">✍️</span>
@@ -702,7 +651,7 @@
       </section>
 
       <!-- SECURITY LAYERS INTERACTIVE CONSOLE (4 Layers + Fixed dynamic Standard footer) -->
-      <section class="wrap" id="security-layers">
+      <section class="wrap" id="keamanan">
         <div class="sec-vault-card reveal">
           <div style="text-align:center;max-width:740px;margin:0 auto 1.5rem;">
             <span class="eyebrow grad-text">Explore the protection</span>

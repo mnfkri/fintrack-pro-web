@@ -625,7 +625,7 @@
     const dialogTitle = galleryDialog.querySelector('[data-dialog-title]');
     const dialogDesc = galleryDialog.querySelector('[data-dialog-desc]');
     document.querySelectorAll('[data-open-scene]').forEach(btn => {
-      btn.addEventListener('click', () => {
+      const open = () => {
         const key = btn.dataset.openScene;
         const s = scenes[key];
         if (!s || !dialogMount) return;
@@ -633,6 +633,13 @@
         if (dialogTitle) dialogTitle.textContent = s.label;
         if (dialogDesc) dialogDesc.textContent = s.description;
         if (typeof galleryDialog.showModal === 'function') galleryDialog.showModal();
+      };
+      btn.addEventListener('click', open);
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open();
+        }
       });
     });
     galleryDialog.addEventListener('click', (e) => {
