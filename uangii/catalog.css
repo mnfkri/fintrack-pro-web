@@ -268,3 +268,105 @@ body.u-motion-paused .u-aurora i{animation:none!important}
   .tool-card--wide{grid-column:auto}
   .legal-document{margin:32px auto 45px}
 }
+
+/* ===== Definitive Mobile Proportions (Phones <= 640px & Small Phones <= 400px) ===== */
+@media (max-width: 640px) {
+  .wrap { padding-inline: 14px !important; }
+  .nav { height: 58px !important; }
+  .brand img { width: 30px !important; height: 30px !important; }
+  .brand-name { font-size: 1.05rem !important; }
+  .nav-app-btn { padding: 7px 11px !important; font-size: 12px !important; min-height: 36px !important; }
+  .u-motion { width: 36px !important; height: 36px !important; font-size: 13px !important; }
+  .menu-toggle { width: 38px !important; height: 38px !important; }
+
+  .u-eyebrow, .eyebrow { font-size: 11px !important; letter-spacing: .09em !important; }
+  .u-hero { padding-top: 20px !important; padding-bottom: 24px !important; gap: 22px !important; }
+  .u-hero h1,
+  .s-hero h1 {
+    font-size: clamp(28px, 7.8vw, 34px) !important;
+    line-height: 1.12 !important;
+    margin: 12px 0 14px !important;
+  }
+  .u-hero-copy p,
+  .s-hero p,
+  .s-hero .s-lead {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+  .u-hero-note,
+  .u-hero-bottom { font-size: 12px !important; }
+  .u-marquee { padding: 12px 0 !important; }
+  .u-marquee-set { font-size: 12.5px !important; }
+
+  .u-section, section.block { padding-block: 34px !important; }
+  .u-section h2,
+  .u-heading-row h2,
+  .sec-head h2,
+  .s-heading h2,
+  .s-end h2,
+  .launch-cta h2,
+  .launch-cta--compact h2,
+  .sec-vault-card h2 {
+    font-size: clamp(22px, 6.2vw, 27px) !important;
+    line-height: 1.2 !important;
+    margin: 8px 0 10px !important;
+  }
+  .bento-studio-title h3,
+  .tier-card h3,
+  .us-tour-summary h3,
+  .s-model-panel h3,
+  .s-layer-panel h3 {
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+  }
+  .tool-card h3,
+  .fio-sim-intro h4,
+  .calc-left h4,
+  .smart-input-box h4,
+  .stage-content h4 {
+    font-size: 16.5px !important;
+    line-height: 1.3 !important;
+  }
+  .u-heading-row p,
+  .u-section-heading p,
+  .tool-card p,
+  .tier-sub,
+  .tier-list li,
+  .bento-studio-title p,
+  .studio-demo-note,
+  .us-tour-summary p,
+  .us-example,
+  .launch-cta p,
+  .faq summary,
+  .faq details p,
+  .sec-vault-card p {
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+  }
+
+  .tool-card, .tier-card, .bento-studio-card, .sec-vault-card, .launch-cta {
+    padding: 18px 14px !important;
+    border-radius: 18px !important;
+  }
+  .tool-ic { width: 38px !important; height: 38px !important; font-size: 18px !important; }
+  .btn { padding: 10px 15px !important; font-size: 13.5px !important; }
+  .launch-mark { width: 64px !important; height: 64px !important; }
+  .launch-badge { font-size: 12px !important; padding: 6px 12px !important; }
+
+  /* Proportional phone mockup on mobile */
+  .us-stage { padding: 12px 6px !important; }
+  .us-device { width: min(100%, 255px) !important; }
+  .us-art-note { font-size: 11.5px !important; }
+
+  /* Compact FAQ & Footer */
+  .faq summary { padding: 13px 14px !important; }
+  .faq details p { padding: 0 14px 14px !important; }
+  footer { padding: 34px 0 24px !important; }
+  footer .copy { font-size: 12px !important; }
+}
+
+@media (max-width: 400px) {
+  .u-hero h1, .s-hero h1 { font-size: 26px !important; }
+  .us-device { width: min(100%, 232px) !important; }
+  .nav-app-btn { display: none !important; }
+}
