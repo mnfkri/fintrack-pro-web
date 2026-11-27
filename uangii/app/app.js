@@ -229,6 +229,7 @@
       ? 'Sinkronisasi terakhir: ' + new Date(lastSync).toLocaleString('id-ID')
       : 'Belum pernah sinkronisasi ke Google Drive';
     $('driveClientIdInput').value = window.UangiiDriveSync.getClientId();
+    if ($('btnDriveDisconnect')) $('btnDriveDisconnect').style.display = connected ? 'inline-flex' : 'none';
   }
 
   function switchView(name) {
@@ -446,6 +447,7 @@
       try {
         const pass = $('vaultPassphrase').value;
         const res = await window.UangiiDriveSync.pushEncryptedSnapshot(pass);
+        $('vaultPassphrase').value = '';
         renderSyncStatus(res.syncedAt);
         toast(`Upload terenkripsi berhasil (${res.count} transaksi).`);
       } catch (err) {
@@ -457,6 +459,7 @@
       try {
         const pass = $('vaultPassphrase').value;
         const res = await window.UangiiDriveSync.pullEncryptedSnapshot(pass);
+        $('vaultPassphrase').value = '';
         await refreshState();
         toast(`Pulihkan dari Drive berhasil (${res.count} transaksi).`);
       } catch (err) {
@@ -464,11 +467,19 @@
       }
     });
 
+    $('btnDriveDisconnect').addEventListener('click', async () => {
+      window.UangiiDriveSync.disconnect();
+      const lastSync = await window.UangiiDB.getMeta('lastDriveSync');
+      renderSyncStatus(lastSync);
+      toast('Sesi Google Drive diputuskan.');
+    });
+
     $('btnExportVault').addEventListener('click', async () => {
       try {
         const pass = $('vaultPassphrase').value;
         const snap = await window.UangiiDB.exportSnapshot();
         const env = await window.UangiiCrypto.encryptVault(snap, pass);
+        $('vaultPassphrase').value = '';
         downloadBlob(new Blob([JSON.stringify(env, null, 2)], { type: 'application/json' }), `uangii-vault-${todayISO()}.json`);
         toast('File brankas terenkripsi diunduh.');
       } catch (err) {
@@ -484,6 +495,7 @@
         const text = await file.text();
         const env = JSON.parse(text);
         const snap = await window.UangiiCrypto.decryptVault(env, pass);
+        $('vaultPassphrase').value = '';
         await window.UangiiDB.importSnapshot(snap);
         await refreshState();
         toast(`Brankas dipulihkan (${snap.transactions.length} transaksi).`);
@@ -492,6 +504,15 @@
       } finally {
         e.target.value = '';
       }
+    });
+
+    $('btnWipeLocal').addEventListener('click', async () => {
+      if (!confirm('Hapus seluruh transaksi & dompet lokal di browser ini serta putuskan sesi Google Drive? (Cadangan di Google Drive tetap aman.)')) return;
+      window.UangiiDriveSync.disconnect();
+      await window.UangiiDB.wipeAllData();
+      $('vaultPassphrase').value = '';
+      await refreshState();
+      toast('Data lokal dibersihkan dan sesi Drive diputuskan.');
     });
 
     $('btnExportCsv').addEventListener('click', exportCSV);

@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const ITERATIONS = 100000;
+  const ITERATIONS = 600000;
   const enc = new TextEncoder();
   const dec = new TextDecoder();
 
@@ -20,7 +20,7 @@
     return arr;
   }
 
-  async function deriveKey(passphrase, salt) {
+  async function deriveKey(passphrase, salt, iterations = ITERATIONS) {
     const baseKey = await crypto.subtle.importKey(
       'raw',
       enc.encode(passphrase),
@@ -29,7 +29,7 @@
       ['deriveKey']
     );
     return crypto.subtle.deriveKey(
-      { name: 'PBKDF2', salt, iterations: ITERATIONS, hash: 'SHA-256' },
+      { name: 'PBKDF2', salt, iterations, hash: 'SHA-256' },
       baseKey,
       { name: 'AES-GCM', length: 256 },
       false,
@@ -38,12 +38,12 @@
   }
 
   async function encryptVault(payloadObj, passphrase) {
-    if (!passphrase || passphrase.length < 4) {
-      throw new Error('Sandi brankas minimal 4 karakter.');
+    if (!passphrase || passphrase.length < 8) {
+      throw new Error('Sandi brankas minimal 8 karakter.');
     }
     const salt = crypto.getRandomValues(new Uint8Array(16));
     const iv = crypto.getRandomValues(new Uint8Array(12));
-    const key = await deriveKey(passphrase, salt);
+    const key = await deriveKey(passphrase, salt, ITERATIONS);
     const plaintext = enc.encode(JSON.stringify(payloadObj));
     const cipherBuf = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, plaintext);
     return {
@@ -62,10 +62,14 @@
     if (!envelope || envelope.format !== 'uangii-vault-v1' || !envelope.ciphertext) {
       throw new Error('Format file brankas tidak dikenali.');
     }
+    if (!passphrase || passphrase.length < 4) {
+      throw new Error('Masukkan sandi brankas terlebih dahulu.');
+    }
     const salt = fromBase64(envelope.salt);
     const iv = fromBase64(envelope.iv);
     const cipher = fromBase64(envelope.ciphertext);
-    const key = await deriveKey(passphrase, salt);
+    const iters = Number(envelope.iterations) >= 100000 ? Number(envelope.iterations) : 100000;
+    const key = await deriveKey(passphrase, salt, iters);
     try {
       const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, cipher);
       return JSON.parse(dec.decode(plainBuf));

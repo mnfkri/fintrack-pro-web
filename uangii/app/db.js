@@ -156,6 +156,18 @@
     return map;
   }
 
+  async function wipeAllData() {
+    const db = await openDB();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(['wallets', 'transactions', 'meta'], 'readwrite');
+      tx.objectStore('wallets').clear();
+      tx.objectStore('transactions').clear();
+      tx.objectStore('meta').clear();
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+
   window.UangiiDB = {
     seedIfEmpty,
     getWallets: () => getAll('wallets'),
@@ -168,6 +180,7 @@
     deleteTransaction,
     exportSnapshot,
     importSnapshot,
+    wipeAllData,
     computeWalletBalances
   };
 })();

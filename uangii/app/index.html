@@ -6,6 +6,8 @@
   <title>Uangii Web — Offline-First Personal Finance</title>
   <meta name="description" content="Uangii Web (Tahap 1): Catat transaksi cepat, pantau dompet & arus kas lokal di browser, serta sinkronkan brankas terenkripsi AES-256-GCM ke Google Drive pribadi.">
   <meta name="theme-color" content="#080c0b">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://www.googleapis.com https://accounts.google.com; frame-src https://accounts.google.com; object-src 'none'; base-uri 'self';">
   <link rel="icon" href="../assets/brand/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -173,14 +175,15 @@
             <p style="font-size:.8rem;color:var(--accent);margin-bottom:16px;" id="driveLastSync"></p>
 
             <div class="field">
-              <label for="vaultPassphrase">Sandi Brankas (AES-256-GCM · minimal 4 karakter)</label>
-              <input type="password" id="vaultPassphrase" class="input" placeholder="Dipakai untuk enkripsi sebelum upload/download">
+              <label for="vaultPassphrase">Sandi Brankas (AES-256-GCM · PBKDF2 600rb iterasi · min. 8 karakter)</label>
+              <input type="password" id="vaultPassphrase" class="input" autocomplete="off" placeholder="Dipakai untuk enkripsi sebelum upload/download">
             </div>
 
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;">
               <button type="button" class="btn btn-primary btn-sm" id="btnDriveConnect">Hubungkan Google Drive</button>
               <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePush">Upload ke Drive ↑</button>
               <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePull">Pulihkan dari Drive ↓</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="btnDriveDisconnect" style="display:none;">Putuskan Drive</button>
             </div>
 
             <div style="border-top:1px solid var(--border);padding-top:14px;">
@@ -206,6 +209,12 @@
                   <input type="file" id="importVaultFile" accept=".json" hidden>
                 </label>
               </div>
+            </article>
+
+            <article class="card">
+              <div class="card-head"><h2>Keamanan Perangkat Bersama</h2></div>
+              <p style="font-size:.86rem;color:var(--muted);margin-bottom:14px;">Jika memakai komputer/browser bersama, hapus seluruh data lokal di browser ini dan cabut sesi Google Drive setelah selesai.</p>
+              <button type="button" class="btn btn-danger btn-sm" id="btnWipeLocal">Hapus Data Lokal &amp; Putuskan Drive</button>
             </article>
 
             <article class="card" style="border-style:dashed;">
