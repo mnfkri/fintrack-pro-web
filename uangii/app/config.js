@@ -19,7 +19,7 @@ window.UANGII_WEB_CONFIG = {
   // Authorized JavaScript origins: https://fintrack.digital
   // Scope: https://www.googleapis.com/auth/drive.appdata
   googleClientId: '897060124265-vcv2aho4mph0si8jahstmnsl3fk1pjef.apps.googleusercontent.com',
-  driveFileName: 'uangii-web-vault-v1.json',
+  driveFileName: 'fintrack_backup.json',
   defaultWallets: [
     { id: 'w-cash', name: 'Tunai', type: 'cash', initialBalance: 0, currency: 'IDR', color: '#30D158' },
     { id: 'w-bca', name: 'Bank BCA', type: 'bank', initialBalance: 0, currency: 'IDR', color: '#0A84FF' },

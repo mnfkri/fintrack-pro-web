@@ -546,10 +546,11 @@
       try {
         const pass = $('vaultPassphrase').value;
         const snap = await window.UangiiDB.exportSnapshot();
-        const env = await window.UangiiCrypto.encryptVault(snap, pass);
+        const encrypted = await window.UangiiCrypto.encryptVault(snap, pass);
         $('vaultPassphrase').value = '';
-        downloadBlob(new Blob([JSON.stringify(env, null, 2)], { type: 'application/json' }), `uangii-vault-${todayISO()}.json`);
-        toast('File brankas terenkripsi diunduh.');
+        const body = typeof encrypted === 'string' ? encrypted : JSON.stringify(encrypted, null, 2);
+        downloadBlob(new Blob([body], { type: 'application/json' }), `fintrack_backup_${todayISO()}.json`);
+        toast('File cadangan terenkripsi diunduh.');
       } catch (err) {
         toast(err.message);
       }
@@ -561,12 +562,11 @@
       try {
         const pass = $('vaultPassphrase').value;
         const text = await file.text();
-        const env = JSON.parse(text);
-        const snap = await window.UangiiCrypto.decryptVault(env, pass);
+        const snap = await window.UangiiCrypto.decryptVault(text, pass);
         $('vaultPassphrase').value = '';
-        await window.UangiiDB.importSnapshot(snap);
+        const res = await window.UangiiDB.importSnapshot(snap);
         await refreshState();
-        toast(`Brankas dipulihkan (${snap.transactions.length} transaksi).`);
+        toast(`Cadangan dipulihkan (${res.transactionsCount} transaksi, ${res.walletsCount} dompet).`);
       } catch (err) {
         toast(err.message);
       } finally {

@@ -3,7 +3,7 @@
 (() => {
   'use strict';
 
-  const SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
+  const SCOPE = 'https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file';
   let accessToken = null;
   let tokenExpiresAt = 0;
 
@@ -19,7 +19,7 @@
     return new Promise((resolve, reject) => {
       const clientId = getClientId();
       if (!clientId) {
-        reject(new Error('Google OAuth Client ID belum diisi. Isi dulu di kolom Konfigurasi Drive.'));
+        reject(new Error('Google OAuth Client ID belum dikonfigurasi.'));
         return;
       }
       if (!window.google || !window.google.accounts || !window.google.accounts.oauth2) {
@@ -64,9 +64,9 @@
 
   async function findVaultFile() {
     const name = window.UANGII_WEB_CONFIG.driveFileName;
-    const q = encodeURIComponent(`name='${name}' and 'appDataFolder' in parents and trashed=false`);
+    const q = encodeURIComponent(`name='${name}' and trashed=false`);
     const res = await driveFetch(
-      `https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id,name,modifiedTime)`
+      `https://www.googleapis.com/drive/v3/files?spaces=drive,appDataFolder&q=${q}&orderBy=modifiedTime desc&fields=files(id,name,modifiedTime,spaces)`
     );
     const data = await res.json();
     return (data.files && data.files[0]) || null;
@@ -74,26 +74,26 @@
 
   async function pushEncryptedSnapshot(passphrase) {
     const snapshot = await window.UangiiDB.exportSnapshot();
-    const envelope = await window.UangiiCrypto.encryptVault(snapshot, passphrase);
-    const bodyJson = JSON.stringify(envelope);
+    const encryptedPayload = await window.UangiiCrypto.encryptVault(snapshot, passphrase);
+    const bodyText = typeof encryptedPayload === 'string' ? encryptedPayload : JSON.stringify(encryptedPayload);
     const existing = await findVaultFile();
     const name = window.UANGII_WEB_CONFIG.driveFileName;
 
     if (existing) {
       await driveFetch(
-        `https://www.googleapis.com/upload/drive/v3/files/${existing.id}?uploadType=media`,
+        `https://www.googleapis.com/upload/drive/v3/files/${encodeURIComponent(existing.id)}?uploadType=media`,
         {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: bodyJson
+          body: bodyText
         }
       );
     } else {
       const boundary = 'uangii_boundary_' + Date.now();
-      const metadata = JSON.stringify({ name, parents: ['appDataFolder'] });
+      const metadata = JSON.stringify({ name, mimeType: 'application/json', parents: ['appDataFolder'] });
       const multipart =
         `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${metadata}\r\n` +
-        `--${boundary}\r\nContent-Type: application/json\r\n\r\n${bodyJson}\r\n` +
+        `--${boundary}\r\nContent-Type: application/json\r\n\r\n${bodyText}\r\n` +
         `--${boundary}--`;
       await driveFetch(
         'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',
@@ -110,12 +110,21 @@
   }
 
   async function listVaultFiles() {
-    const q = encodeURIComponent(`'appDataFolder' in parents and trashed=false`);
+    const q = encodeURIComponent(`trashed=false and (name='fintrack_backup.json' or name contains 'uangii' or name contains 'fintrack')`);
     const res = await driveFetch(
-      `https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&orderBy=modifiedTime desc&fields=files(id,name,modifiedTime,size)`
+      `https://www.googleapis.com/drive/v3/files?spaces=drive,appDataFolder&q=${q}&orderBy=modifiedTime desc&fields=files(id,name,modifiedTime,size,spaces)`
     );
     const data = await res.json();
-    return data.files || [];
+    let files = data.files || [];
+    if (!files.length) {
+      // Fallback: list all files inside appDataFolder regardless of name
+      const fallbackRes = await driveFetch(
+        `https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${encodeURIComponent('trashed=false')}&orderBy=modifiedTime desc&fields=files(id,name,modifiedTime,size,spaces)`
+      );
+      const fallbackData = await fallbackRes.json();
+      files = fallbackData.files || [];
+    }
+    return files;
   }
 
   async function pullEncryptedSnapshot(passphrase, fileId = null) {
@@ -123,20 +132,24 @@
     if (!targetId) {
       const existing = await findVaultFile();
       if (!existing) {
-        throw new Error('Belum ada brankas cadangan Uangii di Google Drive akun ini.');
+        throw new Error('Belum ada file fintrack_backup.json di Google Drive akun ini.');
       }
       targetId = existing.id;
     }
     const res = await driveFetch(
       `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(targetId)}?alt=media`
     );
-    const envelope = await res.json();
-    const snapshot = await window.UangiiCrypto.decryptVault(envelope, passphrase);
-    await window.UangiiDB.importSnapshot(snapshot);
+    const rawText = await res.text();
+    const snapshot = await window.UangiiCrypto.decryptVault(rawText, passphrase);
+    const imported = await window.UangiiDB.importSnapshot(snapshot);
     const now = new Date().toISOString();
     await window.UangiiDB.setMeta('lastDriveSync', now);
     await window.UangiiDB.setMeta('onboarded', true);
-    return { syncedAt: now, count: snapshot.transactions.length, wallets: snapshot.wallets.length };
+    return {
+      syncedAt: now,
+      count: imported.transactionsCount,
+      wallets: imported.walletsCount
+    };
   }
 
   window.UangiiDriveSync = {
