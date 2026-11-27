@@ -452,11 +452,30 @@
     });
   }
 
+  async function getAndroidTable(tableName) {
+    const base = (await getMeta('androidBase')) || {};
+    return Array.isArray(base[tableName]) ? base[tableName] : [];
+  }
+
+  async function saveAndroidTable(tableName, rows) {
+    const base = (await getMeta('androidBase')) || {
+      app: 'Finance Tracker',
+      version: 4,
+      mergeProtocol: 1,
+      categories: DEFAULT_ANDROID_CATEGORIES.map((c) => Object.assign({ updatedAt: Date.now() }, c))
+    };
+    base[tableName] = Array.isArray(rows) ? rows : [];
+    await setMeta('androidBase', base);
+    await setMeta('lastModified', new Date().toISOString());
+  }
+
   window.UangiiDB = {
     seedIfEmpty,
     getWallets: () => getAll('wallets'),
     getTransactions: () => getAll('transactions'),
     getAndroidCategories,
+    getAndroidTable,
+    saveAndroidTable,
     getMeta,
     setMeta,
     putWallet,

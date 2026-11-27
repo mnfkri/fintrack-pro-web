@@ -87,6 +87,7 @@
     renderWallets(balances);
     renderSyncStatus(lastSync, lastModified);
     populateWalletSelects();
+    if (window.UangiiModules) window.UangiiModules.render(state);
   }
 
   function renderDashboard(balances) {
@@ -270,6 +271,8 @@
       dashboard: ['Beranda', 'Ringkasan saldo, arus kas bulan ini, dan input cepat.'],
       transactions: ['Riwayat Transaksi', 'Cari, saring per bulan, edit, dan ekspor catatan keuanganmu.'],
       wallets: ['Dompet & RDN', 'Kelola saldo tunai, rekening bank, e-wallet, dan kas investasi.'],
+      investments: ['Portofolio Investasi', 'Pantau saham, reksa dana, emas, kripto, Average Price, dan Floating P/L.'],
+      planning: ['Perencanaan Keuangan', 'Kelola anggaran bulanan, target tabungan, tagihan rutin, serta hutang & piutang.'],
       sync: ['Sync & Cadangan', 'Cadangan terenkripsi Google Drive & file lokal untuk menjaga datamu tetap aman.']
     };
     const [t, s] = titles[name] || titles.dashboard;
@@ -777,6 +780,7 @@
 
   window.addEventListener('DOMContentLoaded', async () => {
     bindEvents();
+    if (window.UangiiModules) window.UangiiModules.init(refreshState, toast);
     setupOnboarding();
     setupVipGate();
     await refreshState();

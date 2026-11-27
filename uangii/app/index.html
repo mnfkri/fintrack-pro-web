@@ -41,6 +41,14 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h2"/></svg>
           Dompet &amp; RDN
         </button>
+        <button type="button" class="nav-item" data-nav="investments">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+          Investasi
+        </button>
+        <button type="button" class="nav-item" data-nav="planning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          Perencanaan
+        </button>
         <button type="button" class="nav-item" data-nav="sync">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a7 7 0 0 0-6.8 5.3A4.5 4.5 0 0 0 6.5 17H18a4 4 0 0 0 .8-7.9A7 7 0 0 0 12 3Z"/></svg>
           Sync &amp; Cadangan
@@ -78,6 +86,11 @@
           <button type="submit" class="btn btn-primary btn-sm">Catat</button>
         </form>
         <div class="quick-hint" id="quickHint"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;">
+          <button type="button" class="btn btn-ghost btn-sm" data-nav="investments">📈 Portofolio Investasi</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-nav="planning">🎯 Anggaran, Target &amp; Hutang</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-nav="sync">☁️ Sync &amp; Cadangan</button>
+        </div>
 
         <div class="grid-3">
           <article class="card">
@@ -173,6 +186,205 @@
               <button type="submit" class="btn btn-primary" id="walletSubmitBtn" style="width:100%;">Simpan Dompet</button>
             </form>
           </article>
+        </div>
+      </section>
+
+      <!-- VIEW: INVESTMENTS -->
+      <section class="view" id="view-investments">
+        <div class="grid-3">
+          <article class="card">
+            <div class="stat-label">Total Nilai Portofolio</div>
+            <div class="stat-value" id="invTotalValue">Rp 0</div>
+            <div class="stat-sub">Berdasarkan harga terkini manual</div>
+          </article>
+          <article class="card">
+            <div class="stat-label">Total Modal (Cost Basis)</div>
+            <div class="stat-value" id="invTotalCost">Rp 0</div>
+            <div class="stat-sub">Average Price × Total Unit</div>
+          </article>
+          <article class="card">
+            <div class="stat-label">Floating P/L</div>
+            <div class="stat-value" id="invFloatingPL">Rp 0 (0%)</div>
+            <div class="stat-sub">Keuntungan / kerugian belum terealisasi</div>
+          </article>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-head"><h2>Daftar Aset Portofolio</h2></div>
+            <div class="wallet-grid" id="invList"></div>
+          </article>
+          <article class="card">
+            <div class="card-head"><h2>Tambah Aset Investasi</h2></div>
+            <form id="invForm">
+              <div class="field">
+                <label for="invTicker">Kode / Ticker</label>
+                <input type="text" id="invTicker" class="input" placeholder="Contoh: BBCA.JK, ANTM, BTC" required>
+              </div>
+              <div class="field">
+                <label for="invName">Nama Aset</label>
+                <input type="text" id="invName" class="input" placeholder="Contoh: Bank Central Asia" required>
+              </div>
+              <div class="field">
+                <label for="invType">Instrumen</label>
+                <select id="invType" class="select">
+                  <option value="SAHAM">Saham</option>
+                  <option value="REKSADANA">Reksa Dana</option>
+                  <option value="EMAS">Emas</option>
+                  <option value="KRIPTO">Kripto</option>
+                  <option value="OBLIGASI">Obligasi / SBN</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="invUnits">Jumlah Unit / Lembar</label>
+                <input type="number" id="invUnits" class="input" placeholder="100" min="0.0001" step="any" required>
+              </div>
+              <div class="field">
+                <label for="invAvg">Harga Rata-rata Beli (Rp)</label>
+                <input type="number" id="invAvg" class="input" placeholder="9400" min="1" step="any" required>
+              </div>
+              <div class="field">
+                <label for="invCur">Harga Terkini (Rp)</label>
+                <input type="number" id="invCur" class="input" placeholder="10250" min="1" step="any">
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Aset</button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <!-- VIEW: PLANNING (ANGGARAN, TARGET, TAGIHAN, HUTANG/PIUTANG) -->
+      <section class="view" id="view-planning">
+        <div class="seg-tabs" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;" role="tablist">
+          <button type="button" class="seg-btn active" data-plan-tab="budgets">Anggaran</button>
+          <button type="button" class="seg-btn" data-plan-tab="goals">Target Tabungan</button>
+          <button type="button" class="seg-btn" data-plan-tab="recurring">Tagihan Rutin</button>
+          <button type="button" class="seg-btn" data-plan-tab="debts">Hutang &amp; Piutang</button>
+        </div>
+
+        <!-- Sub-panel: Budgets -->
+        <div class="plan-panel" id="plan-budgets">
+          <div class="grid-2">
+            <article class="card">
+              <div class="card-head"><h2>Anggaran Bulanan</h2></div>
+              <div class="tx-list" id="budgetList"></div>
+            </article>
+            <article class="card">
+              <div class="card-head"><h2>Tambah Anggaran</h2></div>
+              <form id="budgetForm">
+                <div class="field">
+                  <label for="budgetCategory">Kategori Pengeluaran</label>
+                  <select id="budgetCategory" class="select"></select>
+                </div>
+                <div class="field">
+                  <label for="budgetAmount">Batas Bulanan (Rp)</label>
+                  <input type="number" id="budgetAmount" class="input" placeholder="2500000" min="1000" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Anggaran</button>
+              </form>
+            </article>
+          </div>
+        </div>
+
+        <!-- Sub-panel: Savings Goals -->
+        <div class="plan-panel" id="plan-goals" style="display:none;">
+          <div class="grid-2">
+            <article class="card">
+              <div class="card-head"><h2>Target Tabungan &amp; Dana Darurat</h2></div>
+              <div class="tx-list" id="goalList"></div>
+            </article>
+            <article class="card">
+              <div class="card-head"><h2>Tambah Target Baru</h2></div>
+              <form id="goalForm">
+                <div class="field">
+                  <label for="goalName">Nama Target</label>
+                  <input type="text" id="goalName" class="input" placeholder="Contoh: Dana Darurat 12 Bulan" required>
+                </div>
+                <div class="field">
+                  <label for="goalTarget">Target Nominal (Rp)</label>
+                  <input type="number" id="goalTarget" class="input" placeholder="50000000" min="1000" required>
+                </div>
+                <div class="field">
+                  <label for="goalCurrent">Saldo Terkumpul Saat Ini (Rp)</label>
+                  <input type="number" id="goalCurrent" class="input" placeholder="0" min="0">
+                </div>
+                <div class="field">
+                  <label for="goalDate">Target Tanggal</label>
+                  <input type="date" id="goalDate" class="input">
+                </div>
+                <label style="display:flex;align-items:center;gap:8px;font-size:.86rem;margin-bottom:14px;cursor:pointer;">
+                  <input type="checkbox" id="goalEmergency"> Tandai sebagai Dana Darurat
+                </label>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Target</button>
+              </form>
+            </article>
+          </div>
+        </div>
+
+        <!-- Sub-panel: Recurring Payments -->
+        <div class="plan-panel" id="plan-recurring" style="display:none;">
+          <div class="grid-2">
+            <article class="card">
+              <div class="card-head"><h2>Tagihan Rutin Bulanan</h2></div>
+              <div class="tx-list" id="recurringList"></div>
+            </article>
+            <article class="card">
+              <div class="card-head"><h2>Tambah Tagihan Rutin</h2></div>
+              <form id="recurringForm">
+                <div class="field">
+                  <label for="recTitle">Nama Tagihan</label>
+                  <input type="text" id="recTitle" class="input" placeholder="Contoh: Internet Fiber, Listrik PLN" required>
+                </div>
+                <div class="field">
+                  <label for="recAmount">Nominal (Rp)</label>
+                  <input type="number" id="recAmount" class="input" placeholder="450000" min="1000" required>
+                </div>
+                <div class="field">
+                  <label for="recDay">Tanggal Jatuh Tempo (1–31)</label>
+                  <input type="number" id="recDay" class="input" placeholder="5" min="1" max="31" value="1" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Tagihan</button>
+              </form>
+            </article>
+          </div>
+        </div>
+
+        <!-- Sub-panel: Debts & Receivables -->
+        <div class="plan-panel" id="plan-debts" style="display:none;">
+          <div class="grid-2">
+            <article class="card">
+              <div class="card-head"><h2>Daftar Hutang &amp; Piutang</h2></div>
+              <div class="tx-list" id="debtList"></div>
+            </article>
+            <article class="card">
+              <div class="card-head"><h2>Tambah Catatan</h2></div>
+              <form id="debtForm">
+                <div class="field">
+                  <label for="debtType">Jenis</label>
+                  <select id="debtType" class="select">
+                    <option value="HUTANG">Hutang (Saya berutang)</option>
+                    <option value="PIUTANG">Piutang (Orang lain berutang ke saya)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="debtPerson">Nama Pihak</label>
+                  <input type="text" id="debtPerson" class="input" placeholder="Contoh: Raka Pratama" required>
+                </div>
+                <div class="field">
+                  <label for="debtTotal">Total Nominal (Rp)</label>
+                  <input type="number" id="debtTotal" class="input" placeholder="1500000" min="1000" required>
+                </div>
+                <div class="field">
+                  <label for="debtDue">Jatuh Tempo</label>
+                  <input type="date" id="debtDue" class="input">
+                </div>
+                <div class="field">
+                  <label for="debtNotes">Catatan</label>
+                  <input type="text" id="debtNotes" class="input" placeholder="Keterangan singkat">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Catatan</button>
+              </form>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -360,6 +572,7 @@
   <script src="db.js"></script>
   <script src="drive-sync.js"></script>
   <script src="vip-auth.js"></script>
+  <script src="modules.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
