@@ -18,7 +18,7 @@ window.UANGII_WEB_CONFIG = {
   // Isi dengan Google OAuth 2.0 Web Client ID dari Google Cloud Console
   // Authorized JavaScript origins: https://fintrack.digital
   // Scope: https://www.googleapis.com/auth/drive.appdata
-  googleClientId: '',
+  googleClientId: '897060124265-vcv2aho4mph0si8jahstmnsl3fk1pjef.apps.googleusercontent.com',
   driveFileName: 'uangii-web-vault-v1.json',
   defaultWallets: [
     { id: 'w-cash', name: 'Tunai', type: 'cash', initialBalance: 500000, currency: 'IDR', color: '#30D158' },
