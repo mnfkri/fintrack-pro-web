@@ -6,10 +6,12 @@ window.UANGII_WEB_CONFIG = {
   // Firebase Web Config — ambil apiKey & appId dari:
   // Firebase Console -> Project Settings -> General -> Your apps (Web App)
   firebase: {
-    apiKey: '',
+    apiKey: 'AIzaSyD9NohO9ERudLRZd1npwlBV67Q5DVf9kpA',
     authDomain: 'fintrack-pro-2419e.firebaseapp.com',
     projectId: 'fintrack-pro-2419e',
-    appId: ''
+    storageBucket: 'fintrack-pro-2419e.firebasestorage.app',
+    messagingSenderId: '897060124265',
+    appId: '1:897060124265:web:f34800243bc2e99d0494f8'
   },
   // Kunci Uangii Web khusus akun dengan entitlement VIP aktif di users/{uid}/entitlements
   vipGateEnabled: true,
