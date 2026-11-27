@@ -1,0 +1,3 @@
+{
+  "install": "node --check script.js && for f in uangii/*.js; do node --check \"$f\"; done"
+}
