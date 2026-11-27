@@ -443,3 +443,142 @@ dialog.app-modal::backdrop { background: rgba(0, 0, 0, .78); backdrop-filter: bl
 }
 .vip-user-box strong { display: block; color: var(--accent); font-size: .8rem; }
 .vip-user-box span { display: block; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+
+/* ===== Rich Micro-Interactions, Ambient Depth & Smooth Animations ===== */
+body {
+  background-image:
+    radial-gradient(ellipse 60% 40% at 15% -10%, rgba(48, 209, 88, 0.09), transparent 65%),
+    radial-gradient(ellipse 50% 35% at 90% 10%, rgba(6, 182, 212, 0.07), transparent 60%);
+  background-attachment: fixed;
+}
+
+@keyframes viewEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes barGrow {
+  from { transform: scaleY(0); opacity: .3; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes ringDraw {
+  from { stroke-dashoffset: 270; }
+}
+
+@keyframes statPop {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.045); color: var(--accent); }
+  100% { transform: scale(1); }
+}
+
+.view.active {
+  animation: viewEnter .32s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+dialog.app-modal[open],
+.vip-gate:not([hidden]) .vip-gate-card {
+  animation: modalPop .26s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+/* Interactive Card Elevation & Cursor Spotlight */
+.card, .wallet-card {
+  position: relative;
+  overflow: hidden;
+  transition: border-color .22s ease, transform .22s cubic-bezier(.22, 1, .36, 1), box-shadow .22s ease;
+}
+.card::after, .wallet-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(183, 245, 138, 0.08), transparent 65%);
+  transition: opacity .25s ease;
+}
+.card:hover::after, .wallet-card:hover::after { opacity: 1; }
+.wallet-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  box-shadow: 0 12px 30px -16px rgba(0, 0, 0, .75);
+}
+
+/* Transaction Row Hover Micro-Interaction */
+.tx-row {
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.tx-row:hover {
+  border-color: rgba(183, 245, 138, 0.26);
+  background: rgba(22, 36, 29, 0.9);
+  transform: translateX(2px);
+}
+
+/* Tactile Buttons & Nav Items */
+.btn {
+  transition: transform .16s cubic-bezier(.22, 1, .36, 1), filter .16s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -8px rgba(183, 245, 138, 0.45);
+}
+.btn-ghost:hover { transform: translateY(-1px); }
+.btn:focus-visible, .input:focus-visible, .select:focus-visible, .nav-item:focus-visible, .seg-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nav-item svg {
+  transition: transform .2s cubic-bezier(.22, 1, .36, 1);
+}
+.nav-item:hover svg, .nav-item.active svg {
+  transform: scale(1.1);
+}
+
+.seg-btn {
+  transition: background .2s ease, color .2s ease, transform .15s ease;
+}
+.seg-btn:active { transform: scale(.97); }
+
+/* Animated Progress Bars & SVG Charts */
+.cat-fill {
+  transition: width .65s cubic-bezier(.22, 1, .36, 1);
+}
+.bar-anim {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: barGrow .55s cubic-bezier(.22, 1, .36, 1) both;
+  transition: filter .18s ease, opacity .18s ease;
+}
+.bar-inc { fill: #30d158; }
+.bar-exp { fill: #f87171; }
+.chart-col:hover .bar-anim { filter: brightness(1.2); }
+
+.ring-anim {
+  animation: ringDraw .75s cubic-bezier(.22, 1, .36, 1) both;
+  transition: stroke-dashoffset .65s cubic-bezier(.22, 1, .36, 1);
+}
+
+.is-popping {
+  animation: statPop .36s cubic-bezier(.22, 1, .36, 1);
+}
+
+.quick-bar {
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.quick-bar:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(183, 245, 138, 0.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

@@ -49,6 +49,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
           Perencanaan
         </button>
+        <button type="button" class="nav-item" data-nav="analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19h16"/><rect x="6" y="10" width="3" height="6" rx="1"/><rect x="11" y="6" width="3" height="10" rx="1"/><rect x="16" y="12" width="3" height="4" rx="1"/></svg>
+          Analitik
+        </button>
         <button type="button" class="nav-item" data-nav="sync">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a7 7 0 0 0-6.8 5.3A4.5 4.5 0 0 0 6.5 17H18a4 4 0 0 0 .8-7.9A7 7 0 0 0 12 3Z"/></svg>
           Sync &amp; Cadangan
@@ -62,7 +66,7 @@
         </div>
         <div class="sync-pill">
           <span class="sync-dot" id="sidebarSyncDot"></span>
-          <span id="sidebarSyncText">Lokal (IndexedDB)</span>
+          <span id="sidebarSyncText">Tersimpan Lokal</span>
         </div>
         <button type="button" class="btn btn-ghost btn-sm" id="btnVipSignOut" style="display:none;">Keluar Akun</button>
         <a class="btn btn-ghost btn-sm" href="../">← Website Uangii</a>
@@ -87,9 +91,10 @@
         </form>
         <div class="quick-hint" id="quickHint"></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;">
-          <button type="button" class="btn btn-ghost btn-sm" data-nav="investments">📈 Portofolio Investasi</button>
-          <button type="button" class="btn btn-ghost btn-sm" data-nav="planning">🎯 Anggaran, Target &amp; Hutang</button>
-          <button type="button" class="btn btn-ghost btn-sm" data-nav="sync">☁️ Sync &amp; Cadangan</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-nav="investments">📈 Investasi</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-nav="planning">🎯 Perencanaan</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-nav="analytics">📊 Analitik</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-nav="sync">☁️ Sync</button>
         </div>
 
         <div class="grid-3">
@@ -388,6 +393,46 @@
         </div>
       </section>
 
+      <!-- VIEW: ANALYTICS (BATCH 2) -->
+      <section class="view" id="view-analytics">
+        <div class="grid-3">
+          <article class="card">
+            <div class="stat-label">Saving Rate</div>
+            <div class="stat-value" id="anSavingRate">0%</div>
+            <div class="stat-sub" id="anSavingSub">Bulan ini</div>
+          </article>
+          <article class="card">
+            <div class="stat-label">Rata-rata Harian</div>
+            <div class="stat-value" id="anDailyBurn">Rp 0</div>
+            <div class="stat-sub" id="anDailySub">Pengeluaran per hari</div>
+          </article>
+          <article class="card">
+            <div class="stat-label">Emergency Runway</div>
+            <div class="stat-value" id="anRunway">—</div>
+            <div class="stat-sub" id="anRunwaySub">Ketahanan dana darurat</div>
+          </article>
+        </div>
+
+        <article class="card" style="margin-bottom:18px;">
+          <div class="card-head">
+            <h2>Arus Kas 6 Bulan Terakhir</h2>
+            <span class="stat-label">Pemasukan vs Pengeluaran</span>
+          </div>
+          <div id="anCashflowChart"></div>
+        </article>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-head"><h2>Skor Kesehatan 50 / 30 / 20</h2></div>
+            <div id="anHealthBox"></div>
+          </article>
+          <article class="card">
+            <div class="card-head"><h2>Alokasi Kekayaan</h2></div>
+            <div id="anWealthDonut"></div>
+          </article>
+        </div>
+      </section>
+
       <!-- VIEW: SYNC & BACKUP -->
       <section class="view" id="view-sync">
         <div class="grid-2">
@@ -573,6 +618,7 @@
   <script src="drive-sync.js"></script>
   <script src="vip-auth.js"></script>
   <script src="modules.js"></script>
+  <script src="analytics.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

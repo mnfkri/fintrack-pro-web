@@ -88,6 +88,7 @@
     renderSyncStatus(lastSync, lastModified);
     populateWalletSelects();
     if (window.UangiiModules) window.UangiiModules.render(state);
+    if (window.UangiiAnalytics) window.UangiiAnalytics.render(state);
   }
 
   function renderDashboard(balances) {
@@ -273,11 +274,13 @@
       wallets: ['Dompet & RDN', 'Kelola saldo tunai, rekening bank, e-wallet, dan kas investasi.'],
       investments: ['Portofolio Investasi', 'Pantau saham, reksa dana, emas, kripto, Average Price, dan Floating P/L.'],
       planning: ['Perencanaan Keuangan', 'Kelola anggaran bulanan, target tabungan, tagihan rutin, serta hutang & piutang.'],
+      analytics: ['Analitik Visual', 'Arus kas 6 bulan, skor kesehatan 50/30/20, Emergency Runway, dan alokasi kekayaan.'],
       sync: ['Sync & Cadangan', 'Cadangan terenkripsi Google Drive & file lokal untuk menjaga datamu tetap aman.']
     };
     const [t, s] = titles[name] || titles.dashboard;
     $('pageTitle').textContent = t;
     $('pageSub').textContent = s;
+    if (name === 'analytics' && window.UangiiAnalytics) window.UangiiAnalytics.render(state);
   }
 
   function openTxModal(type = 'expense', existingTx = null) {
@@ -778,8 +781,27 @@
     }
   }
 
+  function setupMicroInteractions() {
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let frame = 0;
+    document.body.addEventListener('pointermove', (e) => {
+      const card = e.target.closest('.card, .wallet-card');
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+      });
+    }, { passive: true });
+  }
+
   window.addEventListener('DOMContentLoaded', async () => {
     bindEvents();
+    setupMicroInteractions();
     if (window.UangiiModules) window.UangiiModules.init(refreshState, toast);
     setupOnboarding();
     setupVipGate();
