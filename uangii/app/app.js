@@ -410,10 +410,12 @@
         amount,
         category: $('txCategory').value,
         description: ($('txDesc').value || '').trim() || $('txCategory').value,
+        notes: existing ? (existing.notes || '') : '',
         walletId,
         toWalletId,
         date: $('txDate').value || todayISO(),
-        createdAt: existing ? existing.createdAt : new Date().toISOString()
+        createdAt: existing ? existing.createdAt : new Date().toISOString(),
+        _raw: existing?._raw || undefined
       };
       await window.UangiiDB.putTransaction(tx);
       state.editingTxId = null;
@@ -485,14 +487,16 @@
       e.preventDefault();
       const name = ($('walletName').value || '').trim();
       if (!name) return;
-      const isEdit = Boolean(state.editingWalletId);
+      const existingW = state.editingWalletId ? state.wallets.find((x) => x.id === state.editingWalletId) : null;
+      const isEdit = Boolean(existingW);
       const w = {
-        id: state.editingWalletId || ('w-' + Date.now()),
+        id: existingW ? existingW.id : ('w-' + Date.now()),
         name,
         type: $('walletType').value,
         initialBalance: Number($('walletBalance').value) || 0,
-        currency: 'IDR',
-        color: $('walletColor').value || '#30D158'
+        currency: existingW?.currency || 'IDR',
+        color: $('walletColor').value || '#30D158',
+        _raw: existingW?._raw || undefined
       };
       await window.UangiiDB.putWallet(w);
       resetWalletForm();
@@ -755,6 +759,10 @@
     });
 
     const handleSignOut = async () => {
+      if (confirm('Hapus juga data lokal di browser ini saat keluar? (Pilih OK untuk komputer bersama, Batal untuk tetap menyimpan data lokal.)')) {
+        window.UangiiDriveSync.disconnect();
+        await window.UangiiDB.wipeAllData();
+      }
       await window.UangiiVipAuth.signOut();
       toast('Berhasil keluar akun.');
     };

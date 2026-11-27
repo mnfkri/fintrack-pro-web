@@ -48,8 +48,8 @@
   // Encrypts into Android FINTRACK_ENC_V2 string format:
   // "FINTRACK_ENC_V2:" + Base64([4-byte BE iterations][16-byte salt][12-byte iv][ciphertext+16-byte tag])
   async function encryptVault(payloadObj, passphrase) {
-    if (!passphrase || passphrase.length < 4) {
-      throw new Error('Masukkan sandi cadangan (minimal 4 karakter).');
+    if (!passphrase || passphrase.length < 8) {
+      throw new Error('Sandi cadangan baru minimal 8 karakter.');
     }
     const iterations = V2_DEFAULT_ITERATIONS;
     const salt = crypto.getRandomValues(new Uint8Array(16));
