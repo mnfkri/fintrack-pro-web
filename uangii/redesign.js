@@ -170,4 +170,41 @@
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
     }
   });
+
+  // Tactile ink ripple on all buttons
+  document.body.addEventListener('pointerdown', (e) => {
+    if (reduced.matches || paused) return;
+    const btn = e.target.closest('.btn');
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 0.65;
+    const ripple = document.createElement('span');
+    ripple.className = 'u-btn-ripple';
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+    ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 580);
+  }, { passive: true });
+
+  // Subtle magnetic pull on primary CTA buttons (desktop fine pointer)
+  if (finePointer.matches) {
+    document.querySelectorAll('.btn-primary').forEach((btn) => {
+      let raf = 0;
+      btn.addEventListener('pointermove', (e) => {
+        if (reduced.matches || paused) return;
+        const rect = btn.getBoundingClientRect();
+        const dx = ((e.clientX - rect.left) / rect.width - 0.5) * 7;
+        const dy = ((e.clientY - rect.top) / rect.height - 0.5) * 5;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          btn.style.transform = `translate(${dx.toFixed(1)}px, ${(dy - 1.5).toFixed(1)}px)`;
+        });
+      }, { passive: true });
+      btn.addEventListener('pointerleave', () => {
+        cancelAnimationFrame(raf);
+        btn.style.transform = '';
+      });
+    });
+  }
 })();
