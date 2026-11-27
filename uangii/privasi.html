@@ -1,5 +1,224 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Privasi & Kriptografi — Uangii</title><meta name="description" content="Pelajari penguncian perangkat, SQLCipher AES-256, enkripsi cadangan, dan konteks layanan AI di Uangii melalui penjelasan interaktif."><meta name="theme-color" content="#080c0b"><link rel="icon" href="assets/brand/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="redesign.css"><link rel="stylesheet" href="readability.css"><link rel="stylesheet" href="subpages.css"><script src="subpages.js" defer></script><link rel="stylesheet" href="launch.css">
-<meta property="og:image" content="https://fintrack.digital/uangii/assets/brand/uangii-social.jpg">
-<link rel="canonical" href="https://fintrack.digital/uangii/privasi.html">
-</head><body class="u-subpage"><a class="s-skip" href="#page-main">Langsung ke konten</a><div class="s-progress" aria-hidden="true"></div><header id="header"><div class="wrap nav"><a class="brand" href="index.html" aria-label="Uangii — beranda"><img src="assets/brand/uangii-icon.webp" width="38" height="38" alt=""><span class="brand-name">uangii<span class="s-accent">.</span></span></a><nav class="nav-links" aria-label="Navigasi utama"><a class="nav-btn" href="fitur.html">Fitur Andalan</a><a class="nav-btn" href="investasi.html">Investasi</a><a class="nav-btn" href="arsitektur.html">Arsitektur</a><a class="nav-btn active" href="privasi.html" aria-current="page">Privasi</a></nav><div class="nav-right"><button class="u-motion" id="pageMotion" aria-label="Jeda animasi" aria-pressed="false">Ⅱ</button><a class="btn btn-primary nav-app-btn" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh aplikasi ↗</a><button class="menu-toggle" id="pageMenu" aria-label="Buka menu" aria-expanded="false" aria-controls="pageNav">☰</button></div></div><nav class="s-mobile-nav" id="pageNav" aria-label="Menu ponsel" hidden><a href="index.html">Beranda</a><a href="fitur.html">Fitur Andalan</a><a href="investasi.html">Investasi</a><a href="arsitektur.html">Arsitektur</a><a href="privasi.html" aria-current="page">Privasi</a><a href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh aplikasi ↗</a></nav></header><main id="page-main"><div class="wrap"><a class="s-back" href="index.html">← Kembali ke beranda Uangii</a><section class="s-hero"><div><span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i>PRIVATE BY DESIGN. CLEAR BY EXPLANATION.</span><h1>Your money.<br><em>Your business.</em></h1><p class="s-lead">Privasi yang lebih mudah dipahami, bukan sekadar istilah teknis.</p><p>Kenali bagaimana Uangii menyimpan catatan, melindungi database, dan menggunakan koneksi untuk fitur yang kamu pilih.</p><div class="u-actions"><a class="btn btn-primary" href="#lapisan">Eksplorasi proteksi ↓</a><a class="btn btn-ghost" href="kebijakan-privasi.html">Baca kebijakan privasi ↗</a></div></div><div class="s-art"><div class="s-tilt" data-tilt><img src="assets/redesign/cloud-security.webp" width="1122" height="1402" alt="Ilustrasi 3D enkripsi Uangii dan pencadangan Google Drive" fetchpriority="high" decoding="async"></div></div></section><nav class="s-anchor-nav" aria-label="Bagian privasi"><a href="#lapisan">01 / Lapisan proteksi</a><a href="#kriptografi">02 / Enkripsi &amp; cadangan</a><a href="#kendali">03 / Kendali pengguna</a></nav><section class="s-section" id="lapisan"><div class="s-heading s-reveal"><span class="u-eyebrow">UNDERSTAND THE LAYERS</span><h2>Perlindungan berlapis.<br><em>Penjelasan yang terbuka.</em></h2><p>Pilih lapisan untuk memahami perannya. Visual ini menjelaskan konsep perlindungan, bukan menjalankan pemindaian atau audit perangkat.</p></div><div class="s-layer-controls" role="group" aria-label="Pilih lapisan perlindungan"><button data-layer="0" aria-pressed="true"><strong>01 / PERANGKAT</strong>Penguncian &amp; autentikasi</button><button data-layer="1" aria-pressed="false"><strong>02 / DATABASE</strong>Enkripsi catatan lokal</button><button data-layer="2" aria-pressed="false"><strong>03 / KONEKSI</strong>Cadangan &amp; konteks AI</button></div><div class="s-layer-panel"><div class="s-scene" role="img" aria-label="Gembok 3D sebagai ilustrasi lapisan keamanan"><div class="s-lock" aria-hidden="true"></div><span class="s-scene-label">Peace of mind starts with understanding.</span></div><div aria-live="polite" aria-atomic="true"><span class="s-layer-tag" id="layerTag">DEVICE ACCESS</span><h3 id="layerTitle">Mulai dari akses perangkat.</h3><p id="layerText">Kunci aplikasi membantu membatasi akses ke catatan keuangan. Autentikasi biometrik memanfaatkan mekanisme keamanan Android di perangkat yang mendukungnya.</p><div class="s-flow" id="layerFlow" aria-label="Urutan proses"><span>Kunci aplikasi</span><i aria-hidden="true">→</i><span>Autentikasi perangkat</span><i aria-hidden="true">→</i><span>Akses catatan</span></div></div></div></section><section class="s-section" id="kriptografi"><div class="s-heading s-reveal"><span class="u-eyebrow">ENCRYPTION, WITH CONTEXT</span><h2>Bedakan tempat data berada.<br><em>Pahami perlindungannya.</em></h2><p>Enkripsi database dan enkripsi cadangan melindungi data pada konteks yang berbeda.</p></div><div class="s-grid"><article class="s-card s-reveal"><span class="s-icon" aria-hidden="true">▦</span><h3>Database lokal</h3><p>SQLCipher melindungi database lokal menggunakan enkripsi AES-256. Catatan tersimpan dalam basis data aplikasi di perangkat.</p></article><article class="s-card s-reveal"><span class="s-icon" aria-hidden="true">↥</span><h3>Cadangan terenkripsi</h3><p>Data cadangan dienkripsi sebelum diunggah ke Google Drive. Proses pencadangan menggunakan AES-256-GCM dengan derivasi kunci PBKDF2.</p></article><article class="s-card s-reveal"><span class="s-icon" aria-hidden="true">✦</span><h3>Konteks untuk Fio</h3><p>Penyaringan teks membantu mengurangi informasi identitas. Dalam mode Gemini Cloud, konteks dapat memuat nominal pemasukan, pengeluaran, saldo, dan portofolio. Fio offline berjalan di perangkat.</p></article></div><div class="s-note s-reveal">Enkripsi tidak menggantikan penguncian perangkat dan pengelolaan akses akun. Lindungi perangkat serta akun cadangan yang kamu gunakan.</div></section><section class="s-section" id="kendali"><div class="s-heading s-reveal"><span class="u-eyebrow">YOUR SPACE. YOUR CONTROL.</span><h2>Catatanmu punya cerita.<br><em>Kamu yang memegang kendali.</em></h2><p>Kenali pilihan yang tersedia sebelum mengaktifkan layanan atau memindahkan data. Jika memakai sinkronisasi Ruang Keluarga, data yang dibagikan mengikuti mode berbagi dan peran anggota.</p></div><div class="s-grid"><article class="s-card s-reveal"><span class="s-icon" aria-hidden="true">↗</span><h3>Tinjau & ekspor</h3><p>Gunakan laporan PDF dan cadangan untuk meninjau serta menyimpan salinan catatan keuanganmu.</p></article><article class="s-card s-reveal"><span class="s-icon" aria-hidden="true">↔</span><h3>Pilih koneksi</h3><p>Gunakan Google Drive dan mode AI cloud sesuai pengaturan serta kebutuhanmu. Fitur terhubung memerlukan internet.</p></article><article class="s-card s-reveal"><span class="s-icon" aria-hidden="true">▤</span><h3>Baca kebijakannya</h3><p>Rincian pemrosesan data, layanan terkait, dan informasi bantuan dijelaskan dalam kebijakan privasi Uangii.</p><a href="kebijakan-privasi.html">Buka kebijakan privasi ↗</a></article></div><p class="s-small">Halaman ini menjelaskan fitur dan pendekatan keamanan Uangii. Kebijakan privasi dan syarat penggunaan tetap tersedia terpisah di halaman utama.</p></section><section class="launch-cta launch-cta--compact" id="download" aria-labelledby="launchTitle"><span id="early-access" class="launch-anchor" aria-hidden="true"></span><img class="launch-mark" src="assets/brand/uangii-mark.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><a class="launch-badge" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Uangii sudah hadir di Google Play <span aria-hidden="true">↗</span></a><h2 id="launchTitle"><span class="u-sr-only">Bikin keuanganmu lebih rapi, lebih tenang, dan lebih terarah.</span><span aria-hidden="true">Bikin keuanganmu<span class="launch-rotator" data-launch-rotator><span class="launch-word is-active">lebih rapi.</span><span class="launch-word">lebih tenang.</span><span class="launch-word">lebih terarah.</span></span></span></h2><p>Catat pengeluaran, pantau investasi, dan rapikan rencana keuanganmu bersama Uangii. Mulai sekarang dari perangkat Android-mu.</p><div class="launch-actions"><a class="btn btn-primary launch-store-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer"><svg class="launch-play-icon" viewBox="0 0 24 26" aria-hidden="true"><path d="M2 1.5 23 13 2 24.5Z"/></svg><span>Unduh di Google Play</span></a><a class="btn btn-ghost" href="index.html#product-tour">Jelajahi aplikasinya <span aria-hidden="true">↗</span></a></div><span class="launch-note">Tersedia untuk Android · Offline-first · Emtitra Production</span></section></div></main><footer><div class="wrap s-footer"><div class="s-footer-top"><a class="brand" href="index.html"><img src="assets/brand/uangii-icon.webp" width="38" height="38" alt=""><span class="brand-name">uangii<span class="s-accent">.</span></span></a><nav class="s-footer-links" aria-label="Halaman Uangii"><a href="fitur.html">Fitur Andalan</a><a href="investasi.html">Investasi</a><a href="arsitektur.html">Arsitektur</a><a href="privasi.html">Privasi</a><a href="kebijakan-privasi.html">Kebijakan privasi</a></nav></div><p>© 2026 Uangii by Emtitra Production. Built with care. Designed for clarity.</p></div></footer><script src="launch.js" defer></script>
-</body></html>
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privasi &amp; Kriptografi — Uangii</title>
+  <meta name="description" content="Pelajari penguncian perangkat, SQLCipher AES-256, filter Auto-Capture notifikasi lokal ephemeral, enkripsi cadangan AES-256-GCM, dan konteks Fio AI di Uangii 1.2.7.">
+  <meta name="theme-color" content="#080c0b">
+  <link rel="icon" href="assets/brand/favicon.png">
+  <link rel="canonical" href="https://fintrack.digital/uangii/privasi.html">
+  <meta property="og:image" content="https://fintrack.digital/uangii/assets/brand/uangii-social.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="redesign.css">
+  <link rel="stylesheet" href="readability.css">
+  <link rel="stylesheet" href="subpages.css">
+  <link rel="stylesheet" href="launch.css">
+  <link rel="stylesheet" href="catalog.css">
+  <link rel="stylesheet" href="app-scenes.css">
+  <script src="subpages.js" defer></script>
+  <script src="app-scenes.js" defer></script>
+</head>
+<body class="u-subpage">
+  <div class="u-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <a class="s-skip" href="#page-main">Langsung ke konten</a>
+  <div class="s-progress" aria-hidden="true"></div>
+  <header id="header">
+    <div class="wrap nav">
+      <a class="brand" href="index.html" aria-label="Uangii — beranda">
+        <img src="assets/brand/uangii-icon.webp" width="38" height="38" alt="">
+        <span class="brand-name">uangii<span class="s-accent">.</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a class="nav-btn" href="fitur.html">Fitur &amp; Tools</a>
+        <a class="nav-btn" href="investasi.html">Investasi</a>
+        <a class="nav-btn" href="keluarga.html">Keluarga</a>
+        <a class="nav-btn" href="arsitektur.html">Arsitektur</a>
+        <a class="nav-btn active" href="privasi.html" aria-current="page">Privasi</a>
+      </nav>
+      <div class="nav-right">
+        <button type="button" class="u-motion" id="pageMotion" aria-label="Jeda animasi" aria-pressed="false">Ⅱ</button>
+        <a class="btn btn-primary nav-app-btn" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh aplikasi ↗</a>
+        <button type="button" class="menu-toggle" id="pageMenu" aria-label="Buka menu" aria-expanded="false" aria-controls="pageNav">☰</button>
+      </div>
+    </div>
+    <nav class="s-mobile-nav" id="pageNav" aria-label="Menu ponsel" hidden>
+      <a href="index.html">Beranda</a>
+      <a href="fitur.html">Fitur &amp; Tools</a>
+      <a href="investasi.html">Investasi</a>
+      <a href="keluarga.html">Ruang Keluarga</a>
+      <a href="arsitektur.html">Arsitektur</a>
+      <a href="privasi.html" aria-current="page">Privasi</a>
+      <a href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh aplikasi ↗</a>
+    </nav>
+  </header>
+
+  <main id="page-main">
+    <div class="wrap">
+      <a class="s-back" href="index.html">← Kembali ke beranda Uangii</a>
+
+      <section class="s-hero">
+        <div>
+          <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> PRIVATE BY DESIGN. CLEAR BY EXPLANATION.</span>
+          <h1>Your money.<br><em>Your business.</em></h1>
+          <p class="s-lead">Privasi yang jujur dan mudah dipahami, bukan sekadar klaim mutlak.</p>
+          <p>Kenali bagaimana Uangii 1.2.7 mengenkripsi database lokal, menyaring notifikasi transaksi di memori perangkat, melindungi cadangan Drive, dan mengelola konteks untuk fitur cloud pilihanmu.</p>
+          <div class="u-actions">
+            <a class="btn btn-primary" href="#lapisan">Eksplorasi proteksi ↓</a>
+            <a class="btn btn-ghost" href="kebijakan-privasi.html">Baca kebijakan privasi ↗</a>
+          </div>
+        </div>
+        <div class="s-reveal">
+          <div data-app-canvas="vault"></div>
+          <p class="us-art-note">Ilustrasi arsitektur keamanan berlapis Uangii 1.2.7</p>
+        </div>
+      </section>
+
+      <nav class="s-anchor-nav" aria-label="Bagian privasi">
+        <a href="#lapisan">01 / Lapisan proteksi</a>
+        <a href="#kriptografi">02 / Enkripsi &amp; Auto-Capture</a>
+        <a href="#kendali">03 / Kendali pengguna</a>
+      </nav>
+
+      <section class="s-section" id="lapisan">
+        <div class="s-heading s-reveal">
+          <span class="u-eyebrow">UNDERSTAND THE LAYERS</span>
+          <h2>Perlindungan berlapis.<br><em>Penjelasan yang terbuka.</em></h2>
+          <p>Pilih lapisan untuk memahami perannya. Visual ini menjelaskan konsep perlindungan arsitektur Uangii.</p>
+        </div>
+        <div class="s-layer-controls" role="group" aria-label="Pilih lapisan perlindungan">
+          <button type="button" data-layer="0" aria-pressed="true"><strong>01 / PERANGKAT</strong>Penguncian &amp; autentikasi</button>
+          <button type="button" data-layer="1" aria-pressed="false"><strong>02 / DATABASE &amp; NOTIFIKASI</strong>SQLCipher &amp; filter lokal</button>
+          <button type="button" data-layer="2" aria-pressed="false"><strong>03 / KONEKSI OPSIONAL</strong>Cadangan, Fio &amp; Keluarga</button>
+        </div>
+        <div class="s-layer-panel">
+          <div class="s-scene" role="img" aria-label="Gembok 3D sebagai ilustrasi lapisan keamanan">
+            <div class="s-lock" aria-hidden="true"></div>
+            <span class="s-scene-label">Peace of mind starts with understanding.</span>
+          </div>
+          <div aria-live="polite" aria-atomic="true">
+            <span class="s-layer-tag" id="layerTag">DEVICE ACCESS</span>
+            <h3 id="layerTitle">Mulai dari akses perangkat.</h3>
+            <p id="layerText">Kunci aplikasi membantu membatasi akses ke catatan keuangan. Autentikasi biometrik memanfaatkan Android BiometricPrompt API di perangkat yang mendukungnya.</p>
+            <div class="s-flow" id="layerFlow" aria-label="Urutan proses">
+              <span>Kunci aplikasi</span><i aria-hidden="true">→</i><span>Autentikasi perangkat</span><i aria-hidden="true">→</i><span>Akses catatan</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="s-section" id="kriptografi">
+        <div class="s-heading s-reveal">
+          <span class="u-eyebrow">ENCRYPTION, WITH CONTEXT</span>
+          <h2>Bedakan tempat data berada.<br><em>Pahami perlindungannya.</em></h2>
+          <p>Setiap jalur penyimpanan dan pemrosesan memiliki perlindungan serta batasan tanggung jawabnya masing-masing.</p>
+        </div>
+        <div class="s-grid" data-stagger>
+          <article class="s-card u-spot">
+            <span class="s-icon" aria-hidden="true">▦</span>
+            <h3>Database lokal SQLCipher</h3>
+            <p>SQLCipher melindungi database utama di perangkat menggunakan enkripsi AES-256 dengan kunci yang dikelola melalui Android Keystore.</p>
+          </article>
+          <article class="s-card u-spot">
+            <span class="s-icon" aria-hidden="true">🔔</span>
+            <h3>Auto-Capture 100% lokal</h3>
+            <p>Fitur opsional membaca notifikasi bank/e-wallet pilihan secara <em>ephemeral</em> di memori. OTP, PIN, sandi, dan promo dibuang otomatis; teks mentah tidak disimpan atau dikirim ke server.</p>
+          </article>
+          <article class="s-card u-spot">
+            <span class="s-icon" aria-hidden="true">↥</span>
+            <h3>Cadangan AES-256-GCM</h3>
+            <p>Cadangan file <code>.fintrack</code> dan Google Drive dapat dilindungi sandi brankas AES-256-GCM + derivasi kunci PBKDF2 sebelum diunggah. Pengembang tidak menyimpan sandi brankasmu.</p>
+          </article>
+          <article class="s-card u-spot">
+            <span class="s-icon" aria-hidden="true">✦</span>
+            <h3>Konteks untuk Fio AI</h3>
+            <p>Fio offline berjalan di perangkat. Pada mode Gemini Cloud, penyaringan PII membantu mengurangi informasi identitas, namun konteks nominal finansial tetap dikirim sesuai pertanyaanmu.</p>
+          </article>
+          <article class="s-card u-spot">
+            <span class="s-icon" aria-hidden="true">◇</span>
+            <h3>Privasi Ruang Keluarga</h3>
+            <p>Dompet pribadi mendukung kontrol <code>PRIVATE</code>, <code>SUMMARY</code>, dan <code>FULL</code> agar kamu selalu tahu mana yang dibagikan ke anggota keluarga.</p>
+          </article>
+          <article class="s-card u-spot">
+            <span class="s-icon" aria-hidden="true">🗑️</span>
+            <h3>Penghapusan Akun Cloud</h3>
+            <p>Tersedia langsung dari menu Pengaturan aplikasi maupun halaman web penghapusan akun tanpa harus menghapus catatan lokalmu.</p>
+            <a href="hapus-akun.html">Panduan hapus akun ↗</a>
+          </article>
+        </div>
+        <div class="s-note s-reveal">Enkripsi tidak menggantikan kebiasaan keamanan perangkat. Jaga kunci layar ponsel, akun Google, dan kata sandi brankas cadanganmu karena kehilangan kata sandi cadangan tidak dapat dipulihkan oleh pengembang.</div>
+      </section>
+
+      <section class="s-section" id="kendali">
+        <div class="s-heading s-reveal">
+          <span class="u-eyebrow">YOUR SPACE. YOUR CONTROL.</span>
+          <h2>Catatanmu punya cerita.<br><em>Kamu yang memegang kendali.</em></h2>
+          <p>Kenali pilihan yang tersedia sebelum mengaktifkan layanan cloud, Auto-Capture Notifikasi, atau sinkronisasi Ruang Keluarga.</p>
+        </div>
+        <div class="s-grid" data-stagger>
+          <article class="s-card u-spot">
+            <span class="s-icon" aria-hidden="true">↗</span>
+            <h3>Tinjau &amp; ekspor</h3>
+            <p>Ekspor laporan PDF, CSV, atau cadangan terenkripsi kapan saja; tinjau privasi sebelum membagikan berkas terbuka.</p>
+          </article>
+          <article class="s-card u-spot">
+            <span class="s-icon" aria-hidden="true">↔</span>
+            <h3>Cabut izin kapan saja</h3>
+            <p>Izin Akses Notifikasi (UU PDP Pasal 40), mode Gemini Cloud, dan cadangan Google Drive sepenuhnya opsional dan dapat dinonaktifkan kapan saja.</p>
+          </article>
+          <article class="s-card u-spot">
+            <span class="s-icon" aria-hidden="true">▤</span>
+            <h3>Baca dokumen resmi</h3>
+            <p>Rincian pemrosesan data, hak subjek data, dan ketentuan layanan dijelaskan terbuka dalam dokumen resmi Uangii.</p>
+            <a href="kebijakan-privasi.html">Buka Kebijakan Privasi ↗</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="launch-cta launch-cta--compact" id="download" aria-labelledby="launchTitle">
+        <span id="early-access" class="launch-anchor" aria-hidden="true"></span>
+        <img class="launch-mark" src="assets/brand/uangii-mark.webp" width="96" height="96" alt="" loading="lazy" decoding="async">
+        <a class="launch-badge" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Uangii 1.2.7 sudah hadir di Google Play <span aria-hidden="true">↗</span></a>
+        <h2 id="launchTitle">
+          <span class="u-sr-only">Bikin keuanganmu lebih rapi, lebih tenang, dan lebih terarah.</span>
+          <span aria-hidden="true">Bikin keuanganmu<span class="launch-rotator" data-launch-rotator><span class="launch-word is-active">lebih rapi.</span><span class="launch-word">lebih tenang.</span><span class="launch-word">lebih terarah.</span></span></span>
+        </h2>
+        <p>Mulai pencatatan keuangan yang lebih tenang dan tetap berada dalam kendalimu.</p>
+        <div class="launch-actions">
+          <a class="btn btn-primary launch-store-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">
+            <svg class="launch-play-icon" viewBox="0 0 24 26" aria-hidden="true"><path d="M2 1.5 23 13 2 24.5Z"/></svg>
+            <span>Unduh di Google Play</span>
+          </a>
+          <a class="btn btn-ghost" href="kebijakan-privasi.html">Kebijakan Privasi <span aria-hidden="true">↗</span></a>
+        </div>
+        <span class="launch-note">Tersedia untuk Android · Offline-first · Emtitra Production</span>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap s-footer">
+      <div class="s-footer-top">
+        <a class="brand" href="index.html">
+          <img src="assets/brand/uangii-icon.webp" width="38" height="38" alt="">
+          <span class="brand-name">uangii<span class="s-accent">.</span></span>
+        </a>
+        <nav class="s-footer-links" aria-label="Halaman Uangii">
+          <a href="fitur.html">Fitur &amp; Tools</a>
+          <a href="investasi.html">Investasi</a>
+          <a href="keluarga.html">Keluarga</a>
+          <a href="arsitektur.html">Arsitektur</a>
+          <a href="privasi.html">Privasi</a>
+          <a href="kebijakan-privasi.html">Kebijakan Privasi</a>
+          <a href="ketentuan.html">Ketentuan</a>
+          <a href="hapus-akun.html">Hapus Akun</a>
+        </nav>
+      </div>
+      <p>© 2026 Uangii by Emtitra Production. Built with care. Designed for clarity.</p>
+    </div>
+  </footer>
+  <script src="launch.js" defer></script>
+</body>
+</html>

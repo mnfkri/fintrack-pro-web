@@ -2,7 +2,8 @@
 .launch-cta{position:relative;isolation:isolate;text-align:center;margin:55px 0 80px;padding:70px 32px;border:1px solid #98d3a240;border-radius:28px;background:radial-gradient(ellipse at 50% 115%,#3b753e66,transparent 65%),#101c14;overflow:hidden}
 .launch-cta:before{content:'';position:absolute;width:80%;height:80%;left:10%;bottom:-55%;border:1px solid #b7f58a24;border-radius:50%;z-index:-1;transform:rotateX(45deg)}
 .launch-cta .launch-mark{display:block;width:96px;height:96px;object-fit:contain;margin:0 auto 25px;filter:drop-shadow(0 12px 24px #50d78730);animation:launch-float 7s ease-in-out infinite}
-.launch-cta .launch-badge{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid #b7f58a36;border-radius:999px;background:#b7f58a09;color:#c8e9bd;padding:10px 18px;font-size:14px;line-height:1.6;text-decoration:none;max-width:100%}
+.launch-cta .launch-badge{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid #b7f58a36;border-radius:999px;background:#b7f58a09;color:#c8e9bd;padding:10px 18px;font-size:14px;line-height:1.6;text-decoration:none;max-width:100%;transition:transform .25s ease,border-color .25s ease}
+.launch-cta .launch-badge:hover{transform:translateY(-2px);border-color:#b7f58a}
 .launch-cta h2{font-weight:500;letter-spacing:-.055em;line-height:1.2;font-size:clamp(38px,5vw,68px);margin:25px auto 20px;max-width:950px;color:#f1f5ee}
 .launch-cta .launch-rotator{display:grid;overflow:hidden;position:relative;padding:.1em 0 .18em;line-height:1.25;min-width:0}
 .launch-cta .launch-word{grid-area:1/1;display:block;color:#b7f58a;opacity:0;transform:translateY(115%);transition:transform .65s cubic-bezier(.2,.85,.25,1.15),opacity .4s ease;will-change:transform,opacity;white-space:nowrap}
@@ -23,5 +24,3 @@
 .u-motion-paused .launch-word{transition:none!important}.u-motion-paused .launch-mark{animation:none!important}
 @media(max-width:600px){.launch-cta{padding:45px 20px;margin:35px 0 55px;border-radius:22px}.launch-cta .launch-mark{width:84px;height:84px;margin-bottom:22px}.launch-cta h2,.launch-cta--compact h2{font-size:clamp(32px,9.5vw,47px);letter-spacing:-.05em}.launch-cta p{font-size:16px}.launch-cta .launch-badge{font-size:14px;padding:10px 13px}.launch-actions{flex-direction:column;align-items:stretch}.launch-actions .btn{font-size:16px;padding:15px 16px}.launch-available{font-size:14px}.nav-app-btn.launch-store-link{font-size:14px;padding-inline:14px}}
 @media(prefers-reduced-motion:reduce){.launch-word{transition:none!important}.launch-mark{animation:none!important}}
-/* Compact headers have no pause control, so decorative motion stays off. */
-@media(max-width:600px){*,*::before,*::after{animation:none!important}.launch-word{transition:none!important}.u-parallax,.u-tilt,.s-tilt{transform:none!important}}

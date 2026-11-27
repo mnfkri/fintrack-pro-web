@@ -4,173 +4,608 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Uangii — A Calmer Relationship with Money</title>
-  <meta name="description" content="A calmer relationship with money. Catat keuangan, pahami portofolio, dan temukan kejernihan bersama Uangii dan Fio AI. Offline-first, terenkripsi, tetap milikmu.">
+  <title>Uangii 1.2.7 — A Calmer Relationship with Money</title>
+  <meta name="description" content="Uangii 1.2.7: Catat keuangan offline-first terenkripsi SQLCipher, 7 Tools Uangii harian (Auto-Capture Notifikasi lokal, Split Bill, Trip, Zakat, Rewind), Analitik Sankey, Investasi & RDN, Fio AI, dan Ruang Keluarga.">
   <meta name="theme-color" content="#080c0b">
-  <meta property="og:title" content="Uangii — A Calmer Relationship with Money">
-  <meta property="og:description" content="Built for investors. Designed for everyday life. Kenali uangmu dengan lebih jernih bersama Uangii.">
+  <meta property="og:title" content="Uangii 1.2.7 — A Calmer Relationship with Money">
+  <meta property="og:description" content="Built for investors. Designed for everyday life. Kenali uangmu lebih jernih bersama Uangii, Tools Harian, Fio AI, dan Ruang Keluarga.">
   <meta property="og:image" content="https://fintrack.digital/uangii/assets/brand/uangii-social.jpg">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/brand/favicon.png">
+  <link rel="canonical" href="https://fintrack.digital/uangii/">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="home.css">
-  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <noscript><style>.reveal,[data-stagger]>*{opacity:1!important;transform:none!important}</style></noscript>
   <link rel="stylesheet" href="redesign.css">
   <link rel="stylesheet" href="readability.css">
-<link rel="stylesheet" href="launch.css">
-<link rel="canonical" href="https://fintrack.digital/uangii/">
-<link rel="stylesheet" href="catalog.css">
-<link rel="stylesheet" href="app-scenes.css">
-<script src="app-scenes.js" defer></script>
+  <link rel="stylesheet" href="launch.css">
+  <link rel="stylesheet" href="catalog.css">
+  <link rel="stylesheet" href="app-scenes.css">
+  <script src="app-scenes.js" defer></script>
 </head>
 
 <body>
   <div class="u-grain" aria-hidden="true"></div>
-  <div class="bg-orbs">
-    <div class="grid-bg"></div>
-    <div class="orb a"></div>
-    <div class="orb b"></div>
-    <div class="orb c"></div>
-  </div>
+  <div class="u-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 
   <!-- TOP SCROLL PROGRESS BAR -->
   <div id="scrollProgressBar" class="scroll-progress-bar"></div>
 
-  <!-- TOP ANNOUNCEMENT BAR (PRE-RELEASE NOTICE) -->
-  <aside class="top-announcement" aria-label="Uangii tersedia di Google Play"><div class="wrap launch-available"><strong>UANGII SUDAH RILIS</strong><span>Kenali uangmu. Mulai dari Android.</span><a href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh di Google Play ↗</a></div></aside>
+  <!-- TOP RELEASE BAR -->
+  <aside class="top-announcement" aria-label="Uangii 1.2.7 tersedia di Google Play">
+    <div class="wrap launch-available">
+      <strong>UANGII 1.2.7 SUDAH RILIS</strong>
+      <span>Kini hadir dengan 7 Tools Harian, Auto-Capture Lokal, Analitik Sankey &amp; Uangii Rewind.</span>
+      <a href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh di Google Play ↗</a>
+    </div>
+  </aside>
 
-  <header id="header"><div class="wrap nav"><a class="brand" href="#home" onclick="showTab('home')" aria-label="Uangii — Beranda"><img src="assets/brand/uangii-icon.webp" width="38" height="38" alt=""><span class="brand-name">uangii<span style="color:#b7f58a">.</span></span></a><nav class="nav-links" aria-label="Navigasi utama"><a class="nav-btn" href="fitur.html">Fitur Andalan</a><a class="nav-btn" href="investasi.html">Investasi</a><a class="nav-btn" href="arsitektur.html">Arsitektur</a><a class="nav-btn" href="privasi.html">Privasi</a></nav><div class="nav-right"><button class="u-motion" id="motionToggle" aria-label="Jeda animasi" aria-pressed="false" title="Jeda animasi">Ⅱ</button><a type="button" class="btn btn-primary nav-app-btn" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh aplikasi ↗</a><button class="menu-toggle" aria-label="Buka menu" onclick="toggleNav(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button></div></div></header>
+  <header id="header">
+    <div class="wrap nav">
+      <a class="brand" href="#home" onclick="showTab('home')" aria-label="Uangii — Beranda">
+        <img src="assets/brand/uangii-icon.webp" width="38" height="38" alt="">
+        <span class="brand-name">uangii<span style="color:#b7f58a">.</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a class="nav-btn" href="fitur.html">Fitur &amp; Tools</a>
+        <a class="nav-btn" href="investasi.html">Investasi</a>
+        <a class="nav-btn" href="keluarga.html">Keluarga</a>
+        <a class="nav-btn" href="arsitektur.html">Arsitektur</a>
+        <a class="nav-btn" href="privasi.html">Privasi</a>
+      </nav>
+      <div class="nav-right">
+        <button type="button" class="u-motion" id="motionToggle" aria-label="Jeda animasi" aria-pressed="false" title="Jeda animasi">Ⅱ</button>
+        <a class="btn btn-primary nav-app-btn" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh aplikasi ↗</a>
+        <button type="button" class="menu-toggle" aria-label="Buka menu" onclick="toggleNav(true)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
 
-  <!-- Flyout Nav Drawer (Untuk Komputer & HP) -->
+  <!-- Flyout Nav Drawer -->
   <div class="nav-overlay" id="navOverlay" onclick="toggleNav(false)"></div>
   <aside class="nav-drawer" id="navDrawer" aria-label="Menu Navigasi">
     <div class="drawer-head">
       <div style="display:flex;align-items:center;gap:.6rem;min-width:0;">
-        <img src="assets/brand/uangii-icon.webp" alt="Uangii"
-          style="width:28px;height:28px;border-radius:8px;flex-shrink:0;">
+        <img src="assets/brand/uangii-icon.webp" alt="Uangii" style="width:28px;height:28px;border-radius:8px;flex-shrink:0;">
         <strong style="font-size:1.05rem;white-space:nowrap;font-weight:800;letter-spacing:-.01em;">
-          <span>Uang<span class="grad-text">ii</span></span> <span
-            style="font-size:.9rem;color:var(--muted);font-weight:600;margin-left:.25rem;">Menu</span>
+          <span>Uang<span class="grad-text">ii</span></span>
+          <span style="font-size:.85rem;color:var(--muted);font-weight:600;margin-left:.25rem;">v1.2.7</span>
         </strong>
       </div>
-      <button class="drawer-close" aria-label="Tutup Menu" onclick="toggleNav(false)">✕</button>
+      <button type="button" class="drawer-close" aria-label="Tutup Menu" onclick="toggleNav(false)">✕</button>
     </div>
     <div class="drawer-menu">
-<a class="drawer-item" href="investasi.html"><span class="icon" aria-hidden="true">↗</span> Investasi &amp; RDN</a>
-      <button class="drawer-item active" id="btn-home" onclick="showTab('home')"><span class="icon">🏠</span>
-        Beranda</button>
-      <a class="drawer-item" id="btn-drawer-fitur" href="fitur.html"><span class="icon">✨</span>
-        Fitur Andalan</a>
-      <a class="drawer-item" id="btn-drawer-komparasi" href="arsitektur.html"><span
-          class="icon">🛡️</span> Komparasi Arsitektur</a>
-      <a class="drawer-item" id="btn-drawer-keamanan" href="privasi.html"><span
-          class="icon">🔐</span> Privasi & Kriptografi</a>
-      <button class="drawer-item" onclick="goSection('interactive-studio')"><span class="icon">✨</span> Interactive Studio</button>
-      <button class="drawer-item" onclick="goSection('faq')"><span class="icon">❓</span> Tanya Jawab (FAQ)</button>
-      <a class="drawer-item" id="btn-privacy" href="kebijakan-privasi.html"><span class="icon">📜</span> Kebijakan
-        Privasi</a>
-      <a class="drawer-item" id="btn-terms" href="ketentuan.html"><span class="icon">⚖️</span> Syarat &
-        Ketentuan</a>
+      <button type="button" class="drawer-item active" id="btn-home" onclick="showTab('home')"><span class="icon">🏠</span> Beranda</button>
+      <a class="drawer-item" id="btn-drawer-fitur" href="fitur.html"><span class="icon">✨</span> Fitur &amp; 7 Tools Uangii</a>
+      <a class="drawer-item" href="investasi.html"><span class="icon">📈</span> Investasi &amp; RDN</a>
+      <a class="drawer-item" href="keluarga.html"><span class="icon">👨‍👩‍👧‍👦</span> Ruang Keluarga</a>
+      <a class="drawer-item" id="btn-drawer-komparasi" href="arsitektur.html"><span class="icon">🛡️</span> Komparasi Arsitektur</a>
+      <a class="drawer-item" id="btn-drawer-keamanan" href="privasi.html"><span class="icon">🔐</span> Privasi &amp; Kriptografi</a>
+      <button type="button" class="drawer-item" onclick="goSection('product-tour')"><span class="icon">📱</span> Tur 12 Layar Aplikasi</button>
+      <button type="button" class="drawer-item" onclick="goSection('interactive-studio')"><span class="icon">⚡</span> Interactive Studio</button>
+      <button type="button" class="drawer-item" onclick="goSection('paket')"><span class="icon">⭐</span> Gratis vs Pro &amp; VIP</button>
+      <button type="button" class="drawer-item" onclick="goSection('faq')"><span class="icon">❓</span> Tanya Jawab (FAQ)</button>
+      <a class="drawer-item" id="btn-privacy" href="kebijakan-privasi.html"><span class="icon">📜</span> Kebijakan Privasi</a>
+      <a class="drawer-item" id="btn-terms" href="ketentuan.html"><span class="icon">⚖️</span> Ketentuan Layanan</a>
+      <a class="drawer-item" href="hapus-akun.html"><span class="icon">🗑️</span> Hapus Akun &amp; Data</a>
     </div>
     <div class="drawer-foot">
       <a class="btn btn-primary" style="width:100%;font-size:.9rem;padding:.75rem;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Dapatkan Aplikasi 🚀</a>
-      <a class="dev-badge" href="../" style="margin-top:0;justify-content:center;width:100%;"
-        title="Kunjungi Website Developer Emtitra Production">
+      <a class="dev-badge" href="../" style="margin-top:0;justify-content:center;width:100%;" title="Kunjungi Website Developer Emtitra Production">
         <img src="assets/logo dev.jpg" alt="Emtitra Production" style="width:24px!important;height:24px!important;">
         <span style="font-size:.875rem;font-weight:600;color:var(--text);">Emtitra Production ↗</span>
       </a>
     </div>
   </aside>
 
-  <main><div class="wrap legacy-document" id="privacy">Dokumen dipindahkan ke <a href="kebijakan-privasi.html">Kebijakan Privasi Uangii</a>.</div><div class="wrap legacy-document" id="terms">Dokumen dipindahkan ke <a href="ketentuan.html">Ketentuan Layanan Uangii</a>.</div>
-    <!-- ================= HOME ================= -->
-    <div id="section-home" class="page active">
-  <div class="wrap">
-    <section class="u-hero" aria-labelledby="heroTitle">
-      <div class="u-hero-copy reveal">
-        <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> KINI TERSEDIA DI GOOGLE PLAY</span>
-        <h1 id="heroTitle">A calmer<br>relationship<br>with <em>money.</em></h1>
-        <p>Catat pengeluaran, pantau investasi, dan kelola RDN dalam satu aplikasi. Pisahkan keuangan pribadi dan kas keluarga sesuai kebutuhanmu.</p>
-        <div class="u-actions"><a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh Uangii <span aria-hidden="true">↗</span></a><button class="u-text-link" onclick="goSection('product-tour')">Jelajahi aplikasinya <span aria-hidden="true">↗</span></button></div>
-        <div class="u-hero-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg> Offline-first. Terenkripsi. Tetap milikmu.</div>
-      </div>
-      <div class="us-mount u-hero-art"><div data-app-scene="personal"><p class="us-example">Ilustrasi tampilan aplikasi Uangii.</p></div><p class="us-art-note">Ilustrasi aplikasi · Data demo</p></div>
-    </section>
-    <div class="u-hero-bottom"><span>BUILT FOR <strong>INVESTORS & EVERYDAY DREAMERS.</strong></span><span>ONE CLEAR VIEW. MORE PEACE OF MIND.</span><span class="u-scroll-label">SCROLL TO EXPLORE <i aria-hidden="true"></i></span></div>
-  </div>
-  <div class="u-marquee" aria-label="Built for investors. Designed for everyday life. Your money. Your pace. Private by design."><div class="u-marquee-track" aria-hidden="true"><div class="u-marquee-set"><span>Built for investors</span><b>✳</b><span>Designed for everyday life</span><b>✳</b><span>Your money. Your pace.</span><b>✳</b><span>Private by design</span><b>✳</b></div><div class="u-marquee-set"><span>Built for investors</span><b>✳</b><span>Designed for everyday life</span><b>✳</b><span>Your money. Your pace.</span><b>✳</b><span>Private by design</span><b>✳</b></div></div></div>
-  <section class="wrap u-section" id="fitur">
-    <div class="u-heading-row reveal"><div class="u-section-heading"><span class="u-eyebrow">01 / MAKE ROOM FOR CLARITY</span><h2>Less financial noise.<br><em>More life.</em></h2></div><p>Keuangan yang terasa lebih ringan dimulai dari satu tempat yang rapi.</p></div>
-    <div class="u-overview-grid">
-      <article class="u-panel u-panel-main reveal"><div class="u-panel-copy"><small>The bigger picture</small><h3>Semua uangmu.<br>Satu cerita yang utuh.</h3><p>Satukan catatan dompet, rekening, dan aset. Pahami ke mana uang pergi dan apa yang sedang kamu bangun.</p></div><img src="assets/redesign/fintech-overview.webp" alt="Ilustrasi 3D Uangii untuk pencatatan, laporan keuangan, kontrol pengeluaran, dan tujuan investasi" width="1536" height="1024" loading="lazy" decoding="async"></article>
-      <div class="u-panel-stack"><article class="u-panel u-mini-panel reveal u-delay"><div class="u-panel-copy"><small>Private by design</small><h3>Your money.<br>Your business.</h3><p>Catatan keuangan tersimpan di perangkatmu, dilindungi enkripsi SQLCipher.</p><button class="u-story-link" onclick="goSection('keamanan')">Kenali perlindungannya ↗</button></div><div class="u-glyph" aria-hidden="true"><div class="u-cube"><span></span><span></span><span></span><span></span><span></span><span></span></div></div></article><article class="u-panel u-mini-panel reveal u-delay"><div class="u-panel-copy"><small>Made for real life</small><h3>Catat sekarang.<br>Lanjutkan harimu.</h3><p>Input pintar, laporan PDF, dan cadangan pribadi. Hal kecil yang bikin rutinitas lebih sederhana.</p></div><div class="u-glyph" aria-hidden="true"><div class="u-stack-icon"><i></i><i></i><i>↗</i></div></div></article></div>
-    </div>
-  </section>
-  <div class="wrap">
-    <section class="u-story" id="investasi"><div class="us-mount u-story-image"><div data-app-scene="investments"><p class="us-example">Ilustrasi tampilan aplikasi Uangii.</p></div><p class="us-art-note">Ilustrasi aplikasi · Data demo</p></div><div class="u-story-copy reveal"><span class="u-section-number">02 / BUILT FOR INVESTORS</span><span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> SMALL STEPS. A BIGGER PICTURE.</span><h2>Invest with a<br><em>clearer mind.</em></h2><p>Bukan sekadar melihat saldo. Kenali komposisi portofolio, nilai aset, dan kas investasi dalam satu tampilan yang mudah dipahami.</p><ul class="u-story-list"><li>Saham IHSG / Global, reksadana, kripto, dan emas</li><li>Average Cost, Floating P/L, dan nilai pasar aset</li><li>Saldo RDN otomatis mengikuti transaksi beli dan jual</li><li>Ringkasan realized gain dan dividen historis</li></ul><a class="u-story-link" href="investasi.html">Jelajahi fitur Investasi &amp; RDN ↗</a><small class="u-caption">Tampilan ilustrasi. Angka bukan proyeksi hasil investasi.</small></div></section>
-    <section class="u-story" id="fio"><div class="u-story-copy reveal"><span class="u-section-number">03 / MEET YOUR MONEY COMPANION</span><span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> LESS OVERTHINKING. MORE UNDERSTANDING.</span><h2>A little guidance.<br><em>A lot more calm.</em></h2><p>Kenalan dengan Fio, asisten keuangan di Uangii. Bantu catat transaksi, pahami anggaran, dan baca ringkasan portofolio lewat percakapan yang terasa natural.</p><ul class="u-story-list"><li>Catat dengan bahasa sehari-hari</li><li>Evaluasi anggaran dan kebiasaan pengeluaran</li><li>Ringkasan keuangan yang lebih mudah dicerna</li></ul><button class="u-story-link" onclick="goSection('interactive-studio')">Coba simulasi Fio ↗</button><small class="u-caption">Fio memberi edukasi keuangan, bukan nasihat investasi berizin.</small></div><div class="us-mount u-story-image"><div data-app-scene="fio"><p class="us-example">Ilustrasi tampilan aplikasi Uangii.</p></div><p class="us-art-note">Ilustrasi aplikasi · Data demo</p></div></section>
-    <div class="u-quote reveal"><p>You don't need to think about money all the time.<br><em>Just understand it a little better.</em></p><span>THAT'S THE UANGII WAY.</span></div>
-    <section class="u-story" id="keamanan"><div class="u-story-image reveal"><div class="u-tilt" data-tilt><img src="assets/redesign/cloud-security.webp" width="1122" height="1402" alt="Ilustrasi 3D pencadangan Google Drive dan proteksi enkripsi AES-256 Uangii" loading="lazy" decoding="async"></div></div><div class="u-story-copy reveal"><span class="u-section-number">04 / YOUR SPACE. YOUR CONTROL.</span><span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> PEACE OF MIND, BUILT IN.</span><h2>Your financial life.<br><em>Kept personal.</em></h2><p>Keuangan pribadi seharusnya tetap pribadi. Pencatatan berjalan offline-first, data terenkripsi di ponselmu, dan cadangan Google Drive diaktifkan sesuai pilihanmu.</p><div class="u-chip-row"><span class="u-chip">SQLCipher · AES-256</span><span class="u-chip">Offline-first</span><span class="u-chip">Personal backup</span></div><ul class="u-story-list"><li>Catatan transaksi disimpan di perangkat</li><li>Cadangkan ke Google Drive milikmu sendiri</li><li>Kamu yang memegang kendali atas datamu</li></ul><a class="u-story-link" href="privasi.html">Lebih dekat dengan privasi Uangii ↗</a></div></section>
-  </div>
-  <section class="wrap u-section us-tour" id="product-tour" data-app-tour="personal family transactions familyTransactions members exchange trend fio investments" aria-labelledby="product-tour-title">
-<div class="us-tour-layout"><div class="us-tour-copy"><span class="u-eyebrow">JELAJAHI UANGII</span><h2 id="product-tour-title">Sembilan tampilan.<br><em>Dua ruang keuangan.</em></h2><p class="us-example">Jelajahi Beranda, transaksi, dan fitur lain dalam contoh tampilan yang dibuat ulang dari tangkapan layar aplikasi.</p><div class="us-tour-controls" data-tour-controls role="group" aria-label="Pilih tampilan aplikasi" hidden></div><div class="us-tour-summary" data-tour-summary aria-live="polite" aria-atomic="true"><small>ILUSTRASI TAMPILAN</small><h3>Kenali Uangii</h3><p>Pilih layar untuk melihat contoh fitur.</p></div></div><div class="us-tour-view"><div data-tour-view><p class="us-example">Lihat <a class="u-story-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra">cuplikan aplikasi di Google Play ↗</a>.</p></div><p class="us-art-note">Ilustrasi aplikasi · Data demo</p></div></div></section>
+  <main>
+    <div class="wrap legacy-document" id="privacy">Dokumen dipindahkan ke <a href="kebijakan-privasi.html">Kebijakan Privasi Uangii</a>.</div>
+    <div class="wrap legacy-document" id="terms">Dokumen dipindahkan ke <a href="ketentuan.html">Ketentuan Layanan Uangii</a>.</div>
 
-  <section class="wrap u-section" id="cuplikan"><div class="u-section-heading"><span class="u-eyebrow">CUPLIKAN RESMI GOOGLE PLAY</span><h2>Lihat tampilan aplikasinya.</h2><p>Pilih gambar untuk memperbesar. Cuplikan diambil dari <a class="u-story-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">listing Uangii di Google Play ↗</a>.</p></div><div class="release-gallery"><a data-release-screenshot href="https://play-lh.googleusercontent.com/rNmimVb8h2ekdaIfUhZ_w8ro6B5Y6vFiic3ANP41Wc02xAQgn8G97sagfG0-M6-faQcRqDS6omAXez8e4kZYNw=w1052-h592"><img src="https://play-lh.googleusercontent.com/rNmimVb8h2ekdaIfUhZ_w8ro6B5Y6vFiic3ANP41Wc02xAQgn8G97sagfG0-M6-faQcRqDS6omAXez8e4kZYNw=w526-h296" srcset="https://play-lh.googleusercontent.com/rNmimVb8h2ekdaIfUhZ_w8ro6B5Y6vFiic3ANP41Wc02xAQgn8G97sagfG0-M6-faQcRqDS6omAXez8e4kZYNw=w526-h296 526w, https://play-lh.googleusercontent.com/rNmimVb8h2ekdaIfUhZ_w8ro6B5Y6vFiic3ANP41Wc02xAQgn8G97sagfG0-M6-faQcRqDS6omAXez8e4kZYNw=w1052-h592 1052w" sizes="(max-width:600px) calc(100vw - 40px), (max-width:1280px) 46vw, 590px" width="526" height="296" loading="lazy" decoding="async" alt="Cuplikan resmi Uangii 1"><span>Perbesar cuplikan 1 ↗</span></a><a data-release-screenshot href="https://play-lh.googleusercontent.com/Oy9njPpzve_ZHtY4w_5QipOHuwxuDFcnLx6-6y8ToA_FlvrafIKPTYeGEXyPVaEGu1KZEIeEoo0j4Z9bh2Vqrg=w1052-h592"><img src="https://play-lh.googleusercontent.com/Oy9njPpzve_ZHtY4w_5QipOHuwxuDFcnLx6-6y8ToA_FlvrafIKPTYeGEXyPVaEGu1KZEIeEoo0j4Z9bh2Vqrg=w526-h296" srcset="https://play-lh.googleusercontent.com/Oy9njPpzve_ZHtY4w_5QipOHuwxuDFcnLx6-6y8ToA_FlvrafIKPTYeGEXyPVaEGu1KZEIeEoo0j4Z9bh2Vqrg=w526-h296 526w, https://play-lh.googleusercontent.com/Oy9njPpzve_ZHtY4w_5QipOHuwxuDFcnLx6-6y8ToA_FlvrafIKPTYeGEXyPVaEGu1KZEIeEoo0j4Z9bh2Vqrg=w1052-h592 1052w" sizes="(max-width:600px) calc(100vw - 40px), (max-width:1280px) 46vw, 590px" width="526" height="296" loading="lazy" decoding="async" alt="Cuplikan resmi Uangii 2"><span>Perbesar cuplikan 2 ↗</span></a><a data-release-screenshot href="https://play-lh.googleusercontent.com/zPYV7wwlO4Z93QlI7KpL6GPkL2aJiam3dpzpgdoL8Kl8yzr5V6LYv1mA6Rcv7VKWgslyS5p-L6WMpq1Uj9NK=w1052-h592"><img src="https://play-lh.googleusercontent.com/zPYV7wwlO4Z93QlI7KpL6GPkL2aJiam3dpzpgdoL8Kl8yzr5V6LYv1mA6Rcv7VKWgslyS5p-L6WMpq1Uj9NK=w526-h296" srcset="https://play-lh.googleusercontent.com/zPYV7wwlO4Z93QlI7KpL6GPkL2aJiam3dpzpgdoL8Kl8yzr5V6LYv1mA6Rcv7VKWgslyS5p-L6WMpq1Uj9NK=w526-h296 526w, https://play-lh.googleusercontent.com/zPYV7wwlO4Z93QlI7KpL6GPkL2aJiam3dpzpgdoL8Kl8yzr5V6LYv1mA6Rcv7VKWgslyS5p-L6WMpq1Uj9NK=w1052-h592 1052w" sizes="(max-width:600px) calc(100vw - 40px), (max-width:1280px) 46vw, 590px" width="526" height="296" loading="lazy" decoding="async" alt="Cuplikan resmi Uangii 3"><span>Perbesar cuplikan 3 ↗</span></a><a data-release-screenshot href="https://play-lh.googleusercontent.com/y1V9uVhPDbfsl4egYgWM-P6P8N22RrjXfmujiRytIo6TqbZLjsKjwSXx_4eOSv4g4U-JYsqEHnZI9QlUa6ndcg=w1052-h592"><img src="https://play-lh.googleusercontent.com/y1V9uVhPDbfsl4egYgWM-P6P8N22RrjXfmujiRytIo6TqbZLjsKjwSXx_4eOSv4g4U-JYsqEHnZI9QlUa6ndcg=w526-h296" srcset="https://play-lh.googleusercontent.com/y1V9uVhPDbfsl4egYgWM-P6P8N22RrjXfmujiRytIo6TqbZLjsKjwSXx_4eOSv4g4U-JYsqEHnZI9QlUa6ndcg=w526-h296 526w, https://play-lh.googleusercontent.com/y1V9uVhPDbfsl4egYgWM-P6P8N22RrjXfmujiRytIo6TqbZLjsKjwSXx_4eOSv4g4U-JYsqEHnZI9QlUa6ndcg=w1052-h592 1052w" sizes="(max-width:600px) calc(100vw - 40px), (max-width:1280px) 46vw, 590px" width="526" height="296" loading="lazy" decoding="async" alt="Cuplikan resmi Uangii 4"><span>Perbesar cuplikan 4 ↗</span></a></div><dialog class="release-lightbox" id="releaseScreenshotDialog" aria-label="Cuplikan aplikasi Uangii"><form method="dialog"><button type="submit" class="btn btn-ghost" autofocus>Tutup cuplikan</button></form><img alt=""></dialog></section><section class="wrap u-section" id="explore-pages"><div class="u-section-heading"><span class="u-eyebrow">GO A LITTLE DEEPER</span><h2>Kenali Uangii.<br><em>Dari fitur sampai fondasi.</em></h2></div><div class="u-page-links"><article class="u-panel"><div class="u-panel-copy"><small>✨ Fitur Andalan</small><h3>Less busywork.<br>More living.</h3><p>Kenali pencatatan, Fio, investasi, laporan, dan cadangan.</p><a class="u-story-link" href="fitur.html">Jelajahi fitur ↗</a></div></article><article class="u-panel"><div class="u-panel-copy"><small>🛡️ Komparasi Arsitektur</small><h3>Local at heart.<br>Connected by choice.</h3><p>Pahami cara data disimpan dan kapan koneksi digunakan.</p><a class="u-story-link" href="arsitektur.html">Lihat arsitektur ↗</a></div></article><article class="u-panel"><div class="u-panel-copy"><small>🔐 Privasi &amp; Kriptografi</small><h3>Your money.<br>Your business.</h3><p>Eksplorasi penguncian, enkripsi, dan cadangan pribadi.</p><a class="u-story-link" href="privasi.html">Kenali proteksinya ↗</a></div></article></div></section>
-<section class="wrap u-studio-wrap" id="interactive-studio">
+    <div id="section-home" class="page active">
+      <!-- HERO -->
+      <div class="wrap">
+        <section class="u-hero" aria-labelledby="heroTitle">
+          <div class="u-hero-copy reveal">
+            <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> UANGII 1.2.7 · TERSEDIA DI GOOGLE PLAY</span>
+            <h1 id="heroTitle">A calmer<br>relationship<br>with <em>money.</em></h1>
+            <p>Catat keuangan harian, tarik notifikasi bank secara lokal, pantau Investasi &amp; RDN, bedah arus kas lewat Sankey, hingga kelola Ruang Keluarga—semuanya dalam satu aplikasi OLED Dark yang offline-first dan terenkripsi.</p>
+            <div class="u-actions">
+              <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh Uangii <span aria-hidden="true">↗</span></a>
+              <button type="button" class="u-text-link" onclick="goSection('product-tour')">Jelajahi 12 layarnya <span aria-hidden="true">↗</span></button>
+            </div>
+            <div class="u-hero-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg>
+              Offline-first · SQLCipher AES-256 · 4 Tab + Tombol Catat Melayang.
+            </div>
+          </div>
+          <div class="us-mount u-hero-art">
+            <div data-app-scene="personal"><p class="us-example">Ilustrasi layar Beranda Uangii 1.2.7.</p></div>
+            <p class="us-art-note">Ilustrasi direkonstruksi langsung dari kode UI Uangii 1.2.7 · Data demo</p>
+          </div>
+        </section>
+        <div class="u-hero-bottom">
+          <span>BUILT FOR <strong>INVESTORS &amp; EVERYDAY DREAMERS.</strong></span>
+          <span>4 TAB · 7 TOOLS HARIAN · 8 ANALITIK VISUAL.</span>
+          <span class="u-scroll-label">SCROLL TO EXPLORE <i aria-hidden="true"></i></span>
+        </div>
+      </div>
+
+      <!-- MARQUEE -->
+      <div class="u-marquee" aria-label="Offline-first SQLCipher. 7 Tools Harian. Analitik Sankey & Runway. Investasi & RDN. Fio AI. Ruang Keluarga.">
+        <div class="u-marquee-track" aria-hidden="true">
+          <div class="u-marquee-set">
+            <span>Offline-first SQLCipher</span><b>✳</b>
+            <span>Auto-Capture Notifikasi Lokal</span><b>✳</b>
+            <span>Analitik Sankey &amp; Runway</span><b>✳</b>
+            <span>Uangii Rewind Bulanan</span><b>✳</b>
+            <span>Investasi &amp; RDN Terpadu</span><b>✳</b>
+            <span>Fio AI &amp; Ruang Keluarga</span><b>✳</b>
+          </div>
+          <div class="u-marquee-set">
+            <span>Offline-first SQLCipher</span><b>✳</b>
+            <span>Auto-Capture Notifikasi Lokal</span><b>✳</b>
+            <span>Analitik Sankey &amp; Runway</span><b>✳</b>
+            <span>Uangii Rewind Bulanan</span><b>✳</b>
+            <span>Investasi &amp; RDN Terpadu</span><b>✳</b>
+            <span>Fio AI &amp; Ruang Keluarga</span><b>✳</b>
+          </div>
+        </div>
+      </div>
+
+      <!-- 01 / ECOSYSTEM OVERVIEW -->
+      <section class="wrap u-section" id="fitur">
+        <div class="u-heading-row reveal">
+          <div class="u-section-heading">
+            <span class="u-eyebrow">01 / MAKE ROOM FOR CLARITY</span>
+            <h2>Less financial noise.<br><em>More life.</em></h2>
+          </div>
+          <p>Semua pembukuan pribadi, alat bantu harian, portofolio investasi, dan kas keluarga terhubung rapi dalam satu arsitektur buku besar atomik.</p>
+        </div>
+        <div class="u-overview-grid" data-stagger>
+          <article class="u-panel u-panel-main u-spot">
+            <div class="u-panel-copy">
+              <small>Arsitektur Uangii 1.2.7</small>
+              <h3>Semua uangmu.<br>Satu ekosistem yang utuh.</h3>
+              <p>Multi-dompet &amp; multi-mata uang, 7 Tools Uangii harian, portofolio RDN, Fio AI, dan Ruang Keluarga dalam antarmuka 4 tab + tombol <strong>+</strong> melayang.</p>
+            </div>
+            <div style="padding:0 24px 24px;" data-app-canvas="ecosystem"></div>
+          </article>
+          <div class="u-panel-stack">
+            <article class="u-panel u-mini-panel u-spot">
+              <div class="u-panel-copy">
+                <small>Private by design</small>
+                <h3>Your money.<br>Your business.</h3>
+                <p>Database lokal dienkripsi SQLCipher AES-256. Auto-Capture Notifikasi berjalan 100% lokal di memori tanpa mengirim teks mentah ke server.</p>
+                <button type="button" class="u-story-link" onclick="goSection('keamanan')">Kenali perlindungannya ↗</button>
+              </div>
+              <div class="u-glyph" aria-hidden="true">
+                <div class="u-cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+              </div>
+            </article>
+            <article class="u-panel u-mini-panel u-spot">
+              <div class="u-panel-copy">
+                <small>Made for real life</small>
+                <h3>Catat secepat kilat.<br>Lanjutkan harimu.</h3>
+                <p>Input bahasa alami, dikte suara, pindai struk, draf notifikasi bank, hingga widget ringkasan &amp; aksi cepat di layar utama Android.</p>
+                <button type="button" class="u-story-link" onclick="goSection('interactive-studio')">Coba parser lokal ↗</button>
+              </div>
+              <div class="u-glyph" aria-hidden="true">
+                <div class="u-stack-icon"><i></i><i></i><i>+</i></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 / TOOLS UANGII 7-IN-1 (NEW) -->
+      <section class="wrap u-section" id="tools-uangii" aria-labelledby="toolsTitle">
+        <div class="u-heading-row reveal">
+          <div class="u-section-heading">
+            <span class="u-eyebrow">02 / TOOLS UANGII · BARU DI V1.2.7</span>
+            <h2 id="toolsTitle">Tujuh alat bantu harian.<br><em>Langsung dari dalam aplikasi.</em></h2>
+          </div>
+          <p>Dirancang untuk situasi nyata sehari-hari—dari patungan makan siang, anggaran liburan, hingga ringkasan cerita keuangan bulanan.</p>
+        </div>
+
+        <div class="tools-grid" data-stagger>
+          <article class="tool-card tool-card--wide u-spot">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <div class="tool-ic">🔔</div>
+              <span class="tool-tag">Opsional · 100% Lokal</span>
+            </div>
+            <h3>Catat dari Notifikasi (Auto-Capture)</h3>
+            <p>Aktifkan secara sukarela untuk aplikasi bank/e-wallet pilihanmu. Teks diproses sementara di memori perangkat menjadi draf siap konfirmasi; OTP, PIN, sandi, dan promo otomatis dibuang. Bukan API Open Banking.</p>
+          </article>
+
+          <article class="tool-card u-spot">
+            <div class="tool-ic tool-ic--cyan">✨</div>
+            <h3>Uangii Rewind</h3>
+            <p>Ringkasan cerita keuangan bulanan (Saving Rate, Hari Hemat, Emergency Runway) dengan kartu siap bagikan dan tombol sensor nominal.</p>
+          </article>
+
+          <article class="tool-card u-spot">
+            <div class="tool-ic">👥</div>
+            <h3>Split Bill &amp; Patungan</h3>
+            <p>Bagi tagihan bersama teman secara adil dan otomatis catat sisa bagian teman ke daftar piutang.</p>
+          </article>
+
+          <article class="tool-card u-spot">
+            <div class="tool-ic tool-ic--cyan">✈️</div>
+            <h3>Mode Trip &amp; Event</h3>
+            <p>Pisahkan anggaran khusus liburan, pernikahan, atau acara tertentu agar tidak tercampur pengeluaran bulanan.</p>
+          </article>
+
+          <article class="tool-card u-spot">
+            <div class="tool-ic tool-ic--blue">🛍️</div>
+            <h3>Daftar Belanja Cerdas</h3>
+            <p>Susun rencana belanja sambil langsung mengecek dampaknya terhadap Batas Aman Harianmu.</p>
+          </article>
+
+          <article class="tool-card u-spot">
+            <div class="tool-ic tool-ic--amber">🛡️</div>
+            <h3>Brankas Struk &amp; Garansi</h3>
+            <p>Simpan foto struk pembelian perangkat beserta tanggal berakhirnya masa garansi di satu tempat rapi.</p>
+          </article>
+
+          <article class="tool-card u-spot">
+            <div class="tool-ic">🤲</div>
+            <h3>Kalkulator Zakat</h3>
+            <p>Alat bantu hitung estimasi Zakat Mal dan Zakat Penghasilan berdasarkan acuan umum BAZNAS (referensi hitung, bukan fatwa mengikat).</p>
+          </article>
+        </div>
+
+        <div class="us-tour" style="margin-top:42px;" data-app-tour="toolsHub autoCapture rewind zakat" aria-label="Pratinjau interaktif Tools Uangii">
+          <div class="us-tour-layout">
+            <div class="us-tour-copy">
+              <span class="u-eyebrow">PRATINJAU INTERAKTIF TOOLS</span>
+              <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:500;letter-spacing:-.04em;margin:12px 0 8px;">Lihat cara kerja alat bantu harianmu.</h3>
+              <p class="us-example">Pilih salah satu modul di bawah untuk melihat rekonstruksi layar asli dari kode Tools Uangii.</p>
+              <div class="us-tour-controls" data-tour-controls role="group" aria-label="Pilih layar Tools Uangii" hidden></div>
+              <div class="us-tour-summary" data-tour-summary aria-live="polite" aria-atomic="true">
+                <small>TOOLS UANGII</small>
+                <h3>Tools Uangii (7-in-1)</h3>
+                <p>Pilih modul untuk melihat contoh antarmuka.</p>
+              </div>
+            </div>
+            <div class="us-tour-view">
+              <div data-tour-view></div>
+              <p class="us-art-note">Ilustrasi UI berdasarkan PracticalToolsHubScreen.kt · Data demo</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STORIES: ANALITIK, INVESTASI, FIO, KELUARGA, KEAMANAN -->
+      <div class="wrap">
+        <!-- 03 / ANALITIK -->
+        <section class="u-story" id="analitik">
+          <div class="u-story-copy reveal">
+            <span class="u-section-number">03 / DEEP VISUAL ANALYTICS</span>
+            <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> 8 SUB-LAYAR ANALISA FINANSIAL</span>
+            <h2>Read your cash flow.<br><em>Without spreadsheets.</em></h2>
+            <p>Pahami arah uangmu dalam hitungan detik. Uangii menghadirkan visualisasi finansial mendalam yang langsung dihitung lokal di perangkatmu.</p>
+            <div class="analytics-pills">
+              <span class="analytics-pill">🌊 Sankey Cash Flow</span>
+              <span class="analytics-pill">📊 Cash Flow Waterfall</span>
+              <span class="analytics-pill">🛟 Emergency Runway</span>
+              <span class="analytics-pill">⛰️ Debt Payoff Mountain</span>
+              <span class="analytics-pill">📅 Kalender Kas</span>
+              <span class="analytics-pill">🎯 Skor 50/30/20</span>
+            </div>
+            <ul class="u-story-list">
+              <li>Proyeksi arus kas &amp; target saldo akhir periode</li>
+              <li>Analisis kekayaan bersih (Net Worth) dan radar pola kebiasaan belanja</li>
+              <li>Ekspor laporan PDF rapi serta impor/ekspor CSV kapan saja</li>
+            </ul>
+            <a class="u-story-link" href="fitur.html#anggaran">Lihat seluruh modul analitik ↗</a>
+          </div>
+          <div class="us-mount u-story-image">
+            <div data-app-scene="analytics"><p class="us-example">Ilustrasi layar Analitik Visual Uangii.</p></div>
+            <p class="us-art-note">Ilustrasi UI berdasarkan AnalysisScreen.kt · Data demo</p>
+          </div>
+        </section>
+
+        <!-- 04 / INVESTASI & RDN -->
+        <section class="u-story" id="investasi">
+          <div class="us-mount u-story-image">
+            <div data-app-scene="investments"><p class="us-example">Ilustrasi layar Investasi &amp; RDN Uangii.</p></div>
+            <p class="us-art-note">Ilustrasi UI berdasarkan InvestmentsScreen.kt · Data demo</p>
+          </div>
+          <div class="u-story-copy reveal">
+            <span class="u-section-number">04 / BUILT FOR INVESTORS</span>
+            <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> SMALL STEPS. A BIGGER PICTURE.</span>
+            <h2>Invest with a<br><em>clearer mind.</em></h2>
+            <p>Bukan sekadar mencatat saldo. Kenali komposisi portofolio lintas instrumen, kas investasi RDN, dan performa terealisasi dalam satu tampilan yang tenang.</p>
+            <ul class="u-story-list">
+              <li>Saham IHSG / Global, reksa dana, kripto, dan emas (input harga manual)</li>
+              <li>Average Cost, Floating P/L, dan alokasi aset otomatis</li>
+              <li>Saldo dompet RDN otomatis berkurang saat beli &amp; bertambah saat jual</li>
+              <li>Ringkasan Realized Gain dan dividen historis terpisah dari Floating P/L</li>
+            </ul>
+            <a class="u-story-link" href="investasi.html">Jelajahi fitur Investasi &amp; RDN ↗</a>
+            <small class="u-caption">Tampilan ilustrasi. Angka bukan proyeksi hasil investasi atau nasihat berizin.</small>
+          </div>
+        </section>
+
+        <!-- 05 / FIO AI -->
+        <section class="u-story" id="fio">
+          <div class="u-story-copy reveal">
+            <span class="u-section-number">05 / MEET YOUR MONEY COMPANION</span>
+            <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> LESS OVERTHINKING. MORE UNDERSTANDING.</span>
+            <h2>A little guidance.<br><em>A lot more calm.</em></h2>
+            <p>Kenalan dengan Fio, asisten keuangan di Uangii. Catat banyak transaksi sekaligus lewat bahasa sehari-hari, dikte suara, atau pindai struk—lalu tinjau sebelum disimpan.</p>
+            <ul class="u-story-list">
+              <li>Mode bawaan offline berjalan di perangkat untuk catat cepat &amp; ringkasan dasar</li>
+              <li>Mode opsional Gemini Cloud untuk konsultasi mendalam, audit eksekutif, &amp; OCR struk cloud</li>
+              <li>Penyaringan otomatis (PII masking) membantu menyamarkan nomor rekening/kartu sebelum dikirim ke cloud</li>
+            </ul>
+            <button type="button" class="u-story-link" onclick="goSection('interactive-studio')">Coba simulasi Fio di browser ↗</button>
+            <small class="u-caption">Fio memberi informasi &amp; edukasi keuangan mandiri, bukan nasihat investasi berlisensi.</small>
+          </div>
+          <div class="us-mount u-story-image">
+            <div data-app-scene="fio"><p class="us-example">Ilustrasi layar Fio AI Uangii.</p></div>
+            <p class="us-art-note">Ilustrasi UI berdasarkan AdvisorChatScreen.kt · Data demo</p>
+          </div>
+        </section>
+
+        <!-- 06 / RUANG KELUARGA -->
+        <section class="u-story" id="keluarga">
+          <div class="us-mount u-story-image">
+            <div data-app-scene="family"><p class="us-example">Ilustrasi layar Ruang Keluarga Uangii.</p></div>
+            <p class="us-art-note">Ilustrasi UI berdasarkan FamilyHubScreen.kt · Data demo</p>
+          </div>
+          <div class="u-story-copy reveal">
+            <span class="u-section-number">06 / SHARED MONEY. CLEAR BOUNDARIES.</span>
+            <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> 1 HOST + 3 ANGGOTA · HINGGA 4 AKUN</span>
+            <h2>Kas rumah tangga rapi.<br><em>Privasi tetap terjaga.</em></h2>
+            <p>Pisahkan keuangan pribadi dari kas bersama keluarga. Undang pasangan atau anak lewat QR/kode, setor kas dari dompet pribadi, dan atur apa saja yang boleh dilihat anggota lain.</p>
+            <ul class="u-story-list">
+              <li>Kontrol berbagi dompet granular: <code>PRIVATE</code>, <code>SUMMARY</code>, atau <code>FULL</code></li>
+              <li>Dukungan peran Anak dengan peringatan batas belanja mingguan lunak (wajib persetujuan wali sah)</li>
+              <li>Sinkronisasi cloud antarperangkat &amp; arsip lokal hanya baca saat keluar ruang</li>
+            </ul>
+            <a class="u-story-link" href="keluarga.html">Jelajahi alur Ruang Keluarga ↗</a>
+          </div>
+        </section>
+
+        <div class="u-quote reveal">
+          <p>You don't need to think about money all the time.<br><em>Just understand it a little better.</em></p>
+          <span>THAT'S THE UANGII WAY.</span>
+        </div>
+
+        <!-- 07 / PRIVASI & VAULT -->
+        <section class="u-story" id="keamanan">
+          <div class="u-story-image reveal">
+            <div data-app-canvas="vault"></div>
+            <p class="us-art-note">Ilustrasi arsitektur keamanan berlapis Uangii 1.2.7</p>
+          </div>
+          <div class="u-story-copy reveal">
+            <span class="u-section-number">07 / YOUR SPACE. YOUR CONTROL.</span>
+            <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> PEACE OF MIND, BUILT IN.</span>
+            <h2>Your financial life.<br><em>Kept personal.</em></h2>
+            <p>Keuangan pribadi seharusnya tetap pribadi. Pencatatan berjalan offline-first, database terenkripsi di ponselmu, dan fitur cloud seperti Google Drive, Gemini Cloud, atau Ruang Keluarga hanya aktif atas pilihanmu.</p>
+            <div class="u-chip-row">
+              <span class="u-chip">SQLCipher · AES-256</span>
+              <span class="u-chip">Drive AES-256-GCM</span>
+              <span class="u-chip">Auto-Capture Ephemeral</span>
+              <span class="u-chip">Offline-first</span>
+            </div>
+            <ul class="u-story-list">
+              <li>Database lokal dilindungi SQLCipher + kunci opsional PIN / Biometrik</li>
+              <li>Cadangkan terenkripsi ke file <code>.fintrack</code> atau Google Drive pribadimu</li>
+              <li>Penghapusan akun cloud tersedia langsung di Pengaturan maupun halaman web</li>
+            </ul>
+            <a class="u-story-link" href="privasi.html">Lebih dekat dengan privasi &amp; kriptografi Uangii ↗</a>
+          </div>
+        </section>
+      </div>
+
+      <!-- 12-SCREEN INTERACTIVE PRODUCT TOUR -->
+      <section class="wrap u-section us-tour" id="product-tour" data-app-tour="personal toolsHub autoCapture rewind analytics investments fio transactions zakat family members exchange" aria-labelledby="product-tour-title">
+        <div class="us-tour-layout">
+          <div class="us-tour-copy">
+            <span class="u-eyebrow">TUR INTERAKTIF LENGKAP · V1.2.7</span>
+            <h2 id="product-tour-title">Dua belas tampilan.<br><em>Satu pengalaman utuh.</em></h2>
+            <p class="us-example">Eksplorasi seluruh layar utama Uangii—dari Beranda OLED Dark, 7 Tools Uangii, Analitik Sankey, Investasi RDN, Fio AI, hingga Ruang Keluarga.</p>
+            <div class="us-tour-controls" data-tour-controls role="group" aria-label="Pilih tampilan aplikasi" hidden></div>
+            <div class="us-tour-summary" data-tour-summary aria-live="polite" aria-atomic="true">
+              <small>ILUSTRASI TAMPILAN</small>
+              <h3>Kenali Uangii</h3>
+              <p>Pilih layar untuk melihat contoh fitur.</p>
+            </div>
+          </div>
+          <div class="us-tour-view">
+            <div data-tour-view>
+              <p class="us-example">Lihat <a class="u-story-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra">halaman Uangii di Google Play ↗</a>.</p>
+            </div>
+            <p class="us-art-note">Ilustrasi direkonstruksi dari kode Compose Uangii 1.2.7 · Data demo</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CODE-BASED VISUAL SHOWCASE GALLERY (Replaces old Play Store PNG screenshots) -->
+      <section class="wrap u-section" id="cuplikan">
+        <div class="u-heading-row reveal">
+          <div class="u-section-heading">
+            <span class="u-eyebrow">VISUAL SHOWCASE · BERBASIS KODE APLIKASI</span>
+            <h2>Lihat detail tiap layar.<br><em>Tajam di segala ukuran.</em></h2>
+            <p>Ketuk kartu mana saja untuk memperbesar tampilan interaktifnya, atau lihat rilis terbaru di <a class="u-story-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Google Play Store ↗</a>.</p>
+          </div>
+        </div>
+        <div class="code-gallery" data-stagger>
+          <button type="button" class="code-showcase-card u-spot" data-open-scene="personal">
+            <div class="code-showcase-preview" data-app-scene="personal" data-scene-compact></div>
+            <div class="code-showcase-meta">
+              <small>01 · BERANDA &amp; BATAS AMAN</small>
+              <strong>Kekayaan Bersih &amp; Notched Bar</strong>
+              <span>Ringkasan saldo, sparkline aset, batas harian, dan tombol + melayang di tengah.</span>
+              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
+            </div>
+          </button>
+          <button type="button" class="code-showcase-card u-spot" data-open-scene="toolsHub">
+            <div class="code-showcase-preview" data-app-scene="toolsHub" data-scene-compact></div>
+            <div class="code-showcase-meta">
+              <small>02 · TOOLS UANGII 7-IN-1</small>
+              <strong>Alat Bantu Keuangan Harian</strong>
+              <span>Notifikasi otomatis, Split Bill, Trip, Daftar Belanja, Garansi, Zakat, dan Rewind.</span>
+              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
+            </div>
+          </button>
+          <button type="button" class="code-showcase-card u-spot" data-open-scene="autoCapture">
+            <div class="code-showcase-preview" data-app-scene="autoCapture" data-scene-compact></div>
+            <div class="code-showcase-meta">
+              <small>03 · AUTO-CAPTURE LOKAL</small>
+              <strong>Catat dari Notifikasi Bank</strong>
+              <span>Baca notifikasi pilihan secara lokal di memori; OTP &amp; PIN dibuang otomatis.</span>
+              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
+            </div>
+          </button>
+          <button type="button" class="code-showcase-card u-spot" data-open-scene="analytics">
+            <div class="code-showcase-preview" data-app-scene="analytics" data-scene-compact></div>
+            <div class="code-showcase-meta">
+              <small>04 · ANALITIK VISUAL</small>
+              <strong>Sankey, Waterfall &amp; Runway</strong>
+              <span>Bedah arus kas, ketahanan dana darurat, skor kesehatan, hingga kalender kas.</span>
+              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
+            </div>
+          </button>
+          <button type="button" class="code-showcase-card u-spot" data-open-scene="rewind">
+            <div class="code-showcase-preview" data-app-scene="rewind" data-scene-compact></div>
+            <div class="code-showcase-meta">
+              <small>05 · UANGII REWIND</small>
+              <strong>Cerita Keuangan Bulanan</strong>
+              <span>Highlight saving rate &amp; hari hemat yang siap dibagikan dengan mode sensor nominal.</span>
+              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
+            </div>
+          </button>
+          <button type="button" class="code-showcase-card u-spot" data-open-scene="investments">
+            <div class="code-showcase-preview" data-app-scene="investments" data-scene-compact></div>
+            <div class="code-showcase-meta">
+              <small>06 · INVESTASI &amp; RDN</small>
+              <strong>Portofolio Multi-Aset Terpadu</strong>
+              <span>Saham IHSG/Global, Emas, Reksa Dana, Kripto dengan saldo Kas RDN terhubung.</span>
+              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
+            </div>
+          </button>
+        </div>
+
+        <dialog class="release-lightbox" id="codeShowcaseDialog" aria-label="Pratinjau ilustrasi layar Uangii">
+          <div class="release-lightbox-head">
+            <div>
+              <h3 data-dialog-title>Ilustrasi Uangii</h3>
+              <p data-dialog-desc></p>
+            </div>
+            <form method="dialog"><button type="submit" class="btn btn-ghost" style="padding:10px 18px;min-height:42px;" autofocus>Tutup ✕</button></form>
+          </div>
+          <div data-dialog-scene></div>
+        </dialog>
+      </section>
+
+      <!-- FREE VS PERSONAL PRO VS FAMILY VIP -->
+      <section class="wrap u-section" id="paket" aria-labelledby="paketTitle">
+        <div class="u-section-heading reveal">
+          <span class="u-eyebrow">TRANSPARAN SEJAK AWAL</span>
+          <h2 id="paketTitle">Gratis untuk catatan lokal.<br><em>Upgrade saat butuh cloud &amp; keluarga.</em></h2>
+          <p>Semua fitur dasar pencatatan pribadi, alat bantu harian, dan cadangan pribadimu tetap gratis di perangkat. Harga langganan resmi dan promo tampil langsung di Google Play saat berlangganan.</p>
+        </div>
+        <div class="tiers-grid" data-stagger>
+          <article class="tier-card u-spot">
+            <span class="tier-badge">GRATIS · OFFLINE-FIRST</span>
+            <h3>Uangii Dasar</h3>
+            <p class="tier-sub">Untuk pencatatan keuangan pribadi lengkap tanpa wajib login atau berlangganan.</p>
+            <ul class="tier-list">
+              <li>Pencatatan transaksi atomik, multi-dompet &amp; multi-mata uang</li>
+              <li>Seluruh 7 Tools Uangii (Auto-Capture lokal, Split Bill, Trip, Belanja, Garansi, Zakat, Rewind)</li>
+              <li>Portofolio Investasi &amp; Kas RDN (harga manual), Target Tabungan, Hutang/Piutang</li>
+              <li>Fio AI mode offline lokal, widget Android, dan cadangan terenkripsi file/Drive pribadi</li>
+            </ul>
+            <p class="tier-note">Tidak memerlukan kartu kredit. Database utama tetap tersimpan terenkripsi di HP Anda.</p>
+          </article>
+
+          <article class="tier-card u-spot">
+            <span class="tier-badge">PERSONAL PRO · GOOGLE PLAY</span>
+            <h3>Personal Pro</h3>
+            <p class="tier-sub">Untuk pengguna mandiri yang ingin daya analisis AI Cloud penuh dan pelaporan eksekutif.</p>
+            <ul class="tier-list">
+              <li>Fio AI Cloud &amp; pindai struk cloud dengan akses penuh sesuai ketentuan paket</li>
+              <li>Audit AI Eksekutif untuk evaluasi arus kas &amp; kebiasaan finansial</li>
+              <li>Pengelolaan anggaran, tagihan berulang, &amp; laporan PDF lanjutan</li>
+              <li>Tersedia paket bulanan/tahunan di Google Play atau aktivasi voucher</li>
+            </ul>
+            <p class="tier-note">Dikelola Google Play Billing; perpanjangan otomatis dan dapat dibatalkan kapan saja di Google Play.</p>
+          </article>
+
+          <article class="tier-card tier-card--featured u-spot">
+            <span class="tier-badge tier-badge--cyan">FAMILY VIP · 1 PAKET 4 AKUN</span>
+            <h3>Family VIP</h3>
+            <p class="tier-sub">Satu langganan oleh Host untuk menyinkronkan keuangan rumah tangga hingga 4 akun.</p>
+            <ul class="tier-list">
+              <li>Mencakup seluruh manfaat Personal Pro bagi Host &amp; anggota aktif</li>
+              <li>Ruang Keluarga real-time hingga 4 akun (1 Host + 3 anggota termasuk peran Anak)</li>
+              <li>Dompet bersama, setor kas, serta kontrol privasi <code>PRIVATE</code> / <code>SUMMARY</code> / <code>FULL</code></li>
+              <li>Tersedia paket bulanan, tahunan, atau voucher internal akun penerima</li>
+            </ul>
+            <p class="tier-note">Hak turunan anggota mengikuti status hak Host dan keanggotaan ruang; bila hak berakhir, data yang sudah diterima tetap dapat dilihat sebagai arsip lokal hanya baca.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- GO A LITTLE DEEPER -->
+      <section class="wrap u-section" id="explore-pages">
+        <div class="u-section-heading">
+          <span class="u-eyebrow">GO A LITTLE DEEPER</span>
+          <h2>Kenali Uangii.<br><em>Dari fitur sampai fondasi.</em></h2>
+        </div>
+        <div class="u-page-links" data-stagger>
+          <article class="u-panel u-spot"><div class="u-panel-copy"><small>✨ Fitur &amp; 7 Tools</small><h3>Less busywork.<br>More living.</h3><p>Katalog lengkap seluruh fitur v1.2.7: Beranda, 7 Tools harian, 8 Analitik, Investasi, dan Fio.</p><a class="u-story-link" href="fitur.html">Jelajahi fitur ↗</a></div></article>
+          <article class="u-panel u-spot"><div class="u-panel-copy"><small>🛡️ Komparasi Arsitektur</small><h3>Local at heart.<br>Connected by choice.</h3><p>Pahami bedanya offline-first vs cloud-centric dan kapan saja koneksi dipakai.</p><a class="u-story-link" href="arsitektur.html">Lihat arsitektur ↗</a></div></article>
+          <article class="u-panel u-spot"><div class="u-panel-copy"><small>🔐 Privasi &amp; Kriptografi</small><h3>Your money.<br>Your business.</h3><p>Eksplorasi penguncian perangkat, SQLCipher, Auto-Capture lokal, dan cadangan terenkripsi.</p><a class="u-story-link" href="privasi.html">Kenali proteksinya ↗</a></div></article>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE STUDIO -->
+      <section class="wrap u-studio-wrap" id="interactive-studio">
         <div class="bento-studio-card reveal">
           <div class="bento-studio-header">
             <div class="bento-studio-title">
               <span class="eyebrow grad-text">Try it. Feel the clarity.</span>
               <h3>Sedikit mencoba. Lebih banyak mengerti.</h3>
-              <p>Coba simulasi Fio, atur rasio arus kas, atau catat transaksi dengan bahasa sehari-hari. Semua demo ini berjalan di browser.</p>
+              <p>Coba simulasi Fio, atur rasio arus kas 50/30/20, atau uji parser transaksi bahasa Indonesia sehari-hari. Semua demo berjalan 100% di browser.</p>
             </div>
-            <!-- BENTO 3 TABS SELECTOR -->
-            <p class="studio-demo-note">Demo website memakai contoh respons dan tidak menyimpan transaksi atau mengirim input ke AI. <a href="kebijakan-privasi.html">Kenali perbedaan mode Fio</a>.</p><div class="bento-nav-tabs" role="tablist" aria-label="Pilih demo Studio">
-              <button type="button" class="bento-tab-btn active" id="tabBtnFio" onclick="switchBentoStudioTab('fio', this)">
-                <span>🤖</span> Coba Fio AI
-              </button>
-              <button type="button" class="bento-tab-btn" id="tabBtnCalc" onclick="switchBentoStudioTab('calc', this)">
-                <span>🧮</span> Kalkulator Rasio
-              </button>
-              <button type="button" class="bento-tab-btn" id="tabBtnSmartInput" onclick="switchBentoStudioTab('smart-input', this)">
-                <span>⚡</span> Input Secepat Kilat
-              </button>
+            <p class="studio-demo-note">Demo website memakai contoh respons dan tidak menyimpan transaksi atau mengirim input ke AI. <a href="kebijakan-privasi.html">Kenali perbedaan mode Fio</a>.</p>
+            <div class="bento-nav-tabs" role="tablist" aria-label="Pilih demo Studio">
+              <button type="button" class="bento-tab-btn active" id="tabBtnFio" onclick="switchBentoStudioTab('fio', this)"><span>🤖</span> Coba Fio AI</button>
+              <button type="button" class="bento-tab-btn" id="tabBtnCalc" onclick="switchBentoStudioTab('calc', this)"><span>🧮</span> Kalkulator Rasio</button>
+              <button type="button" class="bento-tab-btn" id="tabBtnSmartInput" onclick="switchBentoStudioTab('smart-input', this)"><span>⚡</span> Input Secepat Kilat</button>
             </div>
           </div>
 
-          <!-- TAB CONTENT 1: FIO AI CHAT SANDBOX -->
+          <!-- TAB 1: FIO -->
           <div id="bentoTabContent-fio" class="bento-tab-content active">
             <div class="fio-bento-grid">
               <div class="fio-sim-intro">
                 <span class="badge-pill" style="margin-bottom:.8rem;display:inline-block;">DEMO FIO · RESPONS CONTOH</span>
                 <h4 style="font-size:1.45rem;font-weight:800;color:var(--text);margin-bottom:.6rem;">Kenali percakapan Fio</h4>
-                <p style="color:var(--muted);font-size:.92rem;line-height:1.6;margin-bottom:1.4rem;">
-                  Pilih contoh topik atau ketik pertanyaan untuk melihat alur percakapan. Demo ini tidak memberi analisis personal.
-                </p>
+                <p style="color:var(--muted);font-size:.92rem;line-height:1.6;margin-bottom:1.4rem;">Pilih contoh topik atau ketik pertanyaan untuk melihat alur percakapan. Demo ini tidak memberi analisis personal.</p>
                 <div class="prompt-pills">
-                  <button type="button" class="prompt-btn active" onclick="simulateFio(0, this)">
-                    <span>💡</span> "Bagaimana cara menyisihkan dana darurat gaji UMR?"
-                  </button>
-                  <button type="button" class="prompt-btn" onclick="simulateFio(1, this)">
-                    <span>📊</span> "Berapa rasio pengeluaran makan yang wajar per bulan?"
-                  </button>
-                  <button type="button" class="prompt-btn" onclick="simulateFio(2, this)">
-                    <span>🚀</span> "Lebih baik bayar utang dulu atau mulai investasi?"
-                  </button>
+                  <button type="button" class="prompt-btn active" onclick="simulateFio(0, this)"><span>💡</span> "Bagaimana cara menyisihkan dana darurat gaji UMR?"</button>
+                  <button type="button" class="prompt-btn" onclick="simulateFio(1, this)"><span>📊</span> "Berapa rasio pengeluaran makan yang wajar per bulan?"</button>
+                  <button type="button" class="prompt-btn" onclick="simulateFio(2, this)"><span>🚀</span> "Lebih baik bayar utang dulu atau mulai investasi?"</button>
                 </div>
               </div>
-
               <div class="chat-mockup">
                 <div class="chat-head">
                   <div style="display:flex;align-items:center;gap:.65rem;">
                     <img src="assets/brand/uangii-icon.webp" alt="Fio AI">
                     <div>
-                      <strong style="font-size:.88rem;display:block;color:var(--text);">Fio AI Financial Advisor</strong>
+                      <strong style="font-size:.88rem;display:block;color:var(--text);">Fio AI Financial Companion</strong>
                       <span style="font-size:.875rem;color:#34d399;display:flex;align-items:center;gap:.3rem;">
                         <span style="width:6px;height:6px;border-radius:50%;background:#34d399;display:inline-block;"></span>
                         Demo interaktif · respons simulasi
@@ -179,17 +614,12 @@
                   </div>
                   <span style="font-size:.875rem;padding:.2rem .6rem;background:rgba(255,255,255,.05);border-radius:999px;color:var(--muted);">Demo website</span>
                 </div>
-
                 <div class="chat-messages-box" id="chatMessages">
-                  <div class="chat-bubble bubble-user" id="simUserBubble">
-                    Bagaimana cara menyisihkan dana darurat gaji UMR?
-                  </div>
+                  <div class="chat-bubble bubble-user" id="simUserBubble">Bagaimana cara menyisihkan dana darurat gaji UMR?</div>
                   <div class="chat-bubble bubble-ai" id="simAiBubble" aria-live="polite" aria-atomic="true">
-                    Halo! Untuk gaji UMR, kuncinya adalah <strong>metode Reverse Budgeting</strong>: sisihkan 10% di awal begitu gajian sebelum dibagi ke pos lain. Simpan di rekening tanpa kartu ATM agar tidak tergiur belanja impulsif. Di Uangii, kamu bisa mengunci anggaran darurat ini dalam satu kategori terpisah! 🌸
+                    Halo! Untuk gaji UMR, kuncinya adalah <strong>metode Reverse Budgeting</strong>: sisihkan 10% di awal begitu gajian sebelum dibagi ke pos lain. Simpan di rekening tanpa kartu ATM agar tidak tergiur belanja impulsif. Di Uangii, kamu bisa memantau targetnya lewat fitur Target Tabungan &amp; Emergency Runway! 🌸
                   </div>
                 </div>
-
-                <!-- Interactive Chat Input Sandbox -->
                 <form class="chat-input-bar" onsubmit="handleLiveChatSubmit(event)">
                   <input type="text" id="liveChatInput" placeholder="Ketik pertanyaan keuanganmu untuk Fio AI..." autocomplete="off">
                   <button type="submit">Kirim ⚡</button>
@@ -198,74 +628,47 @@
             </div>
           </div>
 
-          <!-- TAB CONTENT 2: FINANCIAL HEALTH CALCULATOR -->
+          <!-- TAB 2: CALCULATOR -->
           <div id="bentoTabContent-calc" class="bento-tab-content">
             <div class="calc-bento-grid">
               <div class="calc-left">
                 <span class="badge-pill" style="margin-bottom:.8rem;display:inline-block;">METODE ANGGARAN 50/30/20</span>
                 <h4 style="font-size:1.45rem;font-weight:800;color:var(--text);margin-bottom:.6rem;">Evaluasi Kesehatan Cashflow Pribadi 🌸</h4>
-                <p style="color:var(--muted);font-size:.92rem;line-height:1.6;margin-bottom:1.8rem;">
-                  Geser parameter nominal untuk mengetahui alokasi kebutuhan pokok, tabungan, dan rekomendasi rasio pengeluaran ideal:
-                </p>
-
+                <p style="color:var(--muted);font-size:.92rem;line-height:1.6;margin-bottom:1.8rem;">Geser parameter nominal untuk mengetahui alokasi kebutuhan pokok, tabungan, dan rekomendasi rasio pengeluaran ideal:</p>
                 <div class="slider-group">
-                  <div class="slider-header">
-                    <label for="rangeIncome">Pemasukan Bulanan:</label>
-                    <strong id="valIncome">Rp 7.500.000</strong>
-                  </div>
-                  <input type="range" min="1000000" max="30000000" step="500000" value="7500000" id="rangeIncome"
-                    class="custom-range" oninput="updateCalculator()">
+                  <div class="slider-header"><label for="rangeIncome">Pemasukan Bulanan:</label><strong id="valIncome">Rp 7.500.000</strong></div>
+                  <input type="range" min="1000000" max="30000000" step="500000" value="7500000" id="rangeIncome" class="custom-range" oninput="updateCalculator()">
                 </div>
-
                 <div class="slider-group">
-                  <div class="slider-header">
-                    <label for="rangeExpense">Pengeluaran Bulanan:</label>
-                    <strong id="valExpense">Rp 4.500.000</strong>
-                  </div>
-                  <input type="range" min="500000" max="25000000" step="250000" value="4500000" id="rangeExpense"
-                    class="custom-range" oninput="updateCalculator()">
+                  <div class="slider-header"><label for="rangeExpense">Pengeluaran Bulanan:</label><strong id="valExpense">Rp 4.500.000</strong></div>
+                  <input type="range" min="500000" max="25000000" step="250000" value="4500000" id="rangeExpense" class="custom-range" oninput="updateCalculator()">
                 </div>
               </div>
-
               <div class="calc-result-box">
-                <div class="calc-score-badge" id="calcBadge">✨ KONDISI: WANGI & STABIL</div>
+                <div class="calc-score-badge" id="calcBadge">✨ KONDISI: WANGI &amp; STABIL</div>
                 <h4 style="font-size:1rem;color:var(--muted);margin-bottom:.3rem;">Estimasi Tabungan Bulanan:</h4>
-                <div style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight:800; color:#34d399;" id="valSavings">Rp 3.000.000</div>
+                <div style="font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;color:#34d399;" id="valSavings">Rp 3.000.000</div>
                 <p style="font-size:.875rem;color:var(--muted);margin-bottom:1.4rem;" id="valRate">Tingkat Tabungan: 40% dari total pendapatan</p>
-
                 <div class="calc-metrics">
-                  <div class="calc-metric-item">
-                    <small>Kebutuhan (Max 50%)</small>
-                    <b id="valNeeds">Rp 3.750.000</b>
-                  </div>
-                  <div class="calc-metric-item">
-                    <small>Investasi / Tabungan</small>
-                    <b id="valInvest">Rp 1.500.000</b>
-                  </div>
+                  <div class="calc-metric-item"><small>Kebutuhan (Max 50%)</small><b id="valNeeds">Rp 3.750.000</b></div>
+                  <div class="calc-metric-item"><small>Investasi / Tabungan</small><b id="valInvest">Rp 1.500.000</b></div>
                 </div>
-
-                <div class="calc-advice" id="calcAdvice">
-                  🌿 <strong>Rekomendasi Fio:</strong> Cash flow Anda sangat harum! Pastikan dana darurat minimal 3 bulan pengeluaran sudah terisi di instrumen likuid.
-                </div>
+                <div class="calc-advice" id="calcAdvice">🌿 <strong>Rekomendasi Fio:</strong> Cash flow Anda sangat harum! Pastikan dana darurat minimal 3–6 bulan pengeluaran sudah terisi di instrumen likuid.</div>
               </div>
             </div>
           </div>
 
-          <!-- TAB CONTENT 3: SMART INPUT SECEPAT KILAT SIMULATOR -->
+          <!-- TAB 3: SMART INPUT -->
           <div id="bentoTabContent-smart-input" class="bento-tab-content">
             <div class="smart-input-grid">
               <div class="smart-input-box">
                 <span class="badge-pill" style="margin-bottom:.4rem;display:inline-block;">NATURAL LANGUAGE ON-DEVICE PARSER</span>
                 <h4 style="font-size:1.45rem;font-weight:800;color:var(--text);margin-bottom:.4rem;">Catat Transaksi Secepat Bicara ⚡</h4>
-                <p style="color:var(--muted);font-size:.9rem;line-height:1.5;margin-bottom:1rem;">
-                  Ketik kalimat pengeluaran seperti biasa dalam bahasa Indonesia sehari-hari. Algoritma lokal Uangii langsung membedah nominal, pos kategori, dan dompet tanpa perlu klik tombol manual berulang kali:
-                </p>
-
+                <p style="color:var(--muted);font-size:.9rem;line-height:1.5;margin-bottom:1rem;">Ketik kalimat pengeluaran dalam bahasa Indonesia sehari-hari. Parser lokal langsung membedah nominal, kategori, dan dompet:</p>
                 <div class="smart-input-field-wrap">
                   <span class="smart-input-icon">✍️</span>
                   <input type="text" id="smartInputText" aria-label="Contoh teks transaksi" class="smart-input-field" placeholder='Contoh: "Beli Kopi Kenangan 28rb pakai QRIS BCA"' oninput="handleSmartInput(this.value)">
                 </div>
-
                 <div>
                   <small style="color:var(--muted);display:block;margin-bottom:.5rem;font-size:.875rem;">Coba klik contoh kalimat cepat:</small>
                   <div class="smart-quick-tags">
@@ -276,106 +679,76 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Real-time Parsed Result Card -->
               <div class="smart-parsed-card" id="smartParsedCard">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                   <span class="parsed-badge" id="parsedTypeBadge" role="status">⚡ PEMETAAN OTOMATIS</span>
                   <span style="font-size:.875rem;color:#34d399;font-weight:600;">Demo di browser</span>
                 </div>
-
-                <div style="margin: .4rem 0;">
+                <div style="margin:.4rem 0;">
                   <small style="color:var(--muted);font-size:.875rem;text-transform:uppercase;letter-spacing:.05em;">Nominal Terdeteksi:</small>
-                  <div style="font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight:800; color:#f87171;" id="parsedAmount">-Rp 28.000</div>
+                  <div style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#f87171;" id="parsedAmount">-Rp 28.000</div>
                 </div>
-
-                <div class="parsed-row">
-                  <span>Kategori Pos:</span>
-                  <strong id="parsedCategory">🍔 Makanan & Minuman</strong>
-                </div>
-                <div class="parsed-row">
-                  <span>Deskripsi / Merchant:</span>
-                  <strong id="parsedDesc">Kopi Kenangan</strong>
-                </div>
-                <div class="parsed-row">
-                  <span>Metode / Dompet:</span>
-                  <strong id="parsedWallet">💳 QRIS BCA</strong>
-                </div>
-                <div class="parsed-row" style="border-bottom:none;padding-bottom:0;">
-                  <span>Status Eksekusi:</span>
-                  <strong style="color:#34d399;">Pratinjau · tidak disimpan</strong>
-                </div>
+                <div class="parsed-row"><span>Kategori Pos:</span><strong id="parsedCategory">🍔 Makanan &amp; Minuman</strong></div>
+                <div class="parsed-row"><span>Deskripsi / Merchant:</span><strong id="parsedDesc">Kopi Kenangan</strong></div>
+                <div class="parsed-row"><span>Metode / Dompet:</span><strong id="parsedWallet">💳 QRIS Bank BCA</strong></div>
+                <div class="parsed-row" style="border-bottom:none;padding-bottom:0;"><span>Status Eksekusi:</span><strong style="color:#34d399;">Pratinjau · tidak disimpan</strong></div>
               </div>
             </div>
           </div>
-
         </div>
       </section>
-  <section class="wrap" id="security-layers">
-        <div class="sec-vault-card reveal">
-          <div style="text-align:center;max-width:720px;margin:0 auto 1.5rem;">
-            <span class="eyebrow grad-text">Explore the protection</span>
-            <h2 style="font-size:clamp(1.7rem, 3.2vw, 2.3rem);font-weight:800;color:var(--text);margin-top:.4rem;margin-bottom:.6rem;">
-              Lihat cara Uangii melindungi catatanmu.
-            </h2>
-            <p style="color:var(--muted);font-size:.95rem;line-height:1.6;">
-              Eksplorasi simulasi proteksi perangkat, enkripsi database, dan penyamaran identitas untuk konteks AI.
-            </p>
-          </div>
 
+      <!-- SECURITY LAYERS INTERACTIVE CONSOLE (4 Layers + Fixed dynamic Standard footer) -->
+      <section class="wrap" id="security-layers">
+        <div class="sec-vault-card reveal">
+          <div style="text-align:center;max-width:740px;margin:0 auto 1.5rem;">
+            <span class="eyebrow grad-text">Explore the protection</span>
+            <h2 style="font-size:clamp(1.7rem,3.2vw,2.3rem);font-weight:800;color:var(--text);margin-top:.4rem;margin-bottom:.6rem;">Lihat cara Uangii melindungi catatanmu.</h2>
+            <p style="color:var(--muted);font-size:.95rem;line-height:1.6;">Eksplorasi empat lapisan proteksi: kunci perangkat, enkripsi database, filter notifikasi lokal, dan penyamaran identitas untuk mode AI.</p>
+          </div>
           <div class="sec-vault-grid">
-            <!-- Layers Selection Tabs -->
             <div class="sec-layers-menu">
               <button type="button" class="sec-layer-btn active" id="secBtn-0" onclick="switchSecurityLayer(0)">
                 <div class="layer-num">1</div>
-                <div class="layer-info">
-                  <strong>Layer 1: Biometrik & Kunci Layar</strong>
-                  <span>Proteksi fisik lokal sidik jari & PIN perangkat</span>
-                </div>
+                <div class="layer-info"><strong>Layer 1: Biometrik &amp; Kunci Layar</strong><span>Proteksi akses lokal sidik jari &amp; PIN perangkat</span></div>
               </button>
-
               <button type="button" class="sec-layer-btn" id="secBtn-1" onclick="switchSecurityLayer(1)">
                 <div class="layer-num">2</div>
-                <div class="layer-info">
-                  <strong>Layer 2: SQLCipher AES-256 Vault</strong>
-                  <span>Enkripsi penuh page-by-page di memori lokal HP</span>
-                </div>
+                <div class="layer-info"><strong>Layer 2: SQLCipher AES-256 Vault</strong><span>Enkripsi penuh database di penyimpanan lokal HP</span></div>
               </button>
-
               <button type="button" class="sec-layer-btn" id="secBtn-2" onclick="switchSecurityLayer(2)">
                 <div class="layer-num">3</div>
-                <div class="layer-info">
-                  <strong>Layer 3: Fio Offline & Gemini Cloud</strong>
-                  <span>Data masking sensor nominal sebelum konsultasi AI</span>
-                </div>
+                <div class="layer-info"><strong>Layer 3: Filter Auto-Capture Lokal</strong><span>Pemrosesan ephemeral; OTP &amp; PIN otomatis dibuang</span></div>
+              </button>
+              <button type="button" class="sec-layer-btn" id="secBtn-3" onclick="switchSecurityLayer(3)">
+                <div class="layer-num">4</div>
+                <div class="layer-info"><strong>Layer 4: Fio Offline &amp; Gemini Cloud</strong><span>Masking PII sebelum konsultasi mode cloud</span></div>
               </button>
             </div>
-
-            <!-- Interactive Stage / Console Output -->
             <div class="sec-vault-stage" id="secVaultStage">
               <div>
                 <span class="stage-badge" id="secStageBadge">🛡️ LAYER 1: BIOMETRIC SHIELD</span>
                 <div class="stage-content" id="secStageContent">
-                  <h4>Autentikasi Biometrik & PIN Lokal</h4>
-                  <p>
-                    Saat aplikasi dibuka, sistem Android Security Sandbox memverifikasi sidik jari atau PIN lokal Anda. Tidak ada data biometrik yang pernah diunggah ke internet.
-                  </p>
+                  <h4>Autentikasi Biometrik &amp; PIN Lokal</h4>
+                  <p>Saat aplikasi dibuka, sistem Android Security Sandbox memverifikasi sidik jari atau PIN lokal Anda. Data biometrik tetap diproses oleh sistem Android dan tidak dikirim ke server pengembang.</p>
                   <div class="stage-console">
-                    <div>[OS_KEYGUARD] Requesting Biometric Prompt...</div>
-                    <div style="color:#34d399;">[STATUS] Fingerprint Match: SUCCESS ✓</div>
-                    <div style="color:#94a3b8;">[ACCESS] Decrypting Keyguard Session Token... GRANTED</div>
+                    <div>[OS_KEYGUARD] Requesting BiometricPrompt...</div>
+                    <div style="color:#34d399;">[STATUS] Biometric Verification: MATCH ✓</div>
+                    <div style="color:#94a3b8;">[ACCESS] Local Vault Session: UNLOCKED</div>
                   </div>
                 </div>
               </div>
-              <div style="margin-top:1.2rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:1rem;font-size:.875rem;color:var(--muted);">
-                <span>Standar: <strong>Android BiometricPrompt API</strong></span>
-                <a type="button" class="btn btn-ghost" style="padding:.4rem .8rem;font-size:.875rem;" href="privasi.html">Pelajari Kriptografi →</a>
+              <div style="margin-top:1.2rem;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:1rem;font-size:.875rem;color:var(--muted);">
+                <span>Standar: <strong id="secStageStd">Android BiometricPrompt API</strong></span>
+                <a class="btn btn-ghost" style="padding:.4rem .9rem;min-height:40px;font-size:.875rem;" href="privasi.html">Pelajari Kriptografi →</a>
               </div>
             </div>
           </div>
         </div>
       </section>
-<section class="block" id="faq">
+
+      <!-- FAQ -->
+      <section class="block" id="faq">
         <div class="wrap">
           <div class="sec-head reveal">
             <span class="eyebrow grad-text">A little more clarity</span>
@@ -383,49 +756,68 @@
           </div>
           <div class="faq reveal">
             <details>
-              <summary>Di mana saya bisa mengunduh Uangii?</summary>
-              <p>Uangii sudah tersedia di <a href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Google Play untuk Android</a>. Buka halaman aplikasinya untuk mengunduh dan melihat informasi rilis terbaru.</p>
+              <summary>Di mana saya bisa mengunduh Uangii 1.2.7?</summary>
+              <p>Uangii tersedia resmi di <a href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Google Play untuk Android</a>. Buka halaman aplikasinya untuk mengunduh versi terbaru.</p>
             </details>
             <details>
               <summary>Apakah Uangii benar-benar bisa dipakai tanpa internet?</summary>
-              <p>Pencatatan, ringkasan dasbor, laporan grafik, dan ekspor PDF dapat berjalan
-                secara luring. Gemini Cloud, cadangan Drive, dan sinkronisasi Ruang Keluarga memerlukan internet.</p>
+              <p>Ya. Pencatatan transaksi, 7 Tools Uangii (termasuk Auto-Capture Notifikasi lokal, Split Bill, Zakat, dan Rewind), analitik grafik, portofolio manual, dan ekspor PDF/CSV berjalan secara luring. Koneksi internet hanya dibutuhkan jika Anda mengaktifkan Gemini Cloud, cadangan Google Drive, verifikasi VIP, atau sinkronisasi Ruang Keluarga.</p>
+            </details>
+            <details>
+              <summary>Apakah Uangii terhubung langsung dengan rekening bank atau API Open Banking?</summary>
+              <p>Tidak. Uangii <strong>bukan</strong> mitra API Open Banking dan tidak memiliki akses untuk masuk ke rekening atau memindahkan dana. Anda dapat mencatat manual, lewat Fio, atau secara sukarela mengaktifkan fitur opsional <strong>Catat dari Notifikasi</strong> yang membaca notifikasi transaksi bank/e-wallet secara 100% lokal di memori HP (OTP, PIN, dan promo otomatis dibuang).</p>
             </details>
             <details>
               <summary>Apakah pihak pengembang bisa melihat jumlah saldo saya?</summary>
-              <p>Database utama catatan pribadi disimpan di perangkat. Data tertentu dapat diproses oleh layanan terhubung jika Anda menggunakan Gemini Cloud, backup Drive, atau sinkronisasi Ruang Keluarga.</p>
+              <p>Database utama catatan pribadi disimpan terenkripsi di perangkat Anda. Data tertentu hanya diproses oleh layanan terhubung apabila Anda secara sadar menggunakan mode Gemini Cloud, cadangan Google Drive pribadi, atau sinkronisasi Ruang Keluarga.</p>
             </details>
             <details>
               <summary>Bagaimana jika ponsel saya hilang atau rusak?</summary>
-              <p>Anda dapat mengaktifkan fitur pencadangan berkala ke Google Drive pribadi Anda dari menu Pengaturan.
-                Cukup pulihkan di ponsel baru menggunakan akun Google yang sama.</p>
+              <p>Anda dapat mengaktifkan pencadangan terenkripsi (AES-256-GCM) ke file lokal atau Google Drive pribadi dari menu Pengaturan, lalu memulihkannya di perangkat baru dengan akun Google dan sandi brankas yang sama.</p>
             </details>
             <details>
-              <summary>Apakah Uangii terhubung langsung dengan rekening bank atau e-wallet?</summary>
-              <p>Tidak. Catat transaksi secara mandiri atau dengan bantuan Fio. Saldo rekening dan RDN di aplikasi adalah catatan, bukan saldo yang diambil langsung dari bank.</p>
+              <summary>Apa bedanya Uangii Gratis, Personal Pro, dan Family VIP?</summary>
+              <p>Pencatatan lokal, multi-dompet, Investasi &amp; RDN, 7 Tools Uangii, dan Fio offline dapat digunakan gratis. <strong>Personal Pro</strong> membuka akses penuh Fio AI Cloud, Audit AI Eksekutif, dan pelaporan lanjutan; <strong>Family VIP</strong> menambahkan Ruang Keluarga sinkron real-time hingga 4 akun (1 Host + 3 anggota).</p>
             </details>
           </div>
         </div>
       </section>
-  <div class="wrap"><section class="launch-cta" id="download" aria-labelledby="launchTitle"><span id="early-access" class="launch-anchor" aria-hidden="true"></span><img class="launch-mark" src="assets/brand/uangii-mark.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><a class="launch-badge" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Uangii sudah hadir di Google Play <span aria-hidden="true">↗</span></a><h2 id="launchTitle"><span class="u-sr-only">Bikin keuanganmu lebih rapi, lebih tenang, dan lebih terarah.</span><span aria-hidden="true">Bikin keuanganmu<span class="launch-rotator" data-launch-rotator><span class="launch-word is-active">lebih rapi.</span><span class="launch-word">lebih tenang.</span><span class="launch-word">lebih terarah.</span></span></span></h2><p>Catat pengeluaran, pantau investasi, dan rapikan rencana keuanganmu bersama Uangii. Mulai sekarang dari perangkat Android-mu.</p><div class="launch-actions"><a class="btn btn-primary launch-store-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer"><svg class="launch-play-icon" viewBox="0 0 24 26" aria-hidden="true"><path d="M2 1.5 23 13 2 24.5Z"/></svg><span>Unduh di Google Play</span></a><a class="btn btn-ghost" href="fitur.html">Kenali fitur Uangii <span aria-hidden="true">↗</span></a></div><span class="launch-note">Tersedia untuk Android · Offline-first · Emtitra Production</span></section></div>
-</div>
 
-    </main>
+      <!-- LAUNCH CTA -->
+      <div class="wrap">
+        <section class="launch-cta" id="download" aria-labelledby="launchTitle">
+          <span id="early-access" class="launch-anchor" aria-hidden="true"></span>
+          <img class="launch-mark" src="assets/brand/uangii-mark.webp" width="96" height="96" alt="" loading="lazy" decoding="async">
+          <a class="launch-badge" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Uangii 1.2.7 sudah hadir di Google Play <span aria-hidden="true">↗</span></a>
+          <h2 id="launchTitle">
+            <span class="u-sr-only">Bikin keuanganmu lebih rapi, lebih tenang, dan lebih terarah.</span>
+            <span aria-hidden="true">Bikin keuanganmu<span class="launch-rotator" data-launch-rotator><span class="launch-word is-active">lebih rapi.</span><span class="launch-word">lebih tenang.</span><span class="launch-word">lebih terarah.</span></span></span>
+          </h2>
+          <p>Catat pengeluaran, aktifkan 7 tools harian, bedah arus kas, dan pantau portofolio investasi bersama Uangii di perangkat Android-mu.</p>
+          <div class="launch-actions">
+            <a class="btn btn-primary launch-store-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">
+              <svg class="launch-play-icon" viewBox="0 0 24 26" aria-hidden="true"><path d="M2 1.5 23 13 2 24.5Z"/></svg>
+              <span>Unduh di Google Play</span>
+            </a>
+            <a class="btn btn-ghost" href="fitur.html">Jelajahi semua fitur <span aria-hidden="true">↗</span></a>
+          </div>
+          <span class="launch-note">Tersedia untuk Android · Offline-first · Emtitra Production</span>
+        </section>
+      </div>
+    </div>
+  </main>
 
-  <!-- ================= WAITLIST MODAL ================= -->
-  
-
-  <button id="btnScrollTop" class="btn-scroll-top" aria-label="Kembali ke atas"
-    onclick="window.scrollTo({top:0,behavior:motionBehavior()})">↑</button>
+  <button type="button" id="btnScrollTop" class="btn-scroll-top" aria-label="Kembali ke atas" onclick="window.scrollTo({top:0,behavior:motionBehavior()})">↑</button>
 
   <footer>
     <div class="wrap">
       <div class="foot">
         <div>
-          <a class="brand" href="#home" onclick="showTab('home')"><img src="assets/brand/uangii-icon.webp"
-              alt="Uangii"><span class="brand-name">Uang<span class="grad-text">ii</span></span> ✨</a>
+          <a class="brand" href="#home" onclick="showTab('home')">
+            <img src="assets/brand/uangii-icon.webp" alt="Uangii">
+            <span class="brand-name">Uang<span class="grad-text">ii</span></span> ✨
+          </a>
           <p>A calmer relationship with money. Catatan yang lebih rapi, keputusan yang lebih jernih, dan ruang untuk menikmati hidup.</p>
-          <!-- Tombol Track Back ke Developer Studio Emtitra Production -->
           <a class="dev-badge" href="../" title="Kunjungi Website Developer Emtitra Production">
             <img src="assets/logo dev.jpg" alt="Emtitra Production">
             <div>
@@ -436,18 +828,19 @@
         </div>
         <div>
           <h5>Menu Navigasi</h5>
-<a class="link" href="investasi.html">Investasi &amp; RDN</a>
+          <a class="link" href="fitur.html">Fitur &amp; 7 Tools Uangii</a>
+          <a class="link" href="investasi.html">Investasi &amp; RDN</a>
+          <a class="link" href="keluarga.html">Ruang Keluarga</a>
           <a class="link" href="arsitektur.html">Komparasi Arsitektur</a>
-          <a class="link" href="keluarga.html">Ruang Keluarga</a><button class="link" onclick="openCalculatorStudio()">Simulasi Kalkulator</button>
-          <a class="link" href="fitur.html">Fitur Andalan</a>
           <a class="link" href="privasi.html">Privasi &amp; Kriptografi</a>
-          <button class="link" onclick="goSection('faq')">FAQ</button>
+          <button type="button" class="link" onclick="openCalculatorStudio()">Simulasi Kalkulator</button>
+          <button type="button" class="link" onclick="goSection('faq')">FAQ</button>
         </div>
         <div>
-          <h5>Legalitas & Bantuan</h5>
+          <h5>Legalitas &amp; Bantuan</h5>
           <a class="link" href="kebijakan-privasi.html">Kebijakan Privasi (UU PDP)</a>
-          <a class="link" href="hapus-akun.html">Hapus akun dan data</a>
-          <a class="link" href="ketentuan.html">Syarat & Ketentuan</a>
+          <a class="link" href="ketentuan.html">Ketentuan Layanan</a>
+          <a class="link" href="hapus-akun.html">Hapus Akun &amp; Data Cloud</a>
           <a href="../">Portal Developer Emtitra</a>
           <a href="mailto:uangii@fintrack.digital">uangii@fintrack.digital</a>
         </div>
@@ -472,81 +865,60 @@
     }
 
     function showTab(tabId) {
-      const standalonePages = {"privacy":"kebijakan-privasi.html","terms":"ketentuan.html","fitur-detail":"fitur.html","komparasi-detail":"arsitektur.html","keamanan-detail":"privasi.html"};
+      const standalonePages = {
+        "privacy": "kebijakan-privasi.html",
+        "terms": "ketentuan.html",
+        "fitur-detail": "fitur.html",
+        "komparasi-detail": "arsitektur.html",
+        "keamanan-detail": "privasi.html"
+      };
       if (standalonePages[tabId]) { location.replace(standalonePages[tabId]); return; }
       document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.drawer-item').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-
       const sec = document.getElementById('section-' + tabId);
       if (sec) sec.classList.add('active');
-
-      // Update drawer active status
-      const drawerBtn = document.getElementById('btn-' + tabId) || document.getElementById('btn-drawer-' + tabId.replace('-detail', ''));
+      const drawerBtn = document.getElementById('btn-' + tabId);
       if (drawerBtn) drawerBtn.classList.add('active');
-
-      // Update desktop nav-btn active status
-      const navMap = {
-        'fitur-detail': 'btn-fitur-nav',
-        'komparasi-detail': 'btn-komparasi-nav',
-        'keamanan-detail': 'btn-keamanan-nav'
-      };
-      if (navMap[tabId]) {
-        const topNavBtn = document.getElementById(navMap[tabId]);
-        if (topNavBtn) topNavBtn.classList.add('active');
-      }
-
       history.replaceState(null, '', '#' + tabId);
       toggleNav(false);
       window.scrollTo({ top: 0, behavior: motionBehavior() });
       observeReveals();
     }
 
-    function motionBehavior() { return matchMedia("(prefers-reduced-motion: reduce)").matches || document.body.classList.contains("u-motion-paused") ? "instant" : "smooth"; }
+    function motionBehavior() {
+      return matchMedia("(prefers-reduced-motion: reduce)").matches || document.body.classList.contains("u-motion-paused") ? "instant" : "smooth";
+    }
 
     function goSection(id) {
       if (!document.getElementById('section-home').classList.contains('active')) showTab('home');
       setTimeout(() => {
         const target = document.getElementById(id);
         if (target) target.scrollIntoView({ behavior: motionBehavior() });
-      }, 80);
+      }, 60);
       toggleNav(false);
     }
 
-    // Header blur on scroll & Scroll-to-Top Button
     const header = document.getElementById('header');
     const btnScrollTop = document.getElementById('btnScrollTop');
     addEventListener('scroll', () => {
       const y = window.scrollY;
-      header.classList.toggle('scrolled', y > 10);
-      btnScrollTop.classList.toggle('show', y > 400);
+      header?.classList.toggle('scrolled', y > 10);
+      btnScrollTop?.classList.toggle('show', y > 400);
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const bar = document.getElementById('scrollProgressBar');
+      if (bar && height > 0) bar.style.width = ((y / height) * 100) + '%';
     }, { passive: true });
 
-    // Reveal on scroll
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.1 });
     function observeReveals() { document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el)); }
 
-    // Showcase tabs
-    const showImg = document.getElementById('showImg');
-    document.querySelectorAll('#showTabs .tab').forEach(t => t.addEventListener('click', () => {
-      document.querySelectorAll('#showTabs .tab').forEach(x => x.classList.remove('active'));
-      t.classList.add('active');
-      showImg.style.opacity = 0;
-      setTimeout(() => { showImg.src = t.dataset.img; showImg.style.opacity = 1; }, 200);
-    }));
+    function formatRupiah(num) { return 'Rp ' + Number(num).toLocaleString('id-ID'); }
 
-    // Format Rupiah
-    function formatRupiah(num) {
-      return 'Rp ' + Number(num).toLocaleString('id-ID');
-    }
-
-    // Kalkulator Keuangan Interaktif
     function updateCalculator() {
       const income = parseInt(document.getElementById('rangeIncome').value, 10);
       const expense = parseInt(document.getElementById('rangeExpense').value, 10);
-
       document.getElementById('valIncome').textContent = formatRupiah(income);
       document.getElementById('valExpense').textContent = formatRupiah(expense);
 
@@ -556,33 +928,29 @@
       const badgeEl = document.getElementById('calcBadge');
       const adviceEl = document.getElementById('calcAdvice');
 
-      // Metric calculations
-      const needs = Math.round(income * 0.5);
-      const invest = Math.round(income * 0.2);
-      document.getElementById('valNeeds').textContent = formatRupiah(needs);
-      document.getElementById('valInvest').textContent = formatRupiah(invest);
+      document.getElementById('valNeeds').textContent = formatRupiah(Math.round(income * 0.5));
+      document.getElementById('valInvest').textContent = formatRupiah(Math.round(income * 0.2));
 
       if (savings >= 0) {
         savingsEl.textContent = formatRupiah(savings);
         savingsEl.style.color = '#34d399';
         const rate = Math.round((savings / income) * 100);
         rateEl.textContent = `Tingkat Tabungan: ${rate}% dari pendapatan bulanan`;
-
         if (rate >= 35) {
           badgeEl.textContent = '✨ KONDISI: WANGI & STABIL';
           badgeEl.style.background = 'rgba(16,185,129,0.2)';
           badgeEl.style.color = '#34d399';
-          adviceEl.innerHTML = '🌿 <strong>Rekomendasi Fio:</strong> Cash flow Anda sangat harum! Pastikan dana darurat minimal 3–6 bulan pengeluaran sudah terisi di instrumen likuid.';
+          adviceEl.innerHTML = '🌿 <strong>Rekomendasi Fio:</strong> Cash flow Anda sangat harum! Pastikan dana darurat minimal 3–6 bulan pengeluaran sudah terisi dan pantau progresnya di Emergency Runway Uangii.';
         } else if (rate >= 15) {
           badgeEl.textContent = '🌸 KONDISI: CUKUP SEGAR';
           badgeEl.style.background = 'rgba(6,182,212,0.2)';
           badgeEl.style.color = '#38bdf8';
-          adviceEl.innerHTML = '💡 <strong>Rekomendasi Fio:</strong> Alur kas sehat, namun pos keinginan (wants) masih bisa dirapikan lagi agar alokasi investasi bertambah.';
+          adviceEl.innerHTML = '💡 <strong>Rekomendasi Fio:</strong> Alur kas sehat, namun pos keinginan (wants) masih bisa dirapikan lagi lewat Daftar Belanja Cerdas agar alokasi investasi bertambah.';
         } else {
           badgeEl.textContent = '⚠️ KONDISI: MELESAT TIPIS';
           badgeEl.style.background = 'rgba(234,179,8,0.2)';
           badgeEl.style.color = '#facc15';
-          adviceEl.innerHTML = '🔍 <strong>Rekomendasi Fio:</strong> Tabungan di bawah 15%. Coba lacak kembali transaksi langganan dan jajan harian di Uangii!';
+          adviceEl.innerHTML = '🔍 <strong>Rekomendasi Fio:</strong> Tabungan di bawah 15%. Coba aktifkan Batas Aman Harian &amp; cek aliran Sankey Cash Flow di Uangii untuk menemukan kebocoran halus!';
         }
       } else {
         savingsEl.textContent = '-' + formatRupiah(Math.abs(savings));
@@ -593,141 +961,50 @@
         badgeEl.style.color = '#f87171';
         adviceEl.innerHTML = '🛑 <strong>Peringatan Fio:</strong> Terjadi arus kas negatif. Segera pangkas pos pengeluaran tersier sebelum mengambil pinjaman baru.';
       }
+      triggerMicroPop(savingsEl);
     }
 
-    // Fio AI Simulator Responses
     const simData = [
-      {
-        q: "Bagaimana cara menyisihkan dana darurat gaji UMR?",
-        a: "Halo! Untuk gaji UMR, kuncinya adalah <strong>metode Reverse Budgeting</strong>: sisihkan 10% di awal begitu gajian sebelum dibagi ke pos lain. Simpan di rekening tanpa kartu ATM agar tidak tergiur belanja impulsif. Di Uangii, kamu bisa mengunci anggaran darurat ini dalam satu kategori terpisah! 🌸"
-      },
-      {
-        q: "Berapa rasio pengeluaran makan yang wajar per bulan?",
-        a: "Secara finansial sehat, pos pangan & konsumsi harian idealnya berada di rentang <strong>20% – 30%</strong> dari total penghasilan. Jika sudah menyentuh 40% ke atas, biasanya kebocoran halus berasal dari kopi kekinian dan pesan-antar makanan online. Coba catat 7 hari ke depan di Uangii untuk melihat polanya! 🍱✨"
-      },
-      {
-        q: "Lebih baik bayar utang dulu atau mulai investasi?",
-        a: "Kuncinya adalah perbandingan: <strong>bandingkan bunga dan biaya utang dengan potensi imbal hasil setelah pajak, risiko, serta kebutuhan dana darurat</strong> sebelum menentukan prioritas pelunasan dan investasi. Jika utang berbunga tinggi, menyelesaikannya lebih awal biasanya memberikan kepastian penghematan yang signifikan. 🛡️🚀"
-      }
+      { q: "Bagaimana cara menyisihkan dana darurat gaji UMR?", a: "Halo! Untuk gaji UMR, kuncinya adalah <strong>metode Reverse Budgeting</strong>: sisihkan 10% di awal begitu gajian sebelum dibagi ke pos lain. Di Uangii, kamu bisa memantau targetnya lewat fitur <strong>Target Tabungan</strong> &amp; <strong>Emergency Runway Gauge</strong>! 🌸" },
+      { q: "Berapa rasio pengeluaran makan yang wajar per bulan?", a: "Secara finansial sehat, pos pangan &amp; konsumsi harian idealnya berada di rentang <strong>20% – 30%</strong> dari total penghasilan. Coba catat 7 hari ke depan (bisa otomatis lewat draf notifikasi lokal!) lalu lihat polanya di <strong>Pola &amp; Kebiasaan</strong> Uangii. 🍱✨" },
+      { q: "Lebih baik bayar utang dulu atau mulai investasi?", a: "Kuncinya adalah perbandingan: <strong>bandingkan bunga dan biaya utang dengan potensi imbal hasil setelah pajak, risiko, serta kebutuhan dana darurat</strong> sebelum menentukan prioritas pelunasan dan investasi. Pantau kurva pelunasanmu di <strong>Debt Payoff Mountain</strong> Uangii. 🛡️🚀" }
     ];
-
-    // Typewriter effect for Fio AI simulator
-    function typeWriter(htmlText, element) { element.innerHTML = htmlText; }
 
     function simulateFio(idx, btn) {
       document.querySelectorAll('.prompt-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const item = simData[idx];
-      const userBubble = document.getElementById('simUserBubble');
+      document.getElementById('simUserBubble').textContent = item.q;
       const aiBubble = document.getElementById('simAiBubble');
-
-      userBubble.textContent = item.q;
       aiBubble.innerHTML = '<span style="opacity:.6">Sedang mengetik...</span>';
-
-      setTimeout(() => {
-        typeWriter(item.a, aiBubble, 14);
-      }, 350);
+      setTimeout(() => { aiBubble.innerHTML = item.a; }, 280);
     }
 
-    // Number Counter Animation on Viewport
-    let counterTriggered = false;
-    function initCounterAnimation() {
-      const counters = document.querySelectorAll('.counter');
-      if (!counters.length) return;
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !counterTriggered) {
-            counterTriggered = true;
-            counters.forEach(counter => {
-              const target = parseInt(counter.dataset.target, 10);
-              const prefix = counter.dataset.prefix || '';
-              const suffix = counter.dataset.suffix || '';
-              let start = 0;
-              const duration = 1500;
-              const stepTime = 25;
-              const steps = duration / stepTime;
-              const increment = target / steps;
-
-              const timer = setInterval(() => {
-                start += increment;
-                if (start >= target) {
-                  counter.textContent = prefix + target + suffix;
-                  clearInterval(timer);
-                } else {
-                  counter.textContent = prefix + Math.floor(start) + suffix;
-                }
-              }, stepTime);
-            });
-            observer.disconnect();
-          }
-        });
-      }, { threshold: 0.5 });
-
-      const trustSection = document.querySelector('.trust');
-      if (trustSection) observer.observe(trustSection);
-    }
-
-    // Interactive 3D Tilt for Hero Phone Mockup on Desktop
-    function initPhoneTilt() {
-      const stage = document.querySelector('.phone-stage');
-      const phone = document.querySelector('.phone-bezel:not(.back)');
-      if (!stage || !phone || window.innerWidth < 992) return;
-
-      stage.addEventListener('mousemove', (e) => {
-        const rect = stage.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        phone.style.transform = `rotateY(${x * 24}deg) rotateX(${-y * 18}deg) scale(1.02)`;
-      });
-
-      stage.addEventListener('mouseleave', () => {
-        phone.style.transform = 'rotateY(-10deg) rotateX(3deg)';
-      });
-    }
-
-    // ==========================================
-    // BENTO INTERACTIVE STUDIO CONTROLLER
-    // ==========================================
     function switchBentoStudioTab(tabId, btn) {
       document.querySelectorAll('.bento-tab-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.bento-tab-content').forEach(c => c.classList.remove('active'));
-
       if (btn) btn.classList.add('active');
-      const content = document.getElementById('bentoTabContent-' + tabId);
-      if (content) content.classList.add('active');
-
-      if (tabId === 'calc') {
-        updateCalculator();
-      }
+      document.getElementById('bentoTabContent-' + tabId)?.classList.add('active');
+      if (tabId === 'calc') updateCalculator();
     }
 
-    // Live Chat Input Sandbox in Fio AI Tab
     function handleLiveChatSubmit(e) {
       e.preventDefault();
       const input = document.getElementById('liveChatInput');
       const userText = input ? input.value.trim() : '';
       if (!userText) return;
-
-      const userBubble = document.getElementById('simUserBubble');
+      document.getElementById('simUserBubble').textContent = userText;
       const aiBubble = document.getElementById('simAiBubble');
       const chatContainer = document.getElementById('chatMessages');
-
-      userBubble.textContent = userText;
       aiBubble.innerHTML = '<span style="opacity:.6">Memuat contoh respons demo…</span>';
       input.value = '';
-
       setTimeout(() => {
-        const answer = "Ini contoh respons, bukan konsultasi AI. Di aplikasi, Fio dapat membantu meninjau kategori, anggaran, dan usulan transaksi. Selalu periksa hasil sebelum menyimpan.";
-
-        typeWriter(answer, aiBubble, 12);
+        aiBubble.textContent = "Ini contoh respons demo di browser, bukan konsultasi AI live. Di aplikasi Uangii, Fio dapat membantu meninjau kategori, anggaran, dan menyiapkan draf transaksi untuk kamu konfirmasi sebelum disimpan.";
         if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight;
-      }, 600);
+      }, 450);
     }
 
-    // Natural Language Smart Input Parser Simulator
     function handleSmartInput(text) {
-      const card = document.getElementById('smartParsedCard');
       const amountEl = document.getElementById('parsedAmount');
       const catEl = document.getElementById('parsedCategory');
       const descEl = document.getElementById('parsedDesc');
@@ -744,34 +1021,30 @@
         typeBadge.style.color = "var(--muted)";
         return;
       }
-
+      if (typeof window.parseStudioTransaction !== 'function') return;
       const parsed = window.parseStudioTransaction(text);
       if (parsed.error) {
         amountEl.textContent = "—";
         amountEl.style.color = "var(--muted)";
-        catEl.textContent = "—"; descEl.textContent = parsed.error; walletEl.textContent = "—";
-        typeBadge.textContent = "PERLU DIPERJELAS"; typeBadge.style.color = "#facc15";
+        catEl.textContent = "—";
+        descEl.textContent = parsed.error;
+        walletEl.textContent = "—";
+        typeBadge.textContent = "PERLU DIPERJELAS";
+        typeBadge.style.color = "#facc15";
         return;
       }
       const lower = text.toLowerCase();
       const { amount, type } = parsed;
       const isIncome = type === "income";
 
-      // Detect Category
       let category = "🛒 Belanja & Lain-lain";
-      if (lower.includes('kopi') || lower.includes('makan') || lower.includes('nasi') || lower.includes('resto') || lower.includes('boba') || lower.includes('kuliner') || lower.includes('cafe')) {
-        category = "🍔 Makanan & Minuman";
-      } else if (lower.includes('bensin') || lower.includes('pertamax') || lower.includes('pertalite') || lower.includes('gojek') || lower.includes('grab') || lower.includes('parkir') || lower.includes('tol')) {
-        category = "⛽ Transportasi & Bensin";
-      } else if (lower.includes('wifi') || lower.includes('indihome') || lower.includes('listrik') || lower.includes('pln') || lower.includes('air') || lower.includes('pulsa') || lower.includes('kuota')) {
-        category = "💡 Tagihan & Utilitas";
-      } else if (lower.includes('gaji') || lower.includes('bonus') || lower.includes('dividen') || lower.includes('proyek')) {
-        category = "💰 Pemasukan Pokok / Karir";
-      }
+      if (/kopi|makan|nasi|resto|boba|kuliner|cafe/.test(lower)) category = "🍔 Makanan & Minuman";
+      else if (/bensin|pertamax|pertalite|gojek|grab|parkir|tol/.test(lower)) category = "⛽ Transportasi & Bensin";
+      else if (/wifi|indihome|listrik|pln|air|pulsa|kuota/.test(lower)) category = "💡 Tagihan & Utilitas";
+      else if (/gaji|bonus|dividen|proyek/.test(lower)) category = "💰 Pemasukan Pokok / Karir";
 
-      // Detect Wallet / Method
       let wallet = "💵 Uang Tunai (Cash)";
-      if (lower.includes('bca') || lower.includes('qris bca')) wallet = "💳 QRIS Bank BCA";
+      if (lower.includes('bca')) wallet = "💳 QRIS Bank BCA";
       else if (lower.includes('mandiri')) wallet = "💳 Bank Mandiri";
       else if (lower.includes('gopay')) wallet = "📱 E-Wallet GoPay";
       else if (lower.includes('ovo')) wallet = "📱 E-Wallet OVO";
@@ -779,15 +1052,13 @@
       else if (lower.includes('jago')) wallet = "💳 Bank Jago";
       else if (lower.includes('qris')) wallet = "📲 QRIS Dompet Utama";
 
-      // Extract Description
-      const cleanDesc = parsed.description;
-
-      // Render
       if (type === "transfer") {
         amountEl.textContent = formatRupiah(amount);
         amountEl.style.color = "#7dd3fc";
-        typeBadge.textContent = "TRANSFER TERDETEKSI"; typeBadge.style.color = "#7dd3fc";
-        category = "Transfer antardompet"; wallet = "Tinjau dompet asal dan tujuan";
+        typeBadge.textContent = "TRANSFER TERDETEKSI";
+        typeBadge.style.color = "#7dd3fc";
+        category = "Transfer antardompet";
+        wallet = "Tinjau dompet asal dan tujuan";
       } else if (isIncome) {
         amountEl.textContent = "+" + formatRupiah(amount || 0);
         amountEl.style.color = "#34d399";
@@ -799,10 +1070,10 @@
         typeBadge.textContent = "📉 PENGELUARAN TERDETEKSI";
         typeBadge.style.color = "#f87171";
       }
-
       catEl.textContent = category;
-      descEl.textContent = cleanDesc.charAt(0).toUpperCase() + cleanDesc.slice(1);
+      descEl.textContent = parsed.description.charAt(0).toUpperCase() + parsed.description.slice(1);
       walletEl.textContent = wallet;
+      triggerMicroPop(amountEl);
     }
 
     function fillSmartTag(sampleText) {
@@ -814,77 +1085,70 @@
       }
     }
 
-    // ==========================================
-    // TOP SCROLL PROGRESS
-    // ==========================================
-    window.addEventListener('scroll', () => {
-      const winScroll = document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const bar = document.getElementById('scrollProgressBar');
-      if (bar && height > 0) {
-        bar.style.width = ((winScroll / height) * 100) + '%';
-      }
-    });
-
-    // ==========================================
-    // WAITLIST MODAL SYSTEM & LIVE QUOTA SYNC
-    // ==========================================
     const secLayersData = [
       {
         badge: "🛡️ LAYER 1: BIOMETRIC SHIELD",
         title: "Autentikasi Biometrik & PIN Lokal",
-        desc: "Saat aplikasi dibuka, sistem Android Security Sandbox memverifikasi sidik jari atau PIN lokal Anda. Tidak ada data biometrik yang pernah diunggah ke internet.",
+        desc: "Saat aplikasi dibuka, sistem Android Security Sandbox memverifikasi sidik jari atau PIN lokal Anda. Data biometrik tetap diproses oleh sistem Android dan tidak dikirim ke server pengembang.",
         consoleHtml: `
-          <div>[OS_KEYGUARD] Requesting Biometric Prompt...</div>
-          <div style="color:#34d399;">[STATUS] Fingerprint Match: SUCCESS ✓</div>
-          <div style="color:#94a3b8;">[ACCESS] Decrypting Keyguard Session Token... GRANTED</div>
-        `,
+          <div>[OS_KEYGUARD] Requesting BiometricPrompt...</div>
+          <div style="color:#34d399;">[STATUS] Biometric Verification: MATCH ✓</div>
+          <div style="color:#94a3b8;">[ACCESS] Local Vault Session: UNLOCKED</div>`,
         std: "Android BiometricPrompt API"
       },
       {
         badge: "🔐 LAYER 2: SQLCIPHER AES-256 VAULT",
-        title: "Enkripsi Database Page-by-Page",
-        desc: "Setiap baris nominal rupiah dan mutasi dompet disimpan ke file SQLite terenkripsi penuh. Bahkan jika HP dicolokkan ke komputer (kabel USB), isi file hanya deretan biner tak bermakna.",
+        title: "Enkripsi Database Lokal Page-by-Page",
+        desc: "Setiap baris transaksi, saldo dompet, dan portofolio disimpan ke basis data SQLite terenkripsi penuh dengan kunci yang diamankan di Android Keystore. Cadangan Drive juga dienkripsi AES-256-GCM + PBKDF2.",
         consoleHtml: `
-          <div>[CIPHER] Ilustrasi basis data SQLCipher</div>
-          <div style="color:#f87171;">[USB_DUMP] 7F 45 4C 46 02 01 01 00 00 ... [UNREADABLE CIPHERTEXT]</div>
-          <div style="color:#34d399;">[PROTECTION] Contoh ilustrasi enkripsi lokal</div>
-        `,
-        std: "SQLCipher 256-bit Full Database"
+          <div>[CIPHER] SQLCipher 256-bit AES Engine Active</div>
+          <div style="color:#f87171;">[RAW_READ] 7F 45 4C 46 02 01 01 ... [UNREADABLE CIPHERTEXT]</div>
+          <div style="color:#34d399;">[BACKUP] AES-256-GCM + PBKDF2 Vault Ready</div>`,
+        std: "SQLCipher AES-256 & AES-256-GCM"
       },
       {
-        badge: "🧼 LAYER 3: FIO OFFLINE & GEMINI CLOUD",
-        title: "Mode lokal dan konteks cloud",
-        desc: "Mode Fio offline berjalan di perangkat. Saat Gemini Cloud dipakai, permintaan dapat menyertakan nominal finansial, pertanyaan, dan riwayat terbaru. Penyaringan teks membantu mengurangi informasi identitas, tetapi tidak menghapus seluruh nominal.",
+        badge: "🔔 LAYER 3: AUTO-CAPTURE EPHEMERAL FILTER",
+        title: "Pemrosesan Notifikasi 100% Lokal di Memori",
+        desc: "Jika Anda mengaktifkan Auto-Capture secara sukarela, Uangii hanya membaca aplikasi bank/e-wallet pilihan Anda secara sementara di memori. OTP, PIN, kata sandi, dan promo langsung dibuang tanpa disimpan.",
         consoleHtml: `
-          <div>[CONTOH] Konteks finansial untuk mode cloud</div>
-          <div style="color:#38bdf8;">[SANITIZER] Penyaringan informasi identitas pada teks...</div>
-          <div style="color:#34d399;">[PAYLOAD] {"total_expense": "Rp 750.000"} (ilustrasi)</div>
-        `,
-        std: "Periksa mode sebelum mengirim"
+          <div>[NOTIF_GUARD] Incoming package: whitelist_bank ✓</div>
+          <div style="color:#facc15;">[FILTER] OTP / PIN / Promo patterns → DROPPED</div>
+          <div style="color:#34d399;">[LOCAL_DRAFT] Ready for user confirmation (0 bytes sent)</div>`,
+        std: "On-Device Ephemeral Processing · UU PDP Pasal 40"
+      },
+      {
+        badge: "🧼 LAYER 4: FIO OFFLINE & GEMINI CLOUD",
+        title: "Mode Lokal & Penyaringan Konteks Cloud",
+        desc: "Mode Fio offline berjalan di perangkat. Saat Gemini Cloud dipakai, permintaan dapat menyertakan pertanyaan, riwayat terbaru, dan konteks nominal finansial; penyaringan teks membantu menyamarkan nomor identitas, namun tidak menghapus semua nominal.",
+        consoleHtml: `
+          <div>[MODE] User selected: Gemini Cloud (Opt-In)</div>
+          <div style="color:#38bdf8;">[SANITIZER] Masking account/card patterns...</div>
+          <div style="color:#34d399;">[PAYLOAD] {"total_expense": "Rp 750.000"} (ilustrasi)</div>`,
+        std: "DataSanitizer PII Masking · Opt-In Cloud"
       }
     ];
 
-    function switchSecurityLayer(idx) {
-      document.querySelectorAll('.sec-layer-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', i === idx);
-      });
+    function triggerMicroPop(el) {
+      if (!el || document.body.classList.contains('u-motion-paused')) return;
+      el.classList.remove('is-popping');
+      void el.offsetWidth;
+      el.classList.add('is-popping');
+    }
 
+    function switchSecurityLayer(idx) {
+      document.querySelectorAll('.sec-layer-btn').forEach((btn, i) => btn.classList.toggle('active', i === idx));
       const data = secLayersData[idx];
       const badge = document.getElementById('secStageBadge');
       const content = document.getElementById('secStageContent');
-
-      if (badge && content) {
+      const std = document.getElementById('secStageStd');
+      if (badge && content && data) {
         badge.textContent = data.badge;
-        content.innerHTML = `
-          <h4>${data.title}</h4>
-          <p>${data.desc}</p>
-          <div class="stage-console">${data.consoleHtml}</div>
-        `;
+        content.innerHTML = `<h4>${data.title}</h4><p>${data.desc}</p><div class="stage-console">${data.consoleHtml}</div>`;
+        if (std) std.textContent = data.std;
+        triggerMicroPop(content);
       }
     }
 
-    // A legacy bookmark can also be opened while the homepage is already loaded.
     window.addEventListener('hashchange', () => {
       const legacy = location.hash.slice(1);
       if (['privacy', 'terms', 'fitur-detail', 'komparasi-detail', 'keamanan-detail'].includes(legacy)) showTab(legacy);
@@ -896,16 +1160,12 @@
       if (validTabs.includes(hash)) showTab(hash);
       observeReveals();
       updateCalculator();
-      initCounterAnimation();
-      initPhoneTilt();
       handleSmartInput("Beli Kopi Kenangan 28rb pakai QRIS BCA");
-
     });
   </script>
   <script src="redesign.js" defer></script>
-<script src="launch.js" defer></script>
-<script src="studio-parser.js"></script>
-<script src="gallery.js" defer></script>
+  <script src="launch.js" defer></script>
+  <script src="studio-parser.js"></script>
 </body>
 
 </html>
