@@ -82,6 +82,12 @@
     document.getElementById('tabBtnCalc')?.click();
   };
 
+  // Studio Smart Input shortcut
+  window.openSmartInputStudio = function() {
+    if (typeof window.goSection === 'function') window.goSection('interactive-studio');
+    document.getElementById('tabBtnSmartInput')?.click();
+  };
+
   // Interactive Bento Studio accessible tabs
   const tablist = document.querySelector('.bento-nav-tabs');
   if (tablist) {
