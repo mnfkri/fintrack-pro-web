@@ -379,83 +379,16 @@
         </div>
       </section>
 
-      <!-- CODE-BASED VISUAL SHOWCASE GALLERY (Replaces old Play Store PNG screenshots) -->
-      <section class="wrap u-section" id="cuplikan">
-        <div class="u-heading-row reveal">
-          <div class="u-section-heading">
-            <span class="u-eyebrow">VISUAL SHOWCASE · BERBASIS KODE APLIKASI</span>
-            <h2>Lihat detail tiap layar.<br><em>Tajam di segala ukuran.</em></h2>
-            <p>Ketuk kartu mana saja untuk memperbesar tampilan interaktifnya, atau lihat rilis terbaru di <a class="u-story-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Google Play Store ↗</a>.</p>
+      <dialog class="release-lightbox" id="codeShowcaseDialog" aria-label="Pratinjau ilustrasi layar Uangii">
+        <div class="release-lightbox-head">
+          <div>
+            <h3 data-dialog-title>Ilustrasi Uangii</h3>
+            <p data-dialog-desc></p>
           </div>
+          <form method="dialog"><button type="submit" class="btn btn-ghost" style="padding:10px 18px;min-height:42px;" autofocus>Tutup ✕</button></form>
         </div>
-        <div class="code-gallery" data-stagger>
-          <button type="button" class="code-showcase-card u-spot" data-open-scene="personal">
-            <div class="code-showcase-preview" data-app-scene="personal" data-scene-compact></div>
-            <div class="code-showcase-meta">
-              <small>01 · BERANDA &amp; BATAS AMAN</small>
-              <strong>Kekayaan Bersih &amp; Notched Bar</strong>
-              <span>Ringkasan saldo, sparkline aset, batas harian, dan tombol + melayang di tengah.</span>
-              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
-            </div>
-          </button>
-          <button type="button" class="code-showcase-card u-spot" data-open-scene="toolsHub">
-            <div class="code-showcase-preview" data-app-scene="toolsHub" data-scene-compact></div>
-            <div class="code-showcase-meta">
-              <small>02 · TOOLS UANGII 7-IN-1</small>
-              <strong>Alat Bantu Keuangan Harian</strong>
-              <span>Notifikasi otomatis, Split Bill, Trip, Daftar Belanja, Garansi, Zakat, dan Rewind.</span>
-              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
-            </div>
-          </button>
-          <button type="button" class="code-showcase-card u-spot" data-open-scene="autoCapture">
-            <div class="code-showcase-preview" data-app-scene="autoCapture" data-scene-compact></div>
-            <div class="code-showcase-meta">
-              <small>03 · AUTO-CAPTURE LOKAL</small>
-              <strong>Catat dari Notifikasi Bank</strong>
-              <span>Baca notifikasi pilihan secara lokal di memori; OTP &amp; PIN dibuang otomatis.</span>
-              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
-            </div>
-          </button>
-          <button type="button" class="code-showcase-card u-spot" data-open-scene="analytics">
-            <div class="code-showcase-preview" data-app-scene="analytics" data-scene-compact></div>
-            <div class="code-showcase-meta">
-              <small>04 · ANALITIK VISUAL</small>
-              <strong>Sankey, Waterfall &amp; Runway</strong>
-              <span>Bedah arus kas, ketahanan dana darurat, skor kesehatan, hingga kalender kas.</span>
-              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
-            </div>
-          </button>
-          <button type="button" class="code-showcase-card u-spot" data-open-scene="rewind">
-            <div class="code-showcase-preview" data-app-scene="rewind" data-scene-compact></div>
-            <div class="code-showcase-meta">
-              <small>05 · UANGII REWIND</small>
-              <strong>Cerita Keuangan Bulanan</strong>
-              <span>Highlight saving rate &amp; hari hemat yang siap dibagikan dengan mode sensor nominal.</span>
-              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
-            </div>
-          </button>
-          <button type="button" class="code-showcase-card u-spot" data-open-scene="investments">
-            <div class="code-showcase-preview" data-app-scene="investments" data-scene-compact></div>
-            <div class="code-showcase-meta">
-              <small>06 · INVESTASI &amp; RDN</small>
-              <strong>Portofolio Multi-Aset Terpadu</strong>
-              <span>Saham IHSG/Global, Emas, Reksa Dana, Kripto dengan saldo Kas RDN terhubung.</span>
-              <span class="code-showcase-cta">Perbesar ilustrasi ↗</span>
-            </div>
-          </button>
-        </div>
-
-        <dialog class="release-lightbox" id="codeShowcaseDialog" aria-label="Pratinjau ilustrasi layar Uangii">
-          <div class="release-lightbox-head">
-            <div>
-              <h3 data-dialog-title>Ilustrasi Uangii</h3>
-              <p data-dialog-desc></p>
-            </div>
-            <form method="dialog"><button type="submit" class="btn btn-ghost" style="padding:10px 18px;min-height:42px;" autofocus>Tutup ✕</button></form>
-          </div>
-          <div data-dialog-scene></div>
-        </dialog>
-      </section>
+        <div data-dialog-scene></div>
+      </dialog>
 
       <!-- FREE VS PERSONAL PRO VS FAMILY VIP -->
       <section class="wrap u-section" id="paket" aria-labelledby="paketTitle">
