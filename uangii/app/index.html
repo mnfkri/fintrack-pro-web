@@ -257,13 +257,14 @@
         </div>
       </section>
 
-      <!-- VIEW: PLANNING (ANGGARAN, TARGET, TAGIHAN, HUTANG/PIUTANG) -->
+      <!-- VIEW: PLANNING (ANGGARAN, TARGET, TAGIHAN, HUTANG/PIUTANG, KATEGORI) -->
       <section class="view" id="view-planning">
-        <div class="seg-tabs" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;" role="tablist">
+        <div class="seg-tabs" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr));margin-bottom:20px;" role="tablist">
           <button type="button" class="seg-btn active" data-plan-tab="budgets">Anggaran</button>
           <button type="button" class="seg-btn" data-plan-tab="goals">Target Tabungan</button>
           <button type="button" class="seg-btn" data-plan-tab="recurring">Tagihan Rutin</button>
           <button type="button" class="seg-btn" data-plan-tab="debts">Hutang &amp; Piutang</button>
+          <button type="button" class="seg-btn" data-plan-tab="categories">Kategori</button>
         </div>
 
         <!-- Sub-panel: Budgets -->
@@ -387,6 +388,37 @@
                   <input type="text" id="debtNotes" class="input" placeholder="Keterangan singkat">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Catatan</button>
+              </form>
+            </article>
+          </div>
+        </div>
+
+        <!-- Sub-panel: Categories -->
+        <div class="plan-panel" id="plan-categories" style="display:none;">
+          <div class="grid-2">
+            <article class="card">
+              <div class="card-head"><h2>Daftar Kategori</h2></div>
+              <div class="tx-list" id="categoryList"></div>
+            </article>
+            <article class="card">
+              <div class="card-head"><h2>Tambah Kategori Baru</h2></div>
+              <form id="categoryForm">
+                <div class="field">
+                  <label for="catName">Nama Kategori</label>
+                  <input type="text" id="catName" class="input" placeholder="Contoh: Kopi & Nongkrong, Side Hustle" required>
+                </div>
+                <div class="field">
+                  <label for="catType">Tipe</label>
+                  <select id="catType" class="select">
+                    <option value="EXPENSE">Pengeluaran</option>
+                    <option value="INCOME">Pemasukan</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="catColor">Warna</label>
+                  <input type="color" id="catColor" value="#30D158" style="width:56px;height:36px;border:none;background:transparent;cursor:pointer;">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Kategori</button>
               </form>
             </article>
           </div>

@@ -213,14 +213,27 @@
       };
     });
 
-    // Preserve all other Android tables untouched for lossless round-trip
+    // Preserve all other Android tables untouched for lossless round-trip (with alias fallbacks)
     const androidBase = {
       app: raw.app || 'Finance Tracker',
       version: Number(raw.version) || 4,
       mergeProtocol: Number(raw.mergeProtocol) || 1
     };
+    const aliases = {
+      investmentPortfolios: ['investmentPortfolios', 'investments', 'portfolios'],
+      savingsGoals: ['savingsGoals', 'goals'],
+      recurringPayments: ['recurringPayments', 'recurring', 'bills'],
+      budgets: ['budgets'],
+      debts: ['debts'],
+      categories: ['categories']
+    };
     EXTRA_TABLES.forEach((key) => {
-      if (Array.isArray(raw[key])) androidBase[key] = raw[key];
+      const candidates = aliases[key] || [key];
+      let found = null;
+      for (const c of candidates) {
+        if (Array.isArray(raw[c])) { found = raw[c]; break; }
+      }
+      if (found) androidBase[key] = found;
       else if (key === 'categories') androidBase[key] = rawCats;
       else androidBase[key] = [];
     });
@@ -251,7 +264,16 @@
       tx.oncomplete = resolve;
       tx.onerror = () => reject(tx.error);
     });
-    return { walletsCount: snapshot.wallets.length, transactionsCount: snapshot.transactions.length };
+    const ab = snapshot.androidBase || {};
+    return {
+      walletsCount: snapshot.wallets.length,
+      transactionsCount: snapshot.transactions.length,
+      investmentsCount: (ab.investmentPortfolios || []).length,
+      budgetsCount: (ab.budgets || []).length,
+      goalsCount: (ab.savingsGoals || []).length,
+      debtsCount: (ab.debts || []).length,
+      categoriesCount: (ab.categories || []).length
+    };
   }
 
   // Exports in exact Android Uangii version 4 JSON format while preserving all extra Android tables

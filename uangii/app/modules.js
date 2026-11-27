@@ -42,6 +42,7 @@
     renderGoals(goals);
     renderRecurring(recurring, state.wallets);
     renderDebts(debts);
+    renderCategories(categories);
   }
 
   // ===== 1. INVESTASI & PORTOFOLIO =====
@@ -221,6 +222,31 @@
           <span class="tx-amount ${isPiutang ? 'text-pos' : 'text-neg'}">${fmtRp(remain)}</span>
           ${!d.isSettled ? `<button type="button" class="btn btn-ghost btn-sm" data-debt-pay="${escapeHtml(d.id)}">Cicil</button>` : ''}
           <button type="button" class="icon-btn" title="Hapus" data-debt-del="${escapeHtml(d.id)}">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ===== 6. KATEGORI (DARI BACKUP / CUSTOM) =====
+  function renderCategories(categories) {
+    const el = $('categoryList');
+    if (!el) return;
+    if (!categories.length) {
+      el.innerHTML = '<div class="empty-state">Belum ada kategori. Tambahkan kategori pengeluaran/pemasukan baru.</div>';
+      return;
+    }
+    el.innerHTML = categories.map((c) => {
+      const isInc = String(c.type || '').toUpperCase() === 'INCOME';
+      return `<div class="tx-row">
+        <div class="tx-main" style="display:flex;align-items:center;gap:10px;">
+          <span class="wallet-dot" style="background:${escapeHtml(c.colorHex || '#30D158')};margin:0;"></span>
+          <div>
+            <div class="tx-title">${escapeHtml(c.name)}</div>
+            <div class="tx-meta">${isInc ? 'Pemasukan' : 'Pengeluaran'}</div>
+          </div>
+        </div>
+        <div class="tx-right">
+          <button type="button" class="icon-btn" title="Hapus kategori" data-cat-del="${escapeHtml(c.id)}">✕</button>
         </div>
       </div>`;
     }).join('');
@@ -518,7 +544,40 @@
         await window.UangiiDB.saveAndroidTable('debts', rows);
         await refreshAppFn();
         toastFn('Catatan dihapus.');
+        return;
       }
+
+      // Delete Category
+      const catDel = e.target.closest('[data-cat-del]');
+      if (catDel) {
+        if (!confirm('Hapus kategori ini?')) return;
+        const rows = (await window.UangiiDB.getAndroidCategories()).filter((r) => String(r.id) !== catDel.dataset.catDel);
+        await window.UangiiDB.saveAndroidTable('categories', rows);
+        await refreshAppFn();
+        toastFn('Kategori dihapus.');
+      }
+    });
+
+    // Add Category
+    $('categoryForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const rows = await window.UangiiDB.getAndroidCategories();
+      const now = Date.now();
+      const id = nextId(rows);
+      rows.push({
+        id,
+        remoteId: 'web_cat_' + id + '_' + now,
+        name: ($('catName').value || '').trim(),
+        type: $('catType').value,
+        colorHex: $('catColor').value || '#30D158',
+        iconName: 'label',
+        isDefault: false,
+        updatedAt: now
+      });
+      await window.UangiiDB.saveAndroidTable('categories', rows);
+      $('categoryForm').reset();
+      await refreshAppFn();
+      toastFn('Kategori baru ditambahkan.');
     });
   }
 

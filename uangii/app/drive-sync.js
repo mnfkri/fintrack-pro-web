@@ -148,7 +148,11 @@
     return {
       syncedAt: now,
       count: imported.transactionsCount,
-      wallets: imported.walletsCount
+      wallets: imported.walletsCount,
+      investments: imported.investmentsCount,
+      budgets: imported.budgetsCount,
+      goals: imported.goalsCount,
+      debts: imported.debtsCount
     };
   }
 

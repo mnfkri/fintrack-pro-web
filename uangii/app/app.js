@@ -5,6 +5,7 @@
   const state = {
     wallets: [],
     transactions: [],
+    categories: [],
     view: 'dashboard',
     modalType: 'expense',
     editingTxId: null,
@@ -69,14 +70,16 @@
 
   async function refreshState() {
     await window.UangiiDB.seedIfEmpty();
-    const [wallets, transactions, lastSync, lastModified] = await Promise.all([
+    const [wallets, transactions, categories, lastSync, lastModified] = await Promise.all([
       window.UangiiDB.getWallets(),
       window.UangiiDB.getTransactions(),
+      window.UangiiDB.getAndroidCategories(),
       window.UangiiDB.getMeta('lastDriveSync'),
       window.UangiiDB.getMeta('lastModified')
     ]);
     state.wallets = wallets;
     state.transactions = transactions.sort((a, b) => (b.date + b.createdAt).localeCompare(a.date + a.createdAt));
+    state.categories = categories || [];
     renderAll(lastSync, lastModified);
   }
 
@@ -225,7 +228,17 @@
   }
 
   function populateCategories(type) {
-    const list = (window.UANGII_WEB_CONFIG.categories && window.UANGII_WEB_CONFIG.categories[type]) || ['Lainnya'];
+    if (type === 'transfer') {
+      $('txCategory').innerHTML = '<option value="Transfer">Transfer</option>';
+      return;
+    }
+    const targetType = type === 'income' ? 'INCOME' : 'EXPENSE';
+    const dynamic = (state.categories || [])
+      .filter((c) => String(c.type || '').toUpperCase() === targetType)
+      .map((c) => c.name);
+    const list = dynamic.length
+      ? dynamic
+      : ((window.UANGII_WEB_CONFIG.categories && window.UANGII_WEB_CONFIG.categories[type]) || ['Lainnya']);
     $('txCategory').innerHTML = list.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
   }
 
@@ -539,7 +552,7 @@
         const res = await window.UangiiDriveSync.pullEncryptedSnapshot(pass);
         $('vaultPassphrase').value = '';
         await refreshState();
-        toast(`Pulihkan dari Drive berhasil (${res.count} transaksi).`);
+        toast(`Pulih: ${res.wallets} dompet, ${res.count} transaksi, ${res.investments} investasi, ${res.budgets} anggaran.`);
       } catch (err) {
         toast(err.message);
       }
