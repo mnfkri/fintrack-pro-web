@@ -113,10 +113,35 @@
       }
     });
 
-    $('statTotalBalance').textContent = fmtRp(totalBalance);
+    const animateRupiah = (el, target, prefix = '') => {
+      if (!el) return;
+      const numTarget = Number(target) || 0;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        el.textContent = prefix + fmtRp(numTarget);
+        return;
+      }
+      const startVal = Number(el.dataset.val || 0);
+      el.dataset.val = String(numTarget);
+      if (startVal === numTarget) {
+        el.textContent = prefix + fmtRp(numTarget);
+        return;
+      }
+      const start = performance.now();
+      const dur = 520;
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const cur = startVal + (numTarget - startVal) * eased;
+        el.textContent = prefix + fmtRp(cur);
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    animateRupiah($('statTotalBalance'), totalBalance);
     $('statWalletCount').textContent = `${state.wallets.length} dompet aktif`;
-    $('statMonthIncome').textContent = '+' + fmtRp(monthIncome);
-    $('statMonthExpense').textContent = '-' + fmtRp(monthExpense);
+    animateRupiah($('statMonthIncome'), monthIncome, '+');
+    animateRupiah($('statMonthExpense'), monthExpense, '-');
     const net = monthIncome - monthExpense;
     $('statNetCashflow').textContent = `Selisih bulan ini: ${net >= 0 ? '+' : ''}${fmtRp(net)}`;
 
@@ -795,8 +820,26 @@
   }
 
   function setupMicroInteractions() {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    // Tactile ink ripple on all buttons
+    document.body.addEventListener('pointerdown', (e) => {
+      const btn = e.target.closest('.btn');
+      if (!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 0.6;
+      const span = document.createElement('span');
+      span.className = 'btn-ripple';
+      span.style.width = span.style.height = `${size}px`;
+      span.style.left = `${e.clientX - rect.left - size / 2}px`;
+      span.style.top = `${e.clientY - rect.top - size / 2}px`;
+      btn.appendChild(span);
+      setTimeout(() => span.remove(), 560);
+    }, { passive: true });
+
+    // Cursor-tracking radial spotlight on cards (desktop)
     if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let frame = 0;
     document.body.addEventListener('pointermove', (e) => {
       const card = e.target.closest('.card, .wallet-card');
