@@ -620,10 +620,12 @@
         $('syncAccountEmail').textContent = email;
       }
       show(btnSideSignOut, true);
+      maybeShowOnboarding(tierLabel, email);
       return;
     }
 
     gate.hidden = false;
+    if ($('onboardGate')) $('onboardGate').hidden = true;
     if (userBox) userBox.style.display = 'none';
     if ($('syncAccountCard')) $('syncAccountCard').style.display = 'none';
     show(btnSideSignOut, false);
@@ -658,6 +660,75 @@
       show(btnUpgrade, false);
       show(btnGateSignOut, Boolean(ev.user));
     }
+  }
+
+  async function maybeShowOnboarding(tierLabel, email) {
+    const ob = $('onboardGate');
+    if (!ob) return;
+    const [onboarded, txs] = await Promise.all([
+      window.UangiiDB.getMeta('onboarded'),
+      window.UangiiDB.getTransactions()
+    ]);
+    if (onboarded || (txs && txs.length > 0)) {
+      ob.hidden = true;
+      return;
+    }
+    $('onboardTierBadge').textContent = tierLabel;
+    $('onboardTitle').textContent = 'Mau mulai dari mana?';
+    $('onboardDesc').textContent = `Halo ${email || 'Pengguna VIP'}! Browser ini belum memiliki data lokal. Pulihkan cadangan dari Google Drive atau mulai baru dari nol.`;
+    $('onboardStepChoice').style.display = 'flex';
+    $('onboardDriveForm').style.display = 'none';
+    ob.hidden = false;
+  }
+
+  function setupOnboarding() {
+    const startFresh = async () => {
+      await window.UangiiDB.setMeta('onboarded', true);
+      $('onboardGate').hidden = true;
+      toast('Siap digunakan! Anda bisa mencadangkan ke Google Drive kapan saja.');
+    };
+
+    $('btnOnboardStartFresh')?.addEventListener('click', startFresh);
+    $('btnOnboardBackFresh')?.addEventListener('click', startFresh);
+
+    $('btnOnboardConnectDrive')?.addEventListener('click', async () => {
+      try {
+        await window.UangiiDriveSync.connect();
+        const files = await window.UangiiDriveSync.listVaultFiles();
+        if (!files.length) {
+          toast('Belum ada file cadangan di Google Drive akun ini. Mulai baru dari nol.');
+          await startFresh();
+          await refreshState();
+          return;
+        }
+        const sel = $('onboardFileSelect');
+        sel.innerHTML = files.map((f) => {
+          const dt = f.modifiedTime ? new Date(f.modifiedTime).toLocaleString('id-ID') : '';
+          return `<option value="${escapeHtml(f.id)}">${escapeHtml(f.name)}${dt ? ' · ' + escapeHtml(dt) : ''}</option>`;
+        }).join('');
+        $('onboardStepChoice').style.display = 'none';
+        $('onboardDriveForm').style.display = 'block';
+        $('onboardPassphrase').focus();
+        await refreshState();
+      } catch (err) {
+        toast(err.message || 'Gagal menghubungkan ke Google Drive.');
+      }
+    });
+
+    $('onboardDriveForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const fileId = $('onboardFileSelect').value;
+        const pass = $('onboardPassphrase').value;
+        const res = await window.UangiiDriveSync.pullEncryptedSnapshot(pass, fileId);
+        $('onboardPassphrase').value = '';
+        $('onboardGate').hidden = true;
+        await refreshState();
+        toast(`Berhasil memulihkan ${res.count} transaksi & ${res.wallets} dompet!`);
+      } catch (err) {
+        toast(err.message || 'Gagal memulihkan cadangan.');
+      }
+    });
   }
 
   function setupVipGate() {
@@ -698,6 +769,7 @@
 
   window.addEventListener('DOMContentLoaded', async () => {
     bindEvents();
+    setupOnboarding();
     setupVipGate();
     await refreshState();
   });

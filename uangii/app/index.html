@@ -322,6 +322,36 @@
     </div>
   </div>
 
+  <!-- Post-Login Onboarding: Restore from Drive or Start Fresh -->
+  <div class="vip-gate" id="onboardGate" role="dialog" aria-modal="true" aria-labelledby="onboardTitle" hidden>
+    <div class="vip-gate-card">
+      <img src="../assets/brand/uangii-icon.webp" alt="Uangii">
+      <span class="brand-badge" id="onboardTierBadge" style="display:inline-block;margin:0 0 10px;">VIP AKTIF</span>
+      <h2 id="onboardTitle">Mau mulai dari mana?</h2>
+      <p id="onboardDesc">Browser ini belum memiliki data lokal. Pulihkan cadangan terenkripsi dari Google Drive atau mulai baru dari nol.</p>
+
+      <div class="vip-gate-actions" id="onboardStepChoice">
+        <button type="button" class="btn btn-primary" id="btnOnboardConnectDrive">Pulihkan dari Google Drive</button>
+        <button type="button" class="btn btn-ghost" id="btnOnboardStartFresh">Mulai Baru dari Nol</button>
+      </div>
+
+      <form id="onboardDriveForm" style="display:none;text-align:left;margin-top:8px;">
+        <div class="field">
+          <label for="onboardFileSelect">Pilih File Cadangan di Google Drive</label>
+          <select id="onboardFileSelect" class="select" required></select>
+        </div>
+        <div class="field">
+          <label for="onboardPassphrase">Sandi Brankas</label>
+          <input type="password" id="onboardPassphrase" class="input" autocomplete="off" placeholder="Masukkan sandi brankas" required>
+        </div>
+        <div class="vip-gate-actions">
+          <button type="submit" class="btn btn-primary" id="btnOnboardRestore">Pulihkan &amp; Masuk Beranda</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="btnOnboardBackFresh">Lewati · Mulai Baru dari Nol</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="../studio-parser.js"></script>

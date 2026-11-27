@@ -109,19 +109,33 @@
     return { syncedAt: now, count: snapshot.transactions.length };
   }
 
-  async function pullEncryptedSnapshot(passphrase) {
-    const existing = await findVaultFile();
-    if (!existing) {
-      throw new Error('Belum ada brankas cadangan Uangii di Google Drive akun ini.');
+  async function listVaultFiles() {
+    const q = encodeURIComponent(`'appDataFolder' in parents and trashed=false`);
+    const res = await driveFetch(
+      `https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&orderBy=modifiedTime desc&fields=files(id,name,modifiedTime,size)`
+    );
+    const data = await res.json();
+    return data.files || [];
+  }
+
+  async function pullEncryptedSnapshot(passphrase, fileId = null) {
+    let targetId = fileId;
+    if (!targetId) {
+      const existing = await findVaultFile();
+      if (!existing) {
+        throw new Error('Belum ada brankas cadangan Uangii di Google Drive akun ini.');
+      }
+      targetId = existing.id;
     }
     const res = await driveFetch(
-      `https://www.googleapis.com/drive/v3/files/${existing.id}?alt=media`
+      `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(targetId)}?alt=media`
     );
     const envelope = await res.json();
     const snapshot = await window.UangiiCrypto.decryptVault(envelope, passphrase);
     await window.UangiiDB.importSnapshot(snapshot);
     const now = new Date().toISOString();
     await window.UangiiDB.setMeta('lastDriveSync', now);
+    await window.UangiiDB.setMeta('onboarded', true);
     return { syncedAt: now, count: snapshot.transactions.length, wallets: snapshot.wallets.length };
   }
 
@@ -130,6 +144,7 @@
     isConnected,
     connect,
     disconnect,
+    listVaultFiles,
     pushEncryptedSnapshot,
     pullEncryptedSnapshot
   };
