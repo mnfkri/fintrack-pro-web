@@ -5,13 +5,15 @@
   const motionButton = document.getElementById('motionToggle');
   let paused = false;
   try { paused = localStorage.getItem('uangii-motion-paused') === 'true'; } catch (_) {}
+
   function applyMotion() {
-    document.body.classList.toggle('u-motion-paused', paused || reduced.matches);
-    motionButton?.setAttribute('aria-pressed', String(paused || reduced.matches));
+    const disabled = paused || reduced.matches;
+    document.body.classList.toggle('u-motion-paused', disabled);
+    motionButton?.setAttribute('aria-pressed', String(disabled));
     if (motionButton) {
-      motionButton.textContent = paused ? '▶' : 'Ⅱ';
-      motionButton.setAttribute('aria-label', paused ? 'Aktifkan animasi' : 'Jeda animasi');
-      motionButton.title = paused ? 'Aktifkan animasi' : 'Jeda animasi';
+      motionButton.textContent = disabled ? '▶' : 'Ⅱ';
+      motionButton.setAttribute('aria-label', disabled ? 'Aktifkan animasi' : 'Jeda animasi');
+      motionButton.title = disabled ? 'Aktifkan animasi' : 'Jeda animasi';
     }
   }
   applyMotion();
@@ -21,6 +23,39 @@
     try { localStorage.setItem('uangii-motion-paused', String(paused)); } catch (_) {}
     applyMotion();
   });
+
+  // Staggered Scroll Reveals
+  if ('IntersectionObserver' in window) {
+    const staggerObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          staggerObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('[data-stagger]').forEach(el => staggerObserver.observe(el));
+  } else {
+    document.querySelectorAll('[data-stagger]').forEach(el => el.classList.add('is-in'));
+  }
+
+  // Cursor-Tracking Spotlight Glow on Cards
+  document.querySelectorAll('.u-spot').forEach(card => {
+    let frame = 0;
+    card.addEventListener('pointermove', event => {
+      if (!finePointer.matches || reduced.matches || paused) return;
+      const rect = card.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+      });
+    });
+  });
+
+  // 3D Tilt on marked elements
   document.querySelectorAll('[data-tilt]').forEach(el => {
     let frame = 0;
     el.addEventListener('pointermove', event => {
@@ -40,73 +75,63 @@
       el.style.setProperty('--ry', '0deg');
     });
   });
-  const hero = document.querySelector('.u-hero');
-  const parallax = document.querySelector('.u-parallax');
-  let scrollFrame = 0;
-  addEventListener('scroll', () => {
-    if (scrollFrame || !hero || !parallax || reduced.matches || paused || !finePointer.matches) return;
-    scrollFrame = requestAnimationFrame(() => {
-      scrollFrame = 0;
-      if (hero.getBoundingClientRect().bottom > 0) parallax.style.setProperty('--scroll-y', `${Math.min(scrollY * .09, 65)}px`);
-    });
-  }, { passive: true });
-  const productImage = document.getElementById('productImage');
+
+  // Studio Calculator shortcut
   window.openCalculatorStudio = function() {
-    window.goSection('interactive-studio');
-    document.getElementById('tabBtnCalc').click();
+    if (typeof window.goSection === 'function') window.goSection('interactive-studio');
+    document.getElementById('tabBtnCalc')?.click();
   };
-  const productCaption = document.getElementById('productCaption');
-  let imageTimer;
-  document.querySelectorAll('[data-product-image]').forEach(button => {
-    button.addEventListener('click', () => {
-      clearTimeout(imageTimer);
-      document.querySelectorAll('[data-product-image]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
-      productImage.style.opacity = '0';
-      imageTimer = setTimeout(() => {
-        productImage.src = button.dataset.productImage;
-        productImage.alt = button.dataset.alt;
-        productCaption.textContent = button.dataset.caption;
-        productImage.style.opacity = '1';
-      }, reduced.matches ? 0 : 160);
-    });
-  });
+
+  // Interactive Bento Studio accessible tabs
   const tablist = document.querySelector('.bento-nav-tabs');
-  const tabs = [...tablist.querySelectorAll('.bento-tab-btn')];
-  const vertical = matchMedia('(max-width: 600px)');
-  function updateOrientation() { tablist.setAttribute('aria-orientation', vertical.matches ? 'vertical' : 'horizontal'); }
-  updateOrientation();
-  vertical.addEventListener('change', updateOrientation);
-  function updateTabs(selected) {
-    tabs.forEach(tab => {
-      tab.tabIndex = tab === selected ? 0 : -1;
-      tab.setAttribute('aria-selected', String(tab === selected));
-      document.getElementById(tab.getAttribute('aria-controls')).hidden = tab !== selected;
+  if (tablist) {
+    const tabs = [...tablist.querySelectorAll('.bento-tab-btn')];
+    const vertical = matchMedia('(max-width: 600px)');
+    const updateOrientation = () => tablist.setAttribute('aria-orientation', vertical.matches ? 'vertical' : 'horizontal');
+    updateOrientation();
+    vertical.addEventListener('change', updateOrientation);
+
+    function updateTabs(selected) {
+      tabs.forEach(tab => {
+        tab.tabIndex = tab === selected ? 0 : -1;
+        tab.setAttribute('aria-selected', String(tab === selected));
+        const ctrl = document.getElementById(tab.getAttribute('aria-controls'));
+        if (ctrl) ctrl.hidden = tab !== selected;
+      });
+    }
+
+    tabs.forEach(button => {
+      button.setAttribute('role', 'tab');
+      const name = button.id.replace('tabBtn', '');
+      const suffix = { Fio: 'fio', Calc: 'calc', SmartInput: 'smart-input' }[name];
+      if (!suffix) return;
+      button.setAttribute('aria-controls', 'bentoTabContent-' + suffix);
+      const panel = document.getElementById('bentoTabContent-' + suffix);
+      if (panel) {
+        panel.setAttribute('role', 'tabpanel');
+        panel.setAttribute('aria-labelledby', button.id);
+        panel.tabIndex = 0;
+      }
+      button.addEventListener('click', () => updateTabs(button));
+    });
+
+    if (tabs.length) updateTabs(tabs.find(t => t.classList.contains('active')) || tabs[0]);
+
+    tablist.addEventListener('keydown', event => {
+      const index = tabs.indexOf(event.target);
+      if (index < 0) return;
+      const next = vertical.matches ? 'ArrowDown' : 'ArrowRight';
+      const prev = vertical.matches ? 'ArrowUp' : 'ArrowLeft';
+      const offset = event.key === next ? 1 : event.key === prev ? -1 : 0;
+      const target = event.key === 'Home' ? tabs[0] : event.key === 'End' ? tabs.at(-1) : offset ? tabs[(index + offset + tabs.length) % tabs.length] : null;
+      if (!target) return;
+      event.preventDefault();
+      target.focus();
+      target.click();
     });
   }
-  tabs.forEach(button => {
-    button.setAttribute('role', 'tab');
-    const name = button.id.replace('tabBtn', '');
-    const suffix = {Fio:'fio',Calc:'calc',SmartInput:'smart-input'}[name];
-    button.setAttribute('aria-controls', 'bentoTabContent-' + suffix);
-    const panel = document.getElementById(button.getAttribute('aria-controls'));
-    panel.setAttribute('role', 'tabpanel');
-    panel.setAttribute('aria-labelledby', button.id);
-    panel.tabIndex = 0;
-    button.addEventListener('click', () => updateTabs(button));
-  });
-  updateTabs(tabs.find(tab => tab.classList.contains('active')) || tabs[0]);
-  tablist.addEventListener('keydown', event => {
-    const index = tabs.indexOf(event.target);
-    if (index < 0) return;
-    const next = vertical.matches ? 'ArrowDown' : 'ArrowRight';
-    const prev = vertical.matches ? 'ArrowUp' : 'ArrowLeft';
-    const offset = event.key === next ? 1 : event.key === prev ? -1 : 0;
-    const target = event.key === 'Home' ? tabs[0] : event.key === 'End' ? tabs.at(-1) : offset ? tabs[(index + offset + tabs.length) % tabs.length] : null;
-    if (!target) return;
-    event.preventDefault();
-    target.focus();
-    target.click();
-  });
+
+  // Accessible Flyout Drawer
   const drawer = document.getElementById('navDrawer');
   const drawerToggle = document.querySelector('.menu-toggle');
   drawerToggle?.setAttribute('aria-controls', 'navDrawer');
@@ -114,20 +139,23 @@
   drawer?.setAttribute('inert', '');
   let lastFocus;
   const navToggle = window.toggleNav;
-  window.toggleNav = function(open) {
-    if (open) lastFocus = document.activeElement;
-    navToggle(open);
-    drawerToggle?.setAttribute('aria-expanded', String(open));
-    drawer?.toggleAttribute('inert', !open);
-    if (open) drawer?.querySelector('button')?.focus();
-    else if (drawer?.contains(document.activeElement)) lastFocus?.focus();
-  };
+  if (typeof navToggle === 'function') {
+    window.toggleNav = function(open) {
+      if (open) lastFocus = document.activeElement;
+      navToggle(open);
+      drawerToggle?.setAttribute('aria-expanded', String(open));
+      drawer?.toggleAttribute('inert', !open);
+      if (open) drawer?.querySelector('button,a')?.focus();
+      else if (drawer?.contains(document.activeElement)) lastFocus?.focus();
+    };
+  }
+
   addEventListener('keydown', event => {
     const activeDialog = drawer?.classList.contains('open') ? drawer : null;
     if (!activeDialog) return;
     if (event.key === 'Escape') {
       event.preventDefault();
-      window.toggleNav(false);
+      window.toggleNav?.(false);
     }
     if (event.key === 'Tab') {
       const controls = [...activeDialog.querySelectorAll('a[href],button,input,select,[tabindex="0"]')].filter(el => !el.disabled && el.getClientRects().length);
