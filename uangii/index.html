@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Uangii 1.2.7 — A Calmer Relationship with Money</title>
-  <meta name="description" content="Uangii 1.2.7: Catat keuangan offline-first terenkripsi SQLCipher, 7 Tools Uangii harian (Auto-Capture Notifikasi lokal, Split Bill, Trip, Zakat, Rewind), Analitik Sankey, Investasi & RDN, Fio AI, dan Ruang Keluarga.">
+  <meta name="description" content="Uangii 1.2.7: Catat keuangan offline-first terenkripsi SQLCipher dengan 7 Tools Harian, Analitik Sankey, Investasi & RDN, Fio AI, dan Ruang Keluarga.">
   <meta name="theme-color" content="#080c0b">
   <meta property="og:title" content="Uangii 1.2.7 — A Calmer Relationship with Money">
   <meta property="og:description" content="Built for investors. Designed for everyday life. Kenali uangmu lebih jernih bersama Uangii, Tools Harian, Fio AI, dan Ruang Keluarga.">
@@ -46,7 +46,7 @@
 
   <header id="header">
     <div class="wrap nav">
-      <a class="brand" href="#home" onclick="showTab('home')" aria-label="Uangii — Beranda">
+      <a class="brand" href="#section-home" onclick="showTab('home'); return false;" aria-label="Uangii — Beranda">
         <img src="assets/brand/uangii-icon.webp" width="38" height="38" alt="">
         <span class="brand-name">uangii<span style="color:#b7f58a">.</span></span>
       </a>
@@ -115,7 +115,7 @@
           <div class="u-hero-copy reveal">
             <span class="u-eyebrow"><i class="u-dot" aria-hidden="true"></i> UANGII 1.2.7 · TERSEDIA DI GOOGLE PLAY</span>
             <h1 id="heroTitle">A calmer<br>relationship<br>with <em>money.</em></h1>
-            <p>Catat keuangan harian, tarik notifikasi bank secara lokal, pantau Investasi &amp; RDN, bedah arus kas lewat Sankey, hingga kelola Ruang Keluarga—semuanya dalam satu aplikasi OLED Dark yang offline-first dan terenkripsi.</p>
+            <p>Catat keuangan harian, pantau Investasi &amp; RDN, bedah arus kas lewat Sankey, hingga kelola Ruang Keluarga—semuanya dalam satu aplikasi offline-first yang terenkripsi.</p>
             <div class="u-actions">
               <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh Uangii <span aria-hidden="true">↗</span></a>
               <button type="button" class="u-text-link" onclick="goSection('product-tour')">Jelajahi 12 layarnya <span aria-hidden="true">↗</span></button>
@@ -127,7 +127,7 @@
           </div>
           <div class="us-mount u-hero-art">
             <div data-app-scene="personal"><p class="us-example">Ilustrasi layar Beranda Uangii 1.2.7.</p></div>
-            <p class="us-art-note">Ilustrasi direkonstruksi langsung dari kode UI Uangii 1.2.7 · Data demo</p>
+            <p class="us-art-note">Pratinjau antarmuka Beranda Uangii 1.2.7 · Data demo</p>
           </div>
         </section>
         <div class="u-hero-bottom">
@@ -194,7 +194,7 @@
                 <small>Made for real life</small>
                 <h3>Catat secepat kilat.<br>Lanjutkan harimu.</h3>
                 <p>Input bahasa alami, dikte suara, pindai struk, draf notifikasi bank, hingga widget ringkasan &amp; aksi cepat di layar utama Android.</p>
-                <button type="button" class="u-story-link" onclick="goSection('interactive-studio')">Coba parser lokal ↗</button>
+                <button type="button" class="u-story-link" onclick="openSmartInputStudio()">Coba parser lokal ↗</button>
               </div>
               <div class="u-glyph" aria-hidden="true">
                 <div class="u-stack-icon"><i></i><i></i><i>+</i></div>
@@ -215,7 +215,7 @@
         </div>
 
         <div class="tools-grid" data-stagger>
-          <article class="tool-card tool-card--wide u-spot">
+          <article class="tool-card tool-card--wide u-spot" data-open-scene="autoCapture" role="button" tabindex="0" style="cursor:pointer;">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
               <div class="tool-ic">🔔</div>
               <span class="tool-tag">Opsional · 100% Lokal</span>
@@ -224,37 +224,37 @@
             <p>Aktifkan secara sukarela untuk aplikasi bank/e-wallet pilihanmu. Teks diproses sementara di memori perangkat menjadi draf siap konfirmasi; OTP, PIN, sandi, dan promo otomatis dibuang. Bukan API Open Banking.</p>
           </article>
 
-          <article class="tool-card u-spot">
+          <article class="tool-card u-spot" data-open-scene="rewind" role="button" tabindex="0" style="cursor:pointer;">
             <div class="tool-ic tool-ic--cyan">✨</div>
             <h3>Uangii Rewind</h3>
             <p>Ringkasan cerita keuangan bulanan (Saving Rate, Hari Hemat, Emergency Runway) dengan kartu siap bagikan dan tombol sensor nominal.</p>
           </article>
 
-          <article class="tool-card u-spot">
+          <article class="tool-card u-spot" data-open-scene="toolsHub" role="button" tabindex="0" style="cursor:pointer;">
             <div class="tool-ic">👥</div>
             <h3>Split Bill &amp; Patungan</h3>
             <p>Bagi tagihan bersama teman secara adil dan otomatis catat sisa bagian teman ke daftar piutang.</p>
           </article>
 
-          <article class="tool-card u-spot">
+          <article class="tool-card u-spot" data-open-scene="toolsHub" role="button" tabindex="0" style="cursor:pointer;">
             <div class="tool-ic tool-ic--cyan">✈️</div>
             <h3>Mode Trip &amp; Event</h3>
             <p>Pisahkan anggaran khusus liburan, pernikahan, atau acara tertentu agar tidak tercampur pengeluaran bulanan.</p>
           </article>
 
-          <article class="tool-card u-spot">
+          <article class="tool-card u-spot" data-open-scene="toolsHub" role="button" tabindex="0" style="cursor:pointer;">
             <div class="tool-ic tool-ic--blue">🛍️</div>
             <h3>Daftar Belanja Cerdas</h3>
             <p>Susun rencana belanja sambil langsung mengecek dampaknya terhadap Batas Aman Harianmu.</p>
           </article>
 
-          <article class="tool-card u-spot">
+          <article class="tool-card u-spot" data-open-scene="toolsHub" role="button" tabindex="0" style="cursor:pointer;">
             <div class="tool-ic tool-ic--amber">🛡️</div>
             <h3>Brankas Struk &amp; Garansi</h3>
             <p>Simpan foto struk pembelian perangkat beserta tanggal berakhirnya masa garansi di satu tempat rapi.</p>
           </article>
 
-          <article class="tool-card u-spot">
+          <article class="tool-card u-spot" data-open-scene="zakat" role="button" tabindex="0" style="cursor:pointer;">
             <div class="tool-ic">🤲</div>
             <h3>Kalkulator Zakat</h3>
             <p>Alat bantu hitung estimasi Zakat Mal dan Zakat Penghasilan berdasarkan acuan umum BAZNAS (referensi hitung, bukan fatwa mengikat).</p>
@@ -266,7 +266,7 @@
             <div class="us-tour-copy">
               <span class="u-eyebrow">PRATINJAU INTERAKTIF TOOLS</span>
               <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:500;letter-spacing:-.04em;margin:12px 0 8px;">Lihat cara kerja alat bantu harianmu.</h3>
-              <p class="us-example">Pilih salah satu modul di bawah untuk melihat rekonstruksi layar asli dari kode Tools Uangii.</p>
+              <p class="us-example">Pilih salah satu modul di bawah untuk melihat pratinjau layar Tools Uangii.</p>
               <div class="us-tour-controls" data-tour-controls role="group" aria-label="Pilih layar Tools Uangii" hidden></div>
               <div class="us-tour-summary" data-tour-summary aria-live="polite" aria-atomic="true">
                 <small>TOOLS UANGII</small>
@@ -276,7 +276,7 @@
             </div>
             <div class="us-tour-view">
               <div data-tour-view></div>
-              <p class="us-art-note">Ilustrasi UI berdasarkan PracticalToolsHubScreen.kt · Data demo</p>
+              <p class="us-art-note">Pratinjau antarmuka Tools Uangii 1.2.7 · Data demo</p>
             </div>
           </div>
         </div>
@@ -308,7 +308,7 @@
           </div>
           <div class="us-mount u-story-image">
             <div data-app-scene="analytics"><p class="us-example">Ilustrasi layar Analitik Visual Uangii.</p></div>
-            <p class="us-art-note">Ilustrasi UI berdasarkan AnalysisScreen.kt · Data demo</p>
+            <p class="us-art-note">Pratinjau layar Analitik Visual Uangii · Data demo</p>
           </div>
         </section>
 
@@ -316,7 +316,7 @@
         <section class="u-story" id="investasi">
           <div class="us-mount u-story-image">
             <div data-app-scene="investments"><p class="us-example">Ilustrasi layar Investasi &amp; RDN Uangii.</p></div>
-            <p class="us-art-note">Ilustrasi UI berdasarkan InvestmentsScreen.kt · Data demo</p>
+            <p class="us-art-note">Pratinjau layar Investasi &amp; RDN Uangii · Data demo</p>
           </div>
           <div class="u-story-copy reveal">
             <span class="u-section-number">04 / BUILT FOR INVESTORS</span>
@@ -351,7 +351,7 @@
           </div>
           <div class="us-mount u-story-image">
             <div data-app-scene="fio"><p class="us-example">Ilustrasi layar Fio AI Uangii.</p></div>
-            <p class="us-art-note">Ilustrasi UI berdasarkan AdvisorChatScreen.kt · Data demo</p>
+            <p class="us-art-note">Pratinjau layar Fio AI Uangii · Data demo</p>
           </div>
         </section>
 
@@ -359,7 +359,7 @@
         <section class="u-story" id="keluarga">
           <div class="us-mount u-story-image">
             <div data-app-scene="family"><p class="us-example">Ilustrasi layar Ruang Keluarga Uangii.</p></div>
-            <p class="us-art-note">Ilustrasi UI berdasarkan FamilyHubScreen.kt · Data demo</p>
+            <p class="us-art-note">Pratinjau layar Ruang Keluarga Uangii · Data demo</p>
           </div>
           <div class="u-story-copy reveal">
             <span class="u-section-number">06 / SHARED MONEY. CLEAR BOUNDARIES.</span>
@@ -425,7 +425,7 @@
             <div data-tour-view>
               <p class="us-example">Lihat <a class="u-story-link" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra">halaman Uangii di Google Play ↗</a>.</p>
             </div>
-            <p class="us-art-note">Ilustrasi direkonstruksi dari kode Compose Uangii 1.2.7 · Data demo</p>
+            <p class="us-art-note">Pratinjau antarmuka Uangii 1.2.7 · Data demo</p>
           </div>
         </div>
       </section>
@@ -527,6 +527,7 @@
               <li>Fio AI mode offline lokal, widget Android, dan cadangan terenkripsi file/Drive pribadi</li>
             </ul>
             <p class="tier-note">Tidak memerlukan kartu kredit. Database utama tetap tersimpan terenkripsi di HP Anda.</p>
+            <a class="btn btn-ghost" style="margin-top:16px;width:100%;justify-content:center;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Unduh Gratis di Google Play ↗</a>
           </article>
 
           <article class="tier-card u-spot">
@@ -540,6 +541,7 @@
               <li>Tersedia paket bulanan/tahunan di Google Play atau aktivasi voucher</li>
             </ul>
             <p class="tier-note">Dikelola Google Play Billing; perpanjangan otomatis dan dapat dibatalkan kapan saja di Google Play.</p>
+            <a class="btn btn-ghost" style="margin-top:16px;width:100%;justify-content:center;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Lihat Paket di Google Play ↗</a>
           </article>
 
           <article class="tier-card tier-card--featured u-spot">
@@ -553,6 +555,7 @@
               <li>Tersedia paket bulanan, tahunan, atau voucher internal akun penerima</li>
             </ul>
             <p class="tier-note">Hak turunan anggota mengikuti status hak Host dan keanggotaan ruang; bila hak berakhir, data yang sudah diterima tetap dapat dilihat sebagai arsip lokal hanya baca.</p>
+            <a class="btn btn-primary" style="margin-top:16px;width:100%;justify-content:center;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Mulai Family VIP di Google Play ↗</a>
           </article>
         </div>
       </section>
@@ -813,7 +816,7 @@
     <div class="wrap">
       <div class="foot">
         <div>
-          <a class="brand" href="#home" onclick="showTab('home')">
+          <a class="brand" href="#section-home" onclick="showTab('home'); return false;">
             <img src="assets/brand/uangii-icon.webp" alt="Uangii">
             <span class="brand-name">Uang<span class="grad-text">ii</span></span> ✨
           </a>
@@ -947,7 +950,7 @@
           badgeEl.style.color = '#38bdf8';
           adviceEl.innerHTML = '💡 <strong>Rekomendasi Fio:</strong> Alur kas sehat, namun pos keinginan (wants) masih bisa dirapikan lagi lewat Daftar Belanja Cerdas agar alokasi investasi bertambah.';
         } else {
-          badgeEl.textContent = '⚠️ KONDISI: MELESAT TIPIS';
+          badgeEl.textContent = '⚠️ KONDISI: TIPIS & PERLU WASPADA';
           badgeEl.style.background = 'rgba(234,179,8,0.2)';
           badgeEl.style.color = '#facc15';
           adviceEl.innerHTML = '🔍 <strong>Rekomendasi Fio:</strong> Tabungan di bawah 15%. Coba aktifkan Batas Aman Harian &amp; cek aliran Sankey Cash Flow di Uangii untuk menemukan kebocoran halus!';
@@ -999,9 +1002,18 @@
       aiBubble.innerHTML = '<span style="opacity:.6">Memuat contoh respons demo…</span>';
       input.value = '';
       setTimeout(() => {
-        aiBubble.textContent = "Ini contoh respons demo di browser, bukan konsultasi AI live. Di aplikasi Uangii, Fio dapat membantu meninjau kategori, anggaran, dan menyiapkan draf transaksi untuk kamu konfirmasi sebelum disimpan.";
+        const lower = userText.toLowerCase();
+        let reply = "Ini simulasi demo di browser (bukan AI live). Di aplikasi Uangii, Fio bisa menganalisis kategori, anggaran, dan menyiapkan draf transaksi untuk kamu konfirmasi sebelum disimpan.";
+        if (/darurat|umr|gaji|nabung|tabung/.test(lower)) {
+          reply = "<strong>[Simulasi Demo]</strong> Sisihkan 10%–20% di awal gajian (Reverse Budgeting) sebelum dibagi ke pos lain. Di Uangii, pantau progresnya lewat <strong>Target Tabungan</strong> &amp; <strong>Emergency Runway</strong>.";
+        } else if (/makan|jajan|kopi|konsumsi|boros/.test(lower)) {
+          reply = "<strong>[Simulasi Demo]</strong> Pos makan idealnya di kisaran 20%–30% pemasukan. Catat transaksi harianmu (bisa via draf notifikasi lokal) lalu cek kebocoran di <strong>Sankey Cash Flow</strong> Uangii.";
+        } else if (/utang|hutang|cicil|invest|saham|rdn|emas/.test(lower)) {
+          reply = "<strong>[Simulasi Demo]</strong> Bandingkan bunga utang dengan potensi imbal hasil investasi &amp; kesiapan dana darurat. Di Uangii, kamu bisa pantau pelunasan di <strong>Debt Payoff Mountain</strong> dan portofolio di <strong>Investasi &amp; RDN</strong>.";
+        }
+        aiBubble.innerHTML = reply;
         if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight;
-      }, 450);
+      }, 380);
     }
 
     function handleSmartInput(text) {

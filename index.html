@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#070f1f">
   <meta property="og:title" content="Emtitra Production - Software House & Mobile App Studio">
   <meta property="og:description" content="Menciptakan produk digital berkualitas tinggi, offline-first, dan bertenaga AI.">
-  <meta property="og:image" content="assets/logo dev.jpg">
+  <meta property="og:image" content="https://fintrack.digital/assets/logo%20dev.jpg">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/logo dev.jpg">
 
@@ -340,7 +340,7 @@
 
   <header id="header">
     <div class="wrap nav">
-      <a class="brand" href="#">
+      <a class="brand" href="#produk" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
         <img src="assets/logo dev.jpg" alt="Emtitra Production">
         <span class="brand-title">Emtitra <span class="grad-text">&nbsp;Production</span></span>
       </a>
@@ -445,7 +445,7 @@
               "Kami menolak monetisasi data dan pelacak invasif. Kami memperlakukan privasi setiap pengguna dengan rasa aman dan penghormatan mutlak."
             </div>
             <p>
-              Filosofi ini kami terjemahkan langsung ke dalam standar rekayasa modern: membangun aplikasi <strong>100% Offline-First</strong>, menerapkan enkripsi lokal tingkat bank (SQLCipher AES-256), dan menghadirkan kecerdasan buatan (AI) yang edukatif tanpa ketergantungan server perantara.
+              Filosofi ini kami terjemahkan langsung ke dalam standar rekayasa modern: membangun aplikasi <strong>Offline-First</strong>, menerapkan enkripsi lokal (SQLCipher AES-256), dan menghadirkan fitur cloud opsional (seperti AI Cloud, cadangan Drive, dan sinkronisasi keluarga) yang hanya aktif atas pilihan pengguna.
             </p>
           </div>
 
@@ -455,7 +455,7 @@
               <span class="dot">✓</span>
               <div>
                 <strong>Zero-Data Harvesting</strong>
-                <p style="color:var(--muted);font-size:.82rem;margin-top:.15rem;">Tidak menyimpan, menjual, atau mentransfer riwayat finansial pengguna ke server manapun.</p>
+                <p style="color:var(--muted);font-size:.82rem;margin-top:.15rem;">Tidak menjual data pengguna atau memasang pelacak invasif. Catatan pribadi tersimpan lokal terenkripsi; fitur cloud hanya aktif secara sukarela.</p>
               </div>
             </div>
             <div class="spec-item">
@@ -569,11 +569,26 @@
     }
     function copyEmail() {
       const email = 'contact@fintrack.digital';
-      navigator.clipboard.writeText(email).then(() => {
+      const showToast = () => {
         const toast = document.getElementById('toast');
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2500);
-      });
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(email).then(showToast).catch(() => fallbackCopy(email, showToast));
+      } else {
+        fallbackCopy(email, showToast);
+      }
+    }
+    function fallbackCopy(text, onDone) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); onDone(); } catch (_) {}
+      document.body.removeChild(ta);
     }
   </script>
 </body>
