@@ -4,22 +4,11 @@
   'use strict';
 
   const SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
-  const CLIENT_ID_STORAGE_KEY = 'uangii_web_google_client_id';
   let accessToken = null;
   let tokenExpiresAt = 0;
 
   function getClientId() {
-    return (
-      localStorage.getItem(CLIENT_ID_STORAGE_KEY) ||
-      (window.UANGII_WEB_CONFIG && window.UANGII_WEB_CONFIG.googleClientId) ||
-      ''
-    ).trim();
-  }
-
-  function setClientId(id) {
-    const clean = (id || '').trim();
-    if (clean) localStorage.setItem(CLIENT_ID_STORAGE_KEY, clean);
-    else localStorage.removeItem(CLIENT_ID_STORAGE_KEY);
+    return ((window.UANGII_WEB_CONFIG && window.UANGII_WEB_CONFIG.googleClientId) || '').trim();
   }
 
   function isConnected() {
@@ -138,7 +127,6 @@
 
   window.UangiiDriveSync = {
     getClientId,
-    setClientId,
     isConnected,
     connect,
     disconnect,

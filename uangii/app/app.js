@@ -6,7 +6,8 @@
     wallets: [],
     transactions: [],
     view: 'dashboard',
-    modalType: 'expense'
+    modalType: 'expense',
+    editingTxId: null
   };
 
   const $ = (id) => document.getElementById(id);
@@ -159,6 +160,7 @@
       </div>
       <div class="tx-right">
         <span class="tx-amount ${cls}">${sign}${fmtRp(t.amount)}</span>
+        <button type="button" class="icon-btn" title="Edit transaksi" aria-label="Edit transaksi" data-edit-tx="${escapeHtml(t.id)}">✎</button>
         <button type="button" class="icon-btn" title="Hapus transaksi" aria-label="Hapus transaksi" data-del-tx="${escapeHtml(t.id)}">✕</button>
       </div>
     </div>`;
@@ -166,10 +168,12 @@
 
   function renderTransactions() {
     const q = ($('filterSearch')?.value || '').trim().toLowerCase();
+    const month = $('filterMonth')?.value || '';
     const type = $('filterType')?.value || 'all';
     const walletId = $('filterWallet')?.value || 'all';
 
     const filtered = state.transactions.filter((t) => {
+      if (month && (!t.date || !t.date.startsWith(month))) return false;
       if (type !== 'all' && t.type !== type) return false;
       if (walletId !== 'all' && t.walletId !== walletId && t.toWalletId !== walletId) return false;
       if (q && !(t.description + ' ' + t.category).toLowerCase().includes(q)) return false;
@@ -221,14 +225,13 @@
   function renderSyncStatus(lastSync) {
     const connected = window.UangiiDriveSync.isConnected();
     $('sidebarSyncDot').classList.toggle('online', connected);
-    $('sidebarSyncText').textContent = connected ? 'Google Drive terhubung' : 'Lokal (IndexedDB)';
+    $('sidebarSyncText').textContent = connected ? 'Google Drive terhubung' : 'Tersimpan Lokal';
     $('driveStatusText').textContent = connected
-      ? 'Terhubung ke Google Drive (appDataFolder)'
+      ? 'Terhubung ke Google Drive (folder khusus aplikasi)'
       : 'Belum terhubung · Data tersimpan aman di browser ini';
     $('driveLastSync').textContent = lastSync
-      ? 'Sinkronisasi terakhir: ' + new Date(lastSync).toLocaleString('id-ID')
-      : 'Belum pernah sinkronisasi ke Google Drive';
-    $('driveClientIdInput').value = window.UangiiDriveSync.getClientId();
+      ? 'Cadangan terakhir: ' + new Date(lastSync).toLocaleString('id-ID')
+      : 'Belum pernah mencadangkan ke Google Drive';
     if ($('btnDriveDisconnect')) $('btnDriveDisconnect').style.display = connected ? 'inline-flex' : 'none';
   }
 
@@ -238,23 +241,31 @@
     document.querySelectorAll('[data-nav]').forEach((b) => b.classList.toggle('active', b.dataset.nav === name));
     const titles = {
       dashboard: ['Beranda', 'Ringkasan saldo, arus kas bulan ini, dan input cepat.'],
-      transactions: ['Riwayat Transaksi', 'Cari, saring, dan kelola seluruh catatan keuanganmu.'],
+      transactions: ['Riwayat Transaksi', 'Cari, saring per bulan, edit, dan ekspor catatan keuanganmu.'],
       wallets: ['Dompet & RDN', 'Kelola saldo tunai, rekening bank, e-wallet, dan kas investasi.'],
-      sync: ['Sync & Cadangan', 'Tahap 1: Enkripsi lokal & Google Drive AppData · Tahap 2: Firebase Live Sync.']
+      sync: ['Sync & Cadangan', 'Cadangan terenkripsi Google Drive & file lokal untuk menjaga datamu tetap aman.']
     };
     const [t, s] = titles[name] || titles.dashboard;
     $('pageTitle').textContent = t;
     $('pageSub').textContent = s;
   }
 
-  function openTxModal(type = 'expense') {
-    state.modalType = type;
-    document.querySelectorAll('.seg-btn').forEach((b) => b.classList.toggle('active', b.dataset.txType === type));
-    $('txToWalletWrap').style.display = type === 'transfer' ? 'flex' : 'none';
-    populateCategories(type);
-    $('txDate').value = todayISO();
-    $('txAmount').value = '';
-    $('txDesc').value = '';
+  function openTxModal(type = 'expense', existingTx = null) {
+    state.editingTxId = existingTx ? existingTx.id : null;
+    state.modalType = existingTx ? existingTx.type : type;
+    document.querySelectorAll('.seg-btn').forEach((b) => b.classList.toggle('active', b.dataset.txType === state.modalType));
+    $('txToWalletWrap').style.display = state.modalType === 'transfer' ? 'flex' : 'none';
+    populateCategories(state.modalType);
+    $('txModalTitle').textContent = existingTx ? 'Edit Transaksi' : 'Catat Transaksi';
+    $('txSubmitBtn').textContent = existingTx ? 'Perbarui Transaksi' : 'Simpan Transaksi';
+    $('txDate').value = existingTx ? existingTx.date : todayISO();
+    $('txAmount').value = existingTx ? existingTx.amount : '';
+    $('txDesc').value = existingTx ? (existingTx.description || '') : '';
+    if (existingTx) {
+      $('txCategory').value = existingTx.category;
+      $('txWallet').value = existingTx.walletId;
+      if (existingTx.toWalletId) $('txToWallet').value = existingTx.toWalletId;
+    }
     $('txModal').showModal();
     setTimeout(() => $('txAmount').focus(), 60);
   }
@@ -365,8 +376,9 @@
         toast('Dompet asal dan tujuan harus berbeda.');
         return;
       }
+      const existing = state.editingTxId ? state.transactions.find((x) => x.id === state.editingTxId) : null;
       const tx = {
-        id: 'tx-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
+        id: existing ? existing.id : 'tx-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
         type: state.modalType,
         amount,
         category: $('txCategory').value,
@@ -374,25 +386,33 @@
         walletId,
         toWalletId,
         date: $('txDate').value || todayISO(),
-        createdAt: new Date().toISOString()
+        createdAt: existing ? existing.createdAt : new Date().toISOString()
       };
       await window.UangiiDB.putTransaction(tx);
+      state.editingTxId = null;
       $('txModal').close();
       await refreshState();
-      toast('Transaksi berhasil dicatat.');
+      toast(existing ? 'Transaksi diperbarui.' : 'Transaksi berhasil dicatat.');
     });
 
     $('quickForm').addEventListener('submit', saveQuickInput);
     $('quickInput').addEventListener('input', handleQuickPreview);
 
-    ['filterSearch', 'filterType', 'filterWallet'].forEach((id) => {
+    ['filterSearch', 'filterMonth', 'filterType', 'filterWallet'].forEach((id) => {
       $(id)?.addEventListener('input', renderTransactions);
       $(id)?.addEventListener('change', renderTransactions);
     });
 
     document.body.addEventListener('click', async (e) => {
+      const editTx = e.target.closest('[data-edit-tx]');
+      if (editTx) {
+        const tx = state.transactions.find((x) => x.id === editTx.dataset.editTx);
+        if (tx) openTxModal(tx.type, tx);
+        return;
+      }
       const delTx = e.target.closest('[data-del-tx]');
       if (delTx) {
+        if (!confirm('Hapus transaksi ini?')) return;
         await window.UangiiDB.deleteTransaction(delTx.dataset.delTx);
         await refreshState();
         toast('Transaksi dihapus.');
@@ -400,6 +420,7 @@
       }
       const delW = e.target.closest('[data-del-wallet]');
       if (delW) {
+        if (!confirm('Hapus dompet ini?')) return;
         await window.UangiiDB.deleteWallet(delW.dataset.delWallet);
         await refreshState();
         toast('Dompet dihapus.');
@@ -426,14 +447,8 @@
     });
 
     // Sync & Backup handlers
-    $('btnSaveClientId').addEventListener('click', () => {
-      window.UangiiDriveSync.setClientId($('driveClientIdInput').value);
-      toast('Google Client ID disimpan di browser ini.');
-    });
-
     $('btnDriveConnect').addEventListener('click', async () => {
       try {
-        window.UangiiDriveSync.setClientId($('driveClientIdInput').value);
         await window.UangiiDriveSync.connect();
         const lastSync = await window.UangiiDB.getMeta('lastDriveSync');
         renderSyncStatus(lastSync);
@@ -527,7 +542,6 @@
     const btnRefresh = $('btnVipRefresh');
     const btnUpgrade = $('btnVipUpgrade');
     const btnGateSignOut = $('btnVipGateSignOut');
-    const btnDemoBypass = $('btnVipDemoBypass');
     const userBox = $('vipUserBox');
     const btnSideSignOut = $('btnVipSignOut');
 
@@ -554,24 +568,13 @@
     show(btnSideSignOut, false);
     meta.style.display = 'none';
 
-    if (ev.status === 'unconfigured') {
-      title.textContent = 'Konfigurasi Firebase Web Belum Diisi';
-      desc.textContent = 'Isi apiKey dan appId Web App untuk proyek fintrack-pro-2419e di uangii/app/config.js agar verifikasi VIP (users/{uid}/entitlements) aktif.';
-      show(btnSignIn, false);
-      show(btnRefresh, false);
-      show(btnUpgrade, false);
-      show(btnGateSignOut, false);
-      show(btnDemoBypass, true);
-      meta.style.display = 'block';
-      meta.innerHTML = '<strong>Langkah cepat:</strong> Buka Firebase Console → Project Settings → Your apps (Web App) → salin <code>apiKey</code> &amp; <code>appId</code> ke <code>uangii/app/config.js</code>.';
-    } else if (ev.status === 'signed_out') {
+    if (ev.status === 'signed_out') {
       title.textContent = 'Masuk ke Uangii Web';
       desc.textContent = 'Masuk dengan akun Google Uangii untuk memverifikasi status Personal Pro atau Family VIP Anda.';
       show(btnSignIn, true);
       show(btnRefresh, false);
       show(btnUpgrade, false);
       show(btnGateSignOut, false);
-      show(btnDemoBypass, false);
     } else if (ev.status === 'checking') {
       title.textContent = 'Memverifikasi Hak VIP…';
       desc.textContent = `Memeriksa status langganan untuk ${ev.user?.email || 'akun Anda'}…`;
@@ -579,7 +582,6 @@
       show(btnRefresh, false);
       show(btnUpgrade, false);
       show(btnGateSignOut, false);
-      show(btnDemoBypass, false);
     } else if (ev.status === 'not_vip') {
       title.textContent = 'Khusus Personal Pro & Family VIP';
       desc.textContent = `Akun ${ev.user?.email || ''} belum memiliki paket Personal Pro atau Family VIP aktif. Aktifkan di aplikasi Android Uangii (mulai Rp 9.000/bln).`;
@@ -587,7 +589,6 @@
       show(btnRefresh, true);
       show(btnUpgrade, true);
       show(btnGateSignOut, true);
-      show(btnDemoBypass, false);
     } else {
       title.textContent = 'Verifikasi Gagal';
       desc.textContent = ev.error || 'Terjadi kendala saat memverifikasi status VIP. Periksa koneksi lalu coba lagi.';
@@ -595,7 +596,6 @@
       show(btnRefresh, Boolean(ev.user));
       show(btnUpgrade, false);
       show(btnGateSignOut, Boolean(ev.user));
-      show(btnDemoBypass, false);
     }
   }
 
@@ -628,11 +628,6 @@
     };
     $('btnVipGateSignOut')?.addEventListener('click', handleSignOut);
     $('btnVipSignOut')?.addEventListener('click', handleSignOut);
-
-    $('btnVipDemoBypass')?.addEventListener('click', () => {
-      $('vipGate').hidden = true;
-      toast('Mode Pratinjau Lokal aktif (isi apiKey & appId untuk mengaktifkan VIP Gate).');
-    });
 
     if (window.UangiiVipAuth) {
       window.UangiiVipAuth.init(renderVipGate);

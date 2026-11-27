@@ -119,7 +119,8 @@
       <section class="view" id="view-transactions">
         <div class="card">
           <div class="filter-row">
-            <input type="search" id="filterSearch" class="input" placeholder="Cari deskripsi atau kategori..." style="flex:1;min-width:200px;">
+            <input type="search" id="filterSearch" class="input" placeholder="Cari deskripsi atau kategori..." style="flex:1;min-width:180px;">
+            <input type="month" id="filterMonth" class="input" aria-label="Filter bulan" title="Filter bulan">
             <select id="filterType" class="select" aria-label="Filter tipe transaksi">
               <option value="all">Semua Tipe</option>
               <option value="expense">Pengeluaran</option>
@@ -177,39 +178,29 @@
         <div class="grid-2">
           <article class="card">
             <div class="card-head">
-              <h2>Tahap 1 · Google Drive Sync (Terenkripsi)</h2>
+              <h2>Cadangan Google Drive Terenkripsi</h2>
             </div>
-            <p style="font-size:.86rem;color:var(--muted);margin-bottom:14px;" id="driveStatusText">Belum terhubung · Data tersimpan aman di browser ini</p>
+            <p style="font-size:.86rem;color:var(--muted);margin-bottom:10px;" id="driveStatusText">Belum terhubung · Data tersimpan aman di browser ini</p>
             <p style="font-size:.8rem;color:var(--accent);margin-bottom:16px;" id="driveLastSync"></p>
 
             <div class="field">
-              <label for="vaultPassphrase">Sandi Brankas (AES-256-GCM · PBKDF2 600rb iterasi · min. 8 karakter)</label>
-              <input type="password" id="vaultPassphrase" class="input" autocomplete="off" placeholder="Dipakai untuk enkripsi sebelum upload/download">
+              <label for="vaultPassphrase">Sandi Brankas (enkripsi AES-256 · min. 8 karakter)</label>
+              <input type="password" id="vaultPassphrase" class="input" autocomplete="off" placeholder="Masukkan sandi untuk mengenkripsi atau memulihkan data">
             </div>
 
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;">
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
               <button type="button" class="btn btn-primary btn-sm" id="btnDriveConnect">Hubungkan Google Drive</button>
               <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePush">Upload ke Drive ↑</button>
               <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePull">Pulihkan dari Drive ↓</button>
               <button type="button" class="btn btn-ghost btn-sm" id="btnDriveDisconnect" style="display:none;">Putuskan Drive</button>
             </div>
-
-            <div style="border-top:1px solid var(--border);padding-top:14px;">
-              <div class="field">
-                <label for="driveClientIdInput">Konfigurasi Google OAuth Web Client ID</label>
-                <div style="display:flex;gap:8px;">
-                  <input type="text" id="driveClientIdInput" class="input" style="flex:1;" placeholder="1234567890-xxxx.apps.googleusercontent.com">
-                  <button type="button" class="btn btn-ghost btn-sm" id="btnSaveClientId">Simpan</button>
-                </div>
-              </div>
-              <small style="color:var(--muted);font-size:.76rem;">Tambahkan origin <code>https://fintrack.digital</code> di Google Cloud Console → OAuth 2.0 Web Client, atau isi permanen di <code>uangii/app/config.js</code>.</small>
-            </div>
+            <small style="display:block;color:var(--muted);font-size:.78rem;margin-top:14px;">Uangii hanya mengakses folder khusus aplikasi di Google Drive pribadimu dan tidak dapat melihat file Drive lain.</small>
           </article>
 
           <div style="display:flex;flex-direction:column;gap:16px;">
             <article class="card">
-              <div class="card-head"><h2>Cadangan File Lokal Terenkripsi</h2></div>
-              <p style="font-size:.86rem;color:var(--muted);margin-bottom:14px;">Simpan atau pulihkan file brankas <code>.json</code> terenkripsi AES-256-GCM tanpa perlu login Google.</p>
+              <div class="card-head"><h2>Cadangan File Lokal</h2></div>
+              <p style="font-size:.86rem;color:var(--muted);margin-bottom:14px;">Unduh atau pulihkan file brankas <code>.json</code> terenkripsi secara luring tanpa perlu terhubung ke Google Drive.</p>
               <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
                 <button type="button" class="btn btn-ghost btn-sm" id="btnExportVault">Unduh Brankas (.json)</button>
                 <label class="btn btn-ghost btn-sm" style="cursor:pointer;">
@@ -221,16 +212,16 @@
 
             <article class="card">
               <div class="card-head"><h2>Keamanan Perangkat Bersama</h2></div>
-              <p style="font-size:.86rem;color:var(--muted);margin-bottom:14px;">Jika memakai komputer/browser bersama, hapus seluruh data lokal di browser ini dan cabut sesi Google Drive setelah selesai.</p>
+              <p style="font-size:.86rem;color:var(--muted);margin-bottom:14px;">Jika memakai komputer bersama, hapus data lokal di browser ini dan putuskan sesi Google Drive setelah selesai.</p>
               <button type="button" class="btn btn-danger btn-sm" id="btnWipeLocal">Hapus Data Lokal &amp; Putuskan Drive</button>
             </article>
 
             <article class="card" style="border-style:dashed;">
               <div class="card-head">
-                <h2>Tahap 2 · Firebase Live Sync</h2>
-                <span class="brand-badge">ROADMAP PRO / VIP</span>
+                <h2>Sinkronisasi Otomatis Real-Time</h2>
+                <span class="brand-badge">SEGERA HADIR</span>
               </div>
-              <p style="font-size:.86rem;color:var(--muted);">Arsitektur adapter di <code>uangii/app/</code> sudah disiapkan agar sinkronisasi real-time Firestore dengan aplikasi Android Uangii dapat langsung ditambahkan pada Tahap 2 tanpa merombak UI.</p>
+              <p style="font-size:.86rem;color:var(--muted);">Sinkronisasi langsung antara aplikasi Android Uangii dan Uangii Web sedang disiapkan untuk pelanggan Personal Pro &amp; Family VIP.</p>
             </article>
           </div>
         </div>
@@ -240,17 +231,29 @@
 
   <!-- Mobile Bottom Navigation -->
   <nav class="mobile-nav" aria-label="Navigasi Mobile">
-    <button type="button" class="active" data-nav="dashboard"><span>Beranda</span></button>
-    <button type="button" data-nav="transactions"><span>Transaksi</span></button>
+    <button type="button" class="active" data-nav="dashboard">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
+      <span>Beranda</span>
+    </button>
+    <button type="button" data-nav="transactions">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+      <span>Transaksi</span>
+    </button>
     <button type="button" class="fab-btn" id="mobileFab" aria-label="Catat transaksi">+</button>
-    <button type="button" data-nav="wallets"><span>Dompet</span></button>
-    <button type="button" data-nav="sync"><span>Sync</span></button>
+    <button type="button" data-nav="wallets">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h2"/></svg>
+      <span>Dompet</span>
+    </button>
+    <button type="button" data-nav="sync">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a7 7 0 0 0-6.8 5.3A4.5 4.5 0 0 0 6.5 17H18a4 4 0 0 0 .8-7.9A7 7 0 0 0 12 3Z"/></svg>
+      <span>Sync</span>
+    </button>
   </nav>
 
-  <!-- Add Transaction Modal -->
-  <dialog class="app-modal" id="txModal" aria-label="Catat Transaksi Baru">
+  <!-- Add / Edit Transaction Modal -->
+  <dialog class="app-modal" id="txModal" aria-label="Catat Transaksi">
     <div class="card-head" style="margin-bottom:14px;">
-      <h2>Catat Transaksi</h2>
+      <h2 id="txModalTitle">Catat Transaksi</h2>
       <button type="button" class="icon-btn" id="btnCloseTxModal" aria-label="Tutup">✕</button>
     </div>
     <div class="seg-tabs" role="tablist">
@@ -283,7 +286,7 @@
         <label for="txDate">Tanggal</label>
         <input type="date" id="txDate" class="input" required>
       </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Transaksi</button>
+      <button type="submit" class="btn btn-primary" id="txSubmitBtn" style="width:100%;">Simpan Transaksi</button>
     </form>
   </dialog>
 
@@ -299,7 +302,6 @@
         <button type="button" class="btn btn-ghost" id="btnVipRefresh" style="display:none;">Periksa Ulang Status VIP</button>
         <a class="btn btn-primary" id="btnVipUpgrade" style="display:none;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Upgrade di Aplikasi Uangii ↗</a>
         <button type="button" class="btn btn-ghost" id="btnVipGateSignOut" style="display:none;">Keluar Akun</button>
-        <button type="button" class="btn btn-ghost" id="btnVipDemoBypass" style="display:none;">Buka Mode Pratinjau Lokal</button>
         <a class="btn btn-ghost btn-sm" href="../">← Kembali ke Website Uangii</a>
       </div>
       <div class="vip-gate-meta" id="vipGateMeta" style="display:none;"></div>
