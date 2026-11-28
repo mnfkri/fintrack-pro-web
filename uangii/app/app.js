@@ -864,3 +864,56 @@
     await refreshState();
   });
 })();
+
+// === Obsidian Cockpit Modal & Micro-interaction Enhancements ===
+(function () {
+  const modal = document.getElementById('txModal');
+  const form = document.getElementById('txForm');
+  const amountInput = document.getElementById('txAmount');
+  const typeInput = document.getElementById('txType');
+  const toWalletWrap = document.getElementById('txToWalletWrap');
+  const categoryWrap = document.getElementById('txCategoryWrap');
+
+  document.querySelectorAll('.preset-chip[data-add]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!amountInput) return;
+      const current = Number(amountInput.value || 0);
+      const add = Number(btn.getAttribute('data-add') || 0);
+      amountInput.value = String(current + add);
+      amountInput.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+
+  document.querySelectorAll('.tx-type-btn[data-type]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-type');
+      if (typeInput) typeInput.value = t;
+      document.querySelectorAll('.tx-type-btn').forEach((b) => {
+        b.classList.remove('bg-expense-danger/20', 'text-expense-danger', 'border', 'border-expense-danger/30',
+          'bg-income-surplus/20', 'text-income-surplus', 'border-income-surplus/30',
+          'bg-info-cyan/20', 'text-info-cyan', 'border-info-cyan/30');
+        b.classList.add('text-text-muted');
+      });
+      btn.classList.remove('text-text-muted');
+      if (t === 'expense') btn.classList.add('bg-expense-danger/20', 'text-expense-danger', 'border', 'border-expense-danger/30');
+      else if (t === 'income') btn.classList.add('bg-income-surplus/20', 'text-income-surplus', 'border', 'border-income-surplus/30');
+      else btn.classList.add('bg-info-cyan/20', 'text-info-cyan', 'border', 'border-info-cyan/30');
+
+      if (toWalletWrap) toWalletWrap.classList.toggle('hidden', t !== 'transfer');
+      if (categoryWrap) categoryWrap.classList.toggle('hidden', t === 'transfer');
+    });
+  });
+
+  document.getElementById('btnCancelTxModal')?.addEventListener('click', () => modal?.classList.remove('open'));
+  document.getElementById('btnCloseTxModal')?.addEventListener('click', () => modal?.classList.remove('open'));
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal || !modal.classList.contains('open')) return;
+    if (e.key === 'Escape') {
+      modal.classList.remove('open');
+    } else if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault();
+      form?.requestSubmit();
+    }
+  });
+})();

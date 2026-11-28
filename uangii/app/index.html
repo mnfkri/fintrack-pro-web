@@ -1,649 +1,644 @@
 <!DOCTYPE html>
-<html lang="id">
+<html class="dark" lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Uangii Web — Offline-First Personal Finance</title>
-  <meta name="description" content="Uangii Web (Tahap 1): Catat transaksi cepat, pantau dompet & arus kas lokal di browser, serta sinkronkan brankas terenkripsi AES-256-GCM ke Google Drive pribadi.">
-  <meta name="theme-color" content="#080c0b">
-  <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://lh3.googleusercontent.com; connect-src 'self' https://www.googleapis.com https://accounts.google.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com; frame-src https://accounts.google.com https://*.firebaseapp.com; object-src 'none'; base-uri 'self';">
-  <link rel="icon" href="../assets/brand/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="app.css">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js" defer></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js" defer></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js" defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uangii Web — Obsidian Glass Cockpit</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://accounts.google.com https://apis.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.googleapis.com https://oauth2.googleapis.com https://accounts.google.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://firebaseinstallations.googleapis.com; frame-src https://accounts.google.com https://*.firebaseapp.com;" />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary-ink": "#051409",
+            "border-active": "rgba(183, 245, 138, 0.34)",
+            "surface-variant": "#313633",
+            "surface-container": "#1c211e",
+            "accent-teal": "#71e8b1",
+            "surface-container-high": "rgba(24, 40, 32, 0.85)",
+            "on-surface": "#dfe4df",
+            "on-surface-variant": "#c2c9b7",
+            "outline-variant": "#42493b",
+            "expense-danger": "#fb7185",
+            "sidebar-glass": "rgba(10, 17, 14, 0.84)",
+            "text-muted": "#93a699",
+            "canvas-elevated": "#0b120f",
+            "background": "#101412",
+            "warning-amber": "#fbbf24",
+            "accent-mint": "#5feb9b",
+            "surface": "#101412",
+            "income-surplus": "#30d158",
+            "info-cyan": "#38bdf8",
+            "border-hairline": "rgba(183, 245, 138, 0.12)",
+            "surface-solid": "#101a15",
+            "input-surface": "rgba(8, 14, 11, 0.85)",
+            "surface-glass": "rgba(16, 26, 21, 0.78)",
+            "canvas-base": "#060a08",
+            "text-primary": "#f2f7f1",
+            "primary-fixed": "#b6f489",
+            "primary-container": "#b6f489"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+      body { overscroll-behavior: none; background-color: #060a08; color: #f2f7f1; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(183, 245, 138, 0.16); border-radius: 9999px; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
+    .view-section { display: none; animation: viewFadeIn 0.24s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .view-section.active { display: block; }
+    @keyframes viewFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .nav-item.active {
+      background: rgba(182, 244, 137, 0.12);
+      color: #b6f489;
+      border: 1px solid rgba(183, 245, 138, 0.25);
+      box-shadow: 0 0 18px rgba(48, 209, 88, 0.12);
+    }
+    .nav-item.active .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24; }
+    .glass-card {
+      background: rgba(16, 26, 21, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(183, 245, 138, 0.12);
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .glass-card:hover { border-color: rgba(183, 245, 138, 0.24); }
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: rgba(4, 8, 6, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-backdrop.open { display: flex; animation: modalFade 0.2s ease-out; }
+    @keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+    .modal-sheet {
+      animation: sheetPop 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @keyframes sheetPop {
+      from { opacity: 0; transform: scale(0.96) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .toast {
+      position: fixed;
+      bottom: 84px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: rgba(16, 26, 21, 0.95);
+      border: 1px solid rgba(183, 245, 138, 0.3);
+      color: #f2f7f1;
+      padding: 0.75rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 120;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    @media (min-width: 1024px) { .toast { bottom: 24px; } }
+  </style>
+  <link rel="stylesheet" href="app.css" />
 </head>
-<body>
-  <div class="app-shell">
-    <!-- Desktop Sidebar -->
-    <aside class="sidebar" aria-label="Navigasi Uangii Web">
-      <a class="brand-row" href="../" title="Kembali ke website Uangii">
-        <img src="../assets/brand/uangii-icon.webp" alt="Uangii">
-        <span class="brand-title">uangii<span>.</span></span>
-        <span class="brand-badge">WEB</span>
-      </a>
+<body class="bg-canvas-base text-text-primary antialiased selection:bg-primary-fixed/30 selection:text-primary-fixed">
 
-      <nav class="nav-list">
-        <button type="button" class="nav-item active" data-nav="dashboard">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
-          Beranda
+  <!-- Ambient Obsidian Glow -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden z-0">
+    <div class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-income-surplus/10 blur-[140px]"></div>
+    <div class="absolute top-1/3 -right-40 w-[420px] h-[420px] rounded-full bg-accent-teal/10 blur-[130px]"></div>
+  </div>
+
+  <!-- Desktop Sidebar (264px) -->
+  <aside class="hidden lg:flex fixed left-0 top-0 h-full w-[264px] bg-sidebar-glass backdrop-blur-2xl border-r border-border-hairline z-40 flex-col justify-between p-5">
+    <div class="flex flex-col gap-6">
+      <!-- Brand -->
+      <div class="flex items-center justify-between px-1">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-fixed to-income-surplus flex items-center justify-center shadow-[0_0_18px_rgba(48,209,88,0.4)]">
+            <span class="material-symbols-outlined text-on-primary-ink text-[21px]">shield_with_heart</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-[17px] tracking-tight text-text-primary">Uangii</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-primary-fixed/15 text-primary-fixed border border-primary-fixed/25">Web</span>
+            </div>
+            <p class="text-[11px] text-text-muted">Obsidian Cockpit</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex flex-col gap-1.5" aria-label="Main Navigation">
+        <button class="nav-item active flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[14px] font-semibold text-text-muted hover:text-text-primary hover:bg-white/5 transition-all text-left" data-view="dashboard">
+          <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+          <span>Beranda</span>
         </button>
-        <button type="button" class="nav-item" data-nav="transactions">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
-          Transaksi
+        <button class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[14px] font-semibold text-text-muted hover:text-text-primary hover:bg-white/5 transition-all text-left" data-view="transactions">
+          <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+          <span>Transaksi</span>
         </button>
-        <button type="button" class="nav-item" data-nav="wallets">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h2"/></svg>
-          Dompet &amp; RDN
+        <button class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[14px] font-semibold text-text-muted hover:text-text-primary hover:bg-white/5 transition-all text-left" data-view="wallets">
+          <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+          <span>Dompet &amp; RDN</span>
         </button>
-        <button type="button" class="nav-item" data-nav="investments">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
-          Investasi
+        <button class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[14px] font-semibold text-text-muted hover:text-text-primary hover:bg-white/5 transition-all text-left" data-view="investments">
+          <span class="material-symbols-outlined text-[20px]">monitoring</span>
+          <span>Investasi</span>
         </button>
-        <button type="button" class="nav-item" data-nav="planning">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          Perencanaan
+        <button class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[14px] font-semibold text-text-muted hover:text-text-primary hover:bg-white/5 transition-all text-left" data-view="planning">
+          <span class="material-symbols-outlined text-[20px]">event_upcoming</span>
+          <span>Perencanaan</span>
         </button>
-        <button type="button" class="nav-item" data-nav="analytics">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19h16"/><rect x="6" y="10" width="3" height="6" rx="1"/><rect x="11" y="6" width="3" height="10" rx="1"/><rect x="16" y="12" width="3" height="4" rx="1"/></svg>
-          Analitik
+        <button class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[14px] font-semibold text-text-muted hover:text-text-primary hover:bg-white/5 transition-all text-left" data-view="analytics">
+          <span class="material-symbols-outlined text-[20px]">insights</span>
+          <span>Analitik</span>
         </button>
-        <button type="button" class="nav-item" data-nav="sync">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a7 7 0 0 0-6.8 5.3A4.5 4.5 0 0 0 6.5 17H18a4 4 0 0 0 .8-7.9A7 7 0 0 0 12 3Z"/></svg>
-          Sync &amp; Cadangan
+        <button class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[14px] font-semibold text-text-muted hover:text-text-primary hover:bg-white/5 transition-all text-left" data-view="sync">
+          <span class="material-symbols-outlined text-[20px]">cloud_sync</span>
+          <span>Sync &amp; Cadangan</span>
         </button>
       </nav>
+    </div>
 
-      <div class="sidebar-foot">
-        <div class="vip-user-box" id="vipUserBox" style="display:none;">
-          <strong id="vipUserTier">VIP Aktif</strong>
-          <span id="vipUserEmail"></span>
+    <!-- Sidebar Footer -->
+    <div class="flex flex-col gap-3">
+      <div class="p-3.5 rounded-2xl bg-surface-glass border border-border-hairline">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-primary-fixed">Zero-Knowledge</span>
+          <span class="w-2 h-2 rounded-full bg-income-surplus shadow-[0_0_8px_#30d158]"></span>
         </div>
-        <div class="sync-pill">
-          <span class="sync-dot" id="sidebarSyncDot"></span>
-          <span id="sidebarSyncText">Tersimpan Lokal</span>
-        </div>
-        <button type="button" class="btn btn-ghost btn-sm" id="btnVipSignOut" style="display:none;">Keluar Akun</button>
-        <a class="btn btn-ghost btn-sm" href="../">← Website Uangii</a>
+        <p class="text-[12px] text-text-muted leading-relaxed">Data tersimpan lokal di browser &amp; terenkripsi AES-256-GCM saat sync.</p>
       </div>
-    </aside>
+      <a href="../index.html" class="flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-[12px] font-semibold text-text-muted hover:text-text-primary hover:bg-white/5 border border-transparent hover:border-border-hairline transition-all">
+        <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+        <span>Kembali ke Uangii Info</span>
+      </a>
+    </div>
+  </aside>
 
-    <!-- Main Workspace -->
-    <main class="main">
-      <header class="topbar">
-        <div>
-          <h1 id="pageTitle">Beranda</h1>
-          <p id="pageSub">Ringkasan saldo, arus kas bulan ini, dan input cepat.</p>
-        </div>
-        <button type="button" class="btn btn-primary" id="btnOpenAdd">+ Catat Transaksi</button>
-      </header>
+  <!-- Fixed Topbar -->
+  <header class="fixed top-0 left-0 lg:left-[264px] right-0 h-16 bg-sidebar-glass backdrop-blur-xl border-b border-border-hairline z-30 px-4 lg:px-7 flex items-center justify-between">
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="lg:hidden w-8 h-8 rounded-lg bg-gradient-to-br from-primary-fixed to-income-surplus flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-on-primary-ink text-[18px]">shield_with_heart</span>
+      </div>
+      <div class="min-w-0">
+        <h1 id="pageTitle" class="text-[16px] lg:text-[18px] font-extrabold tracking-tight text-text-primary truncate">Beranda</h1>
+        <p id="pageSub" class="text-[11px] lg:text-[12px] text-text-muted truncate hidden sm:block">Ringkasan arus kas &amp; kekayaan real-time</p>
+      </div>
+    </div>
 
-      <!-- VIEW: DASHBOARD -->
-      <section class="view active" id="view-dashboard">
-        <form class="quick-bar" id="quickForm" autocomplete="off">
-          <input type="text" id="quickInput" placeholder='Input cepat: "Beli kopi 28rb BCA" atau "Gaji masuk 8.5jt"...' aria-label="Input transaksi cepat">
-          <button type="submit" class="btn btn-primary btn-sm">Catat</button>
+    <div class="flex items-center gap-2.5">
+      <!-- Drive Sync Pill -->
+      <button id="topDriveStatus" type="button" onclick="document.querySelector('[data-view=sync]')?.click()" class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-glass border border-border-hairline text-[12px] font-semibold text-text-muted hover:text-text-primary hover:border-border-active transition-all">
+        <span class="w-2 h-2 rounded-full bg-warning-amber" id="topDriveDot"></span>
+        <span id="topDriveLabel">Local Vault</span>
+      </button>
+
+      <!-- VIP Badge -->
+      <span id="vipBadge" class="hidden md:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed/10 border border-primary-fixed/30 text-[11px] font-bold text-primary-fixed">
+        <span class="material-symbols-outlined text-[14px]">workspace_premium</span>
+        <span>VIP</span>
+      </span>
+
+      <!-- Primary CTA -->
+      <button id="btnOpenTxModal" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-primary-fixed to-income-surplus text-on-primary-ink font-bold text-[13px] shadow-[0_0_20px_rgba(48,209,88,0.3)] hover:brightness-105 active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[18px]">add</span>
+        <span class="hidden sm:inline">Catat Transaksi</span>
+        <span class="sm:hidden">Catat</span>
+      </button>
+
+      <!-- User Avatar / Account -->
+      <button id="btnUserMenu" type="button" title="Akun VIP" class="w-9 h-9 rounded-full bg-surface-container border border-border-hairline flex items-center justify-center text-primary-fixed font-bold text-[13px] hover:border-border-active transition-all">
+        <span class="material-symbols-outlined text-[18px]">person</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="relative z-10 lg:pl-[264px] pt-16 pb-24 lg:pb-10 min-h-screen">
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-7">
+
+      <!-- ==================== VIEW: DASHBOARD ==================== -->
+      <section id="view-dashboard" class="view-section active space-y-6">
+        <!-- Quick Smart Entry Bar -->
+        <form id="quickForm" class="glass-card rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div class="flex items-center gap-2.5 flex-1 bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2.5 focus-within:border-border-active transition-colors">
+            <span class="material-symbols-outlined text-primary-fixed text-[20px]">bolt</span>
+            <input id="quickInput" type="text" autocomplete="off" placeholder="Ketik cepat: makan siang 45rb #bca  atau  gaji 12jt +mandiri" class="w-full bg-transparent text-[14px] text-text-primary placeholder:text-text-muted focus:outline-none" />
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-2">
+            <span id="quickHint" class="text-[11px] text-text-muted hidden xl:inline">Enter untuk simpan instan</span>
+            <button type="submit" class="px-4 py-2.5 rounded-xl bg-primary-fixed/15 hover:bg-primary-fixed/25 text-primary-fixed border border-primary-fixed/30 font-bold text-[13px] transition-all active:scale-95">
+              Simpan Cepat
+            </button>
+          </div>
         </form>
-        <div class="quick-hint" id="quickHint"></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;">
-          <button type="button" class="btn btn-ghost btn-sm" data-nav="investments">📈 Investasi</button>
-          <button type="button" class="btn btn-ghost btn-sm" data-nav="planning">🎯 Perencanaan</button>
-          <button type="button" class="btn btn-ghost btn-sm" data-nav="analytics">📊 Analitik</button>
-          <button type="button" class="btn btn-ghost btn-sm" data-nav="sync">☁️ Sync</button>
+
+        <!-- Hero KPI Bento -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-text-muted">Total Kekayaan</span>
+              <span class="material-symbols-outlined text-primary-fixed text-[20px]">account_balance</span>
+            </div>
+            <div id="statTotalBalance" class="text-[26px] lg:text-[28px] font-extrabold tracking-tight text-text-primary">Rp 0</div>
+            <div id="statWalletCount" class="text-[12px] text-text-muted mt-1">0 dompet aktif</div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-text-muted">Pemasukan Bulan Ini</span>
+              <span class="material-symbols-outlined text-income-surplus text-[20px]">trending_up</span>
+            </div>
+            <div id="statMonthIncome" class="text-[24px] lg:text-[26px] font-extrabold tracking-tight text-income-surplus">Rp 0</div>
+            <div class="text-[12px] text-text-muted mt-1">Akumulasi bulan berjalan</div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-text-muted">Pengeluaran Bulan Ini</span>
+              <span class="material-symbols-outlined text-expense-danger text-[20px]">trending_down</span>
+            </div>
+            <div id="statMonthExpense" class="text-[24px] lg:text-[26px] font-extrabold tracking-tight text-expense-danger">Rp 0</div>
+            <div class="text-[12px] text-text-muted mt-1">Akumulasi bulan berjalan</div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-text-muted">Arus Kas Bersih</span>
+              <span class="material-symbols-outlined text-accent-teal text-[20px]">savings</span>
+            </div>
+            <div id="statNetCashflow" class="text-[24px] lg:text-[26px] font-extrabold tracking-tight text-accent-teal">Rp 0</div>
+            <div class="text-[12px] text-text-muted mt-1">Surplus / Defisit bersih</div>
+          </div>
         </div>
 
-        <div class="grid-3">
-          <article class="card">
-            <div class="stat-label">Total Kekayaan Bersih</div>
-            <div class="stat-value" id="statTotalBalance">Rp 0</div>
-            <div class="stat-sub" id="statWalletCount">0 dompet aktif</div>
-          </article>
-          <article class="card">
-            <div class="stat-label">Pemasukan Bulan Ini</div>
-            <div class="stat-value text-pos" id="statMonthIncome">+Rp 0</div>
-            <div class="stat-sub" id="statNetCashflow">Selisih bulan ini: Rp 0</div>
-          </article>
-          <article class="card">
-            <div class="stat-label">Pengeluaran Bulan Ini</div>
-            <div class="stat-value text-neg" id="statMonthExpense">-Rp 0</div>
-            <div class="stat-sub">Dihitung lokal di browser</div>
-          </article>
-        </div>
+        <!-- Two Column: Recent Transactions + Category Breakdown -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <div class="lg:col-span-2 glass-card rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-[16px] font-bold text-text-primary">Transaksi Terbaru</h2>
+              <button type="button" onclick="document.querySelector('[data-view=transactions]')?.click()" class="text-[12px] font-semibold text-primary-fixed hover:underline">Lihat Semua →</button>
+            </div>
+            <div id="recentTxList" class="space-y-2.5"></div>
+          </div>
 
-        <div class="grid-2">
-          <article class="card">
-            <div class="card-head">
-              <h2>Transaksi Terbaru</h2>
-              <button type="button" class="btn btn-ghost btn-sm" data-nav="transactions">Lihat semua →</button>
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-[16px] font-bold text-text-primary">Top Kategori</h2>
+              <span class="text-[11px] font-semibold text-text-muted">Bulan ini</span>
             </div>
-            <div class="tx-list" id="recentTxList"></div>
-          </article>
-          <article class="card">
-            <div class="card-head">
-              <h2>Pengeluaran per Kategori</h2>
-              <span class="stat-label">Bulan ini</span>
-            </div>
-            <div id="categoryBreakdown"></div>
-          </article>
+            <div id="categoryBreakdown" class="space-y-3"></div>
+          </div>
         </div>
       </section>
 
-      <!-- VIEW: TRANSACTIONS -->
-      <section class="view" id="view-transactions">
-        <div class="card">
-          <div class="filter-row">
-            <input type="search" id="filterSearch" class="input" placeholder="Cari deskripsi atau kategori..." style="flex:1;min-width:180px;">
-            <input type="month" id="filterMonth" class="input" aria-label="Filter bulan" title="Filter bulan">
-            <select id="filterType" class="select" aria-label="Filter tipe transaksi">
+      <!-- ==================== VIEW: TRANSACTIONS ==================== -->
+      <section id="view-transactions" class="view-section space-y-5">
+        <div class="glass-card rounded-2xl p-4 flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 flex-1">
+            <input id="filterSearch" type="search" placeholder="Cari catatan atau kategori..." class="bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2 text-[13px] text-text-primary placeholder:text-text-muted focus:outline-none focus:border-border-active" />
+            <input id="filterMonth" type="month" class="bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2 text-[13px] text-text-primary focus:outline-none focus:border-border-active" />
+            <select id="filterType" class="bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2 text-[13px] text-text-primary focus:outline-none focus:border-border-active">
               <option value="all">Semua Tipe</option>
               <option value="expense">Pengeluaran</option>
               <option value="income">Pemasukan</option>
               <option value="transfer">Transfer</option>
             </select>
-            <select id="filterWallet" class="select" aria-label="Filter dompet">
+            <select id="filterWallet" class="bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2 text-[13px] text-text-primary focus:outline-none focus:border-border-active">
               <option value="all">Semua Dompet</option>
             </select>
-            <button type="button" class="btn btn-ghost btn-sm" id="btnExportCsv">Ekspor CSV</button>
           </div>
-          <div class="tx-list" id="allTxList"></div>
+          <button id="btnExportCsv" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-border-hairline text-[13px] font-semibold text-text-primary transition-all">
+            <span class="material-symbols-outlined text-[18px]">download</span>
+            <span>Export CSV</span>
+          </button>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5">
+          <div id="allTxList" class="space-y-2.5"></div>
         </div>
       </section>
 
-      <!-- VIEW: WALLETS -->
-      <section class="view" id="view-wallets">
-        <div class="grid-2">
-          <article class="card">
-            <div class="card-head"><h2>Daftar Dompet</h2></div>
-            <div class="wallet-grid" id="walletGrid"></div>
-          </article>
-          <article class="card">
-            <div class="card-head">
-              <h2 id="walletFormTitle">Tambah Dompet Baru</h2>
-              <button type="button" class="btn btn-ghost btn-sm" id="btnCancelEditWallet" style="display:none;">Batal</button>
+      <!-- ==================== VIEW: WALLETS ==================== -->
+      <section id="view-wallets" class="view-section space-y-5">
+        <form id="walletForm" class="glass-card rounded-2xl p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Nama Dompet</label>
+            <input id="walletName" type="text" required placeholder="Misal: BCA Utama" class="w-full bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2 text-[13px] text-text-primary focus:outline-none focus:border-border-active" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Tipe</label>
+            <select id="walletType" class="w-full bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2 text-[13px] text-text-primary focus:outline-none focus:border-border-active">
+              <option value="bank">Bank / Rekening</option>
+              <option value="ewallet">E-Wallet</option>
+              <option value="cash">Tunai</option>
+              <option value="rdn">RDN / Investasi</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Saldo Awal (Rp)</label>
+            <input id="walletBalance" type="number" step="1" value="0" class="w-full bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2 text-[13px] text-text-primary focus:outline-none focus:border-border-active" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Warna Aksen</label>
+            <input id="walletColor" type="color" value="#30d158" class="w-full h-[38px] bg-input-surface border border-border-hairline rounded-xl px-1.5 py-1 cursor-pointer" />
+          </div>
+          <button type="submit" class="h-[38px] rounded-xl bg-gradient-to-r from-primary-fixed to-income-surplus text-on-primary-ink font-bold text-[13px] hover:brightness-105 transition-all">
+            + Tambah Dompet
+          </button>
+        </form>
+
+        <div id="walletGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </section>
+
+      <!-- ==================== VIEW: INVESTMENTS ==================== -->
+      <section id="view-investments" class="view-section space-y-5">
+        <div class="glass-card rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-[16px] font-bold text-text-primary">Portofolio Investasi</h2>
+              <p class="text-[12px] text-text-muted">Saham, Reksa Dana, Crypto, Emas &amp; Obligasi dari backup Anda</p>
             </div>
-            <form id="walletForm">
-              <div class="field">
-                <label for="walletName">Nama Dompet</label>
-                <input type="text" id="walletName" class="input" placeholder="Contoh: Bank Mandiri, GoPay, RDN Bibit" required>
-              </div>
-              <div class="field">
-                <label for="walletType">Jenis</label>
-                <select id="walletType" class="select">
-                  <option value="cash">Tunai</option>
-                  <option value="bank">Bank</option>
-                  <option value="ewallet">E-Wallet</option>
-                  <option value="rdn">Kas RDN / Investasi</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="walletBalance">Saldo Awal (Rp)</label>
-                <input type="number" id="walletBalance" class="input" placeholder="0" min="0" step="1000">
-              </div>
-              <div class="field">
-                <label for="walletColor">Warna Penanda</label>
-                <input type="color" id="walletColor" value="#30D158" style="width:56px;height:36px;border:none;background:transparent;cursor:pointer;">
-              </div>
-              <button type="submit" class="btn btn-primary" id="walletSubmitBtn" style="width:100%;">Simpan Dompet</button>
-            </form>
-          </article>
+          </div>
+          <div id="invList" class="space-y-3"></div>
         </div>
       </section>
 
-      <!-- VIEW: INVESTMENTS -->
-      <section class="view" id="view-investments">
-        <div class="grid-3">
-          <article class="card">
-            <div class="stat-label">Total Nilai Portofolio</div>
-            <div class="stat-value" id="invTotalValue">Rp 0</div>
-            <div class="stat-sub">Berdasarkan harga terkini manual</div>
-          </article>
-          <article class="card">
-            <div class="stat-label">Total Modal (Cost Basis)</div>
-            <div class="stat-value" id="invTotalCost">Rp 0</div>
-            <div class="stat-sub">Average Price × Total Unit</div>
-          </article>
-          <article class="card">
-            <div class="stat-label">Floating P/L</div>
-            <div class="stat-value" id="invFloatingPL">Rp 0 (0%)</div>
-            <div class="stat-sub">Keuntungan / kerugian belum terealisasi</div>
-          </article>
+      <!-- ==================== VIEW: PLANNING ==================== -->
+      <section id="view-planning" class="view-section space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div class="glass-card rounded-2xl p-5">
+            <h2 class="text-[16px] font-bold text-text-primary mb-3">Anggaran Bulanan</h2>
+            <div id="budgetList" class="space-y-3"></div>
+          </div>
+          <div class="glass-card rounded-2xl p-5">
+            <h2 class="text-[16px] font-bold text-text-primary mb-3">Target Tabungan</h2>
+            <div id="goalList" class="space-y-3"></div>
+          </div>
+          <div class="glass-card rounded-2xl p-5">
+            <h2 class="text-[16px] font-bold text-text-primary mb-3">Tagihan Rutin</h2>
+            <div id="recurringList" class="space-y-3"></div>
+          </div>
+          <div class="glass-card rounded-2xl p-5">
+            <h2 class="text-[16px] font-bold text-text-primary mb-3">Hutang &amp; Piutang</h2>
+            <div id="debtList" class="space-y-3"></div>
+          </div>
         </div>
-        <div class="grid-2">
-          <article class="card">
-            <div class="card-head"><h2>Daftar Aset Portofolio</h2></div>
-            <div class="wallet-grid" id="invList"></div>
-          </article>
-          <article class="card">
-            <div class="card-head"><h2>Tambah Aset Investasi</h2></div>
-            <form id="invForm">
-              <div class="field">
-                <label for="invTicker">Kode / Ticker</label>
-                <input type="text" id="invTicker" class="input" placeholder="Contoh: BBCA.JK, ANTM, BTC" required>
-              </div>
-              <div class="field">
-                <label for="invName">Nama Aset</label>
-                <input type="text" id="invName" class="input" placeholder="Contoh: Bank Central Asia" required>
-              </div>
-              <div class="field">
-                <label for="invType">Instrumen</label>
-                <select id="invType" class="select">
-                  <option value="SAHAM">Saham</option>
-                  <option value="REKSADANA">Reksa Dana</option>
-                  <option value="EMAS">Emas</option>
-                  <option value="KRIPTO">Kripto</option>
-                  <option value="OBLIGASI">Obligasi / SBN</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="invUnits">Jumlah Unit / Lembar</label>
-                <input type="number" id="invUnits" class="input" placeholder="100" min="0.0001" step="any" required>
-              </div>
-              <div class="field">
-                <label for="invAvg">Harga Rata-rata Beli (Rp)</label>
-                <input type="number" id="invAvg" class="input" placeholder="9400" min="1" step="any" required>
-              </div>
-              <div class="field">
-                <label for="invCur">Harga Terkini (Rp)</label>
-                <input type="number" id="invCur" class="input" placeholder="10250" min="1" step="any">
-              </div>
-              <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Aset</button>
-            </form>
-          </article>
+        <div class="glass-card rounded-2xl p-5">
+          <h2 class="text-[16px] font-bold text-text-primary mb-3">Kategori Aktif</h2>
+          <div id="categoryList" class="flex flex-wrap gap-2"></div>
         </div>
       </section>
 
-      <!-- VIEW: PLANNING (ANGGARAN, TARGET, TAGIHAN, HUTANG/PIUTANG, KATEGORI) -->
-      <section class="view" id="view-planning">
-        <div class="seg-tabs" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr));margin-bottom:20px;" role="tablist">
-          <button type="button" class="seg-btn active" data-plan-tab="budgets">Anggaran</button>
-          <button type="button" class="seg-btn" data-plan-tab="goals">Target Tabungan</button>
-          <button type="button" class="seg-btn" data-plan-tab="recurring">Tagihan Rutin</button>
-          <button type="button" class="seg-btn" data-plan-tab="debts">Hutang &amp; Piutang</button>
-          <button type="button" class="seg-btn" data-plan-tab="categories">Kategori</button>
-        </div>
-
-        <!-- Sub-panel: Budgets -->
-        <div class="plan-panel" id="plan-budgets">
-          <div class="grid-2">
-            <article class="card">
-              <div class="card-head"><h2>Anggaran Bulanan</h2></div>
-              <div class="tx-list" id="budgetList"></div>
-            </article>
-            <article class="card">
-              <div class="card-head"><h2>Tambah Anggaran</h2></div>
-              <form id="budgetForm">
-                <div class="field">
-                  <label for="budgetCategory">Kategori Pengeluaran</label>
-                  <select id="budgetCategory" class="select"></select>
-                </div>
-                <div class="field">
-                  <label for="budgetAmount">Batas Bulanan (Rp)</label>
-                  <input type="number" id="budgetAmount" class="input" placeholder="2500000" min="1000" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Anggaran</button>
-              </form>
-            </article>
+      <!-- ==================== VIEW: ANALYTICS ==================== -->
+      <section id="view-analytics" class="view-section space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="glass-card rounded-2xl p-5">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-text-muted">Saving Rate</span>
+            <div id="anSavingRate" class="text-[26px] font-extrabold text-primary-fixed mt-2">0%</div>
+          </div>
+          <div class="glass-card rounded-2xl p-5">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-text-muted">Rata-rata Pengeluaran / Hari</span>
+            <div id="anDailyBurn" class="text-[26px] font-extrabold text-expense-danger mt-2">Rp 0</div>
+          </div>
+          <div class="glass-card rounded-2xl p-5">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-text-muted">Dana Darurat (Runway)</span>
+            <div id="anRunway" class="text-[26px] font-extrabold text-accent-teal mt-2">0 bln</div>
           </div>
         </div>
 
-        <!-- Sub-panel: Savings Goals -->
-        <div class="plan-panel" id="plan-goals" style="display:none;">
-          <div class="grid-2">
-            <article class="card">
-              <div class="card-head"><h2>Target Tabungan &amp; Dana Darurat</h2></div>
-              <div class="tx-list" id="goalList"></div>
-            </article>
-            <article class="card">
-              <div class="card-head"><h2>Tambah Target Baru</h2></div>
-              <form id="goalForm">
-                <div class="field">
-                  <label for="goalName">Nama Target</label>
-                  <input type="text" id="goalName" class="input" placeholder="Contoh: Dana Darurat 12 Bulan" required>
-                </div>
-                <div class="field">
-                  <label for="goalTarget">Target Nominal (Rp)</label>
-                  <input type="number" id="goalTarget" class="input" placeholder="50000000" min="1000" required>
-                </div>
-                <div class="field">
-                  <label for="goalCurrent">Saldo Terkumpul Saat Ini (Rp)</label>
-                  <input type="number" id="goalCurrent" class="input" placeholder="0" min="0">
-                </div>
-                <div class="field">
-                  <label for="goalDate">Target Tanggal</label>
-                  <input type="date" id="goalDate" class="input">
-                </div>
-                <label style="display:flex;align-items:center;gap:8px;font-size:.86rem;margin-bottom:14px;cursor:pointer;">
-                  <input type="checkbox" id="goalEmergency"> Tandai sebagai Dana Darurat
-                </label>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Target</button>
-              </form>
-            </article>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <div class="lg:col-span-2 glass-card rounded-2xl p-5">
+            <h2 class="text-[16px] font-bold text-text-primary mb-4">Arus Kas 6 Bulan Terakhir</h2>
+            <div id="anCashflowChart" class="w-full overflow-x-auto"></div>
           </div>
-        </div>
-
-        <!-- Sub-panel: Recurring Payments -->
-        <div class="plan-panel" id="plan-recurring" style="display:none;">
-          <div class="grid-2">
-            <article class="card">
-              <div class="card-head"><h2>Tagihan Rutin Bulanan</h2></div>
-              <div class="tx-list" id="recurringList"></div>
-            </article>
-            <article class="card">
-              <div class="card-head"><h2>Tambah Tagihan Rutin</h2></div>
-              <form id="recurringForm">
-                <div class="field">
-                  <label for="recTitle">Nama Tagihan</label>
-                  <input type="text" id="recTitle" class="input" placeholder="Contoh: Internet Fiber, Listrik PLN" required>
-                </div>
-                <div class="field">
-                  <label for="recAmount">Nominal (Rp)</label>
-                  <input type="number" id="recAmount" class="input" placeholder="450000" min="1000" required>
-                </div>
-                <div class="field">
-                  <label for="recDay">Tanggal Jatuh Tempo (1–31)</label>
-                  <input type="number" id="recDay" class="input" placeholder="5" min="1" max="31" value="1" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Tagihan</button>
-              </form>
-            </article>
-          </div>
-        </div>
-
-        <!-- Sub-panel: Debts & Receivables -->
-        <div class="plan-panel" id="plan-debts" style="display:none;">
-          <div class="grid-2">
-            <article class="card">
-              <div class="card-head"><h2>Daftar Hutang &amp; Piutang</h2></div>
-              <div class="tx-list" id="debtList"></div>
-            </article>
-            <article class="card">
-              <div class="card-head"><h2>Tambah Catatan</h2></div>
-              <form id="debtForm">
-                <div class="field">
-                  <label for="debtType">Jenis</label>
-                  <select id="debtType" class="select">
-                    <option value="HUTANG">Hutang (Saya berutang)</option>
-                    <option value="PIUTANG">Piutang (Orang lain berutang ke saya)</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="debtPerson">Nama Pihak</label>
-                  <input type="text" id="debtPerson" class="input" placeholder="Contoh: Raka Pratama" required>
-                </div>
-                <div class="field">
-                  <label for="debtTotal">Total Nominal (Rp)</label>
-                  <input type="number" id="debtTotal" class="input" placeholder="1500000" min="1000" required>
-                </div>
-                <div class="field">
-                  <label for="debtDue">Jatuh Tempo</label>
-                  <input type="date" id="debtDue" class="input">
-                </div>
-                <div class="field">
-                  <label for="debtNotes">Catatan</label>
-                  <input type="text" id="debtNotes" class="input" placeholder="Keterangan singkat">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Catatan</button>
-              </form>
-            </article>
-          </div>
-        </div>
-
-        <!-- Sub-panel: Categories -->
-        <div class="plan-panel" id="plan-categories" style="display:none;">
-          <div class="grid-2">
-            <article class="card">
-              <div class="card-head"><h2>Daftar Kategori</h2></div>
-              <div class="tx-list" id="categoryList"></div>
-            </article>
-            <article class="card">
-              <div class="card-head"><h2>Tambah Kategori Baru</h2></div>
-              <form id="categoryForm">
-                <div class="field">
-                  <label for="catName">Nama Kategori</label>
-                  <input type="text" id="catName" class="input" placeholder="Contoh: Kopi & Nongkrong, Side Hustle" required>
-                </div>
-                <div class="field">
-                  <label for="catType">Tipe</label>
-                  <select id="catType" class="select">
-                    <option value="EXPENSE">Pengeluaran</option>
-                    <option value="INCOME">Pemasukan</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="catColor">Warna</label>
-                  <input type="color" id="catColor" value="#30D158" style="width:56px;height:36px;border:none;background:transparent;cursor:pointer;">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Kategori</button>
-              </form>
-            </article>
+          <div class="glass-card rounded-2xl p-5 space-y-5">
+            <div>
+              <h2 class="text-[16px] font-bold text-text-primary mb-3">Rasio 50 / 30 / 20</h2>
+              <div id="anHealthBox"></div>
+            </div>
+            <div>
+              <h2 class="text-[16px] font-bold text-text-primary mb-3">Komposisi Kekayaan</h2>
+              <div id="anWealthDonut"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- VIEW: ANALYTICS (BATCH 2) -->
-      <section class="view" id="view-analytics">
-        <div class="grid-3">
-          <article class="card">
-            <div class="stat-label">Saving Rate</div>
-            <div class="stat-value" id="anSavingRate">0%</div>
-            <div class="stat-sub" id="anSavingSub">Bulan ini</div>
-          </article>
-          <article class="card">
-            <div class="stat-label">Rata-rata Harian</div>
-            <div class="stat-value" id="anDailyBurn">Rp 0</div>
-            <div class="stat-sub" id="anDailySub">Pengeluaran per hari</div>
-          </article>
-          <article class="card">
-            <div class="stat-label">Emergency Runway</div>
-            <div class="stat-value" id="anRunway">—</div>
-            <div class="stat-sub" id="anRunwaySub">Ketahanan dana darurat</div>
-          </article>
-        </div>
-
-        <article class="card" style="margin-bottom:18px;">
-          <div class="card-head">
-            <h2>Arus Kas 6 Bulan Terakhir</h2>
-            <span class="stat-label">Pemasukan vs Pengeluaran</span>
-          </div>
-          <div id="anCashflowChart"></div>
-        </article>
-
-        <div class="grid-2">
-          <article class="card">
-            <div class="card-head"><h2>Skor Kesehatan 50 / 30 / 20</h2></div>
-            <div id="anHealthBox"></div>
-          </article>
-          <article class="card">
-            <div class="card-head"><h2>Alokasi Kekayaan</h2></div>
-            <div id="anWealthDonut"></div>
-          </article>
-        </div>
-      </section>
-
-      <!-- VIEW: SYNC & BACKUP -->
-      <section class="view" id="view-sync">
-        <div class="grid-2">
-          <div style="display:flex;flex-direction:column;gap:16px;">
-            <article class="card" id="syncAccountCard" style="display:none;">
-              <div class="card-head">
-                <h2>Akun Uangii</h2>
-                <span class="brand-badge" id="syncAccountTier">VIP Aktif</span>
+      <!-- ==================== VIEW: SYNC & BACKUP ==================== -->
+      <section id="view-sync" class="view-section space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div class="glass-card rounded-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-[16px] font-bold text-text-primary">Google Drive Sync (Zero-Knowledge)</h2>
+                <p id="driveStatusText" class="text-[13px] text-text-muted mt-0.5">Belum terhubung ke Google Drive</p>
+                <p id="driveLastSync" class="text-[11px] text-text-muted mt-0.5"></p>
               </div>
-              <p style="font-size:.88rem;color:var(--muted);margin-bottom:14px;" id="syncAccountEmail"></p>
-              <button type="button" class="btn btn-ghost btn-sm" id="btnSyncSignOut">Keluar Akun</button>
-            </article>
+              <span class="material-symbols-outlined text-primary-fixed text-[28px]">cloud_done</span>
+            </div>
 
-            <article class="card">
-              <div class="card-head">
-                <h2>Cadangan Google Drive Terenkripsi</h2>
-              </div>
-              <p style="font-size:.86rem;color:var(--muted);margin-bottom:8px;" id="driveStatusText">Belum terhubung · Data tersimpan aman di browser ini</p>
-              <p style="font-size:.82rem;color:var(--accent);margin-bottom:16px;" id="driveLastSync"></p>
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Passphrase Enkripsi (AES-256-GCM)</label>
+              <input id="vaultPassphrase" type="password" placeholder="Masukkan passphrase backup Anda..." class="w-full bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2.5 text-[13px] text-text-primary focus:outline-none focus:border-border-active" />
+            </div>
 
-              <div class="field">
-                <label for="vaultPassphrase">Sandi Brankas (enkripsi AES-256 · min. 8 karakter)</label>
-                <input type="password" id="vaultPassphrase" class="input" autocomplete="off" placeholder="Masukkan sandi untuk mengenkripsi atau memulihkan data">
-              </div>
-
-              <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                <button type="button" class="btn btn-primary btn-sm" id="btnDriveConnect">Hubungkan Google Drive</button>
-                <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePush">Upload ke Drive ↑</button>
-                <button type="button" class="btn btn-ghost btn-sm" id="btnDrivePull">Pulihkan dari Drive ↓</button>
-                <button type="button" class="btn btn-ghost btn-sm" id="btnDriveDisconnect" style="display:none;">Putuskan Drive</button>
-              </div>
-              <small style="display:block;color:var(--muted);font-size:.78rem;margin-top:14px;">Uangii hanya mengakses folder khusus aplikasi di Google Drive pribadimu dan tidak dapat melihat file Drive lain.</small>
-            </article>
+            <div class="flex flex-wrap gap-2.5">
+              <button id="btnDriveConnect" type="button" class="px-4 py-2 rounded-xl bg-gradient-to-r from-primary-fixed to-income-surplus text-on-primary-ink font-bold text-[13px] hover:brightness-105 transition-all">Hubungkan Drive</button>
+              <button id="btnDrivePush" type="button" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-border-hairline text-[13px] font-semibold text-text-primary transition-all">Push ke Drive</button>
+              <button id="btnDrivePull" type="button" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-border-hairline text-[13px] font-semibold text-text-primary transition-all">Pull dari Drive</button>
+              <button id="btnDriveDisconnect" type="button" class="px-4 py-2 rounded-xl bg-expense-danger/10 hover:bg-expense-danger/20 border border-expense-danger/30 text-[13px] font-semibold text-expense-danger transition-all">Putuskan</button>
+            </div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:16px;">
-            <article class="card">
-              <div class="card-head"><h2>Cadangan File Lokal</h2></div>
-              <p style="font-size:.86rem;color:var(--muted);margin-bottom:14px;">Unduh atau pulihkan file brankas <code>.json</code> terenkripsi secara luring tanpa perlu terhubung ke Google Drive.</p>
-              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-                <button type="button" class="btn btn-ghost btn-sm" id="btnExportVault">Unduh Brankas (.json)</button>
-                <label class="btn btn-ghost btn-sm" style="cursor:pointer;">
-                  Pulihkan File
-                  <input type="file" id="importVaultFile" accept=".json" hidden>
-                </label>
-              </div>
-            </article>
+          <div class="glass-card rounded-2xl p-6 space-y-4">
+            <div>
+              <h2 class="text-[16px] font-bold text-text-primary">Backup &amp; Restore Lokal (.json / .fintrack)</h2>
+              <p class="text-[13px] text-text-muted mt-0.5">Kompatibel 100% dengan aplikasi Android Uangii</p>
+            </div>
 
-            <article class="card">
-              <div class="card-head"><h2>Keamanan Perangkat Bersama</h2></div>
-              <p style="font-size:.86rem;color:var(--muted);margin-bottom:14px;">Jika memakai komputer bersama, hapus data lokal di browser ini dan putuskan sesi Google Drive setelah selesai.</p>
-              <button type="button" class="btn btn-danger btn-sm" id="btnWipeLocal">Hapus Data Lokal &amp; Putuskan Drive</button>
-            </article>
-
-            <article class="card" style="border-style:dashed;">
-              <div class="card-head">
-                <h2>Sinkronisasi Otomatis Real-Time</h2>
-                <span class="brand-badge">SEGERA HADIR</span>
-              </div>
-              <p style="font-size:.86rem;color:var(--muted);">Sinkronisasi langsung antara aplikasi Android Uangii dan Uangii Web sedang disiapkan untuk pelanggan Personal Pro &amp; Family VIP.</p>
-            </article>
+            <div class="flex flex-wrap gap-2.5">
+              <button id="btnExportVault" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-fixed/15 hover:bg-primary-fixed/25 border border-primary-fixed/30 text-primary-fixed font-bold text-[13px] transition-all">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+                <span>Export Backup</span>
+              </button>
+              <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-border-hairline text-[13px] font-semibold text-text-primary cursor-pointer transition-all">
+                <span class="material-symbols-outlined text-[18px]">upload_file</span>
+                <span>Import Backup</span>
+                <input id="importVaultFile" type="file" accept=".json,.fintrack,.enc" class="hidden" />
+              </label>
+              <button id="btnWipeLocal" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-expense-danger/10 hover:bg-expense-danger/20 border border-expense-danger/30 text-expense-danger font-semibold text-[13px] transition-all">
+                <span class="material-symbols-outlined text-[18px]">delete_forever</span>
+                <span>Reset Data Lokal</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
-    </main>
-  </div>
+
+    </div>
+  </main>
 
   <!-- Mobile Bottom Navigation -->
-  <nav class="mobile-nav" aria-label="Navigasi Mobile">
-    <button type="button" class="active" data-nav="dashboard">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-sidebar-glass backdrop-blur-2xl border-t border-border-hairline z-40 px-2 flex items-center justify-around">
+    <button class="nav-item active flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-semibold text-text-muted" data-view="dashboard">
+      <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
       <span>Beranda</span>
     </button>
-    <button type="button" data-nav="transactions">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    <button class="nav-item flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-semibold text-text-muted" data-view="transactions">
+      <span class="material-symbols-outlined text-[20px]">receipt_long</span>
       <span>Transaksi</span>
     </button>
-    <button type="button" class="fab-btn" id="mobileFab" aria-label="Catat transaksi">+</button>
-    <button type="button" data-nav="wallets">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h2"/></svg>
+    <button class="nav-item flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-semibold text-text-muted" data-view="wallets">
+      <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
       <span>Dompet</span>
     </button>
-    <button type="button" data-nav="sync">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a7 7 0 0 0-6.8 5.3A4.5 4.5 0 0 0 6.5 17H18a4 4 0 0 0 .8-7.9A7 7 0 0 0 12 3Z"/></svg>
+    <button class="nav-item flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-semibold text-text-muted" data-view="planning">
+      <span class="material-symbols-outlined text-[20px]">event_upcoming</span>
+      <span>Rencana</span>
+    </button>
+    <button class="nav-item flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-semibold text-text-muted" data-view="sync">
+      <span class="material-symbols-outlined text-[20px]">cloud_sync</span>
       <span>Sync</span>
     </button>
   </nav>
 
-  <!-- Add / Edit Transaction Modal -->
-  <dialog class="app-modal" id="txModal" aria-label="Catat Transaksi">
-    <div class="card-head" style="margin-bottom:14px;">
-      <h2 id="txModalTitle">Catat Transaksi</h2>
-      <button type="button" class="icon-btn" id="btnCloseTxModal" aria-label="Tutup">✕</button>
-    </div>
-    <div class="seg-tabs" role="tablist">
-      <button type="button" class="seg-btn active" data-tx-type="expense">Pengeluaran</button>
-      <button type="button" class="seg-btn" data-tx-type="income">Pemasukan</button>
-      <button type="button" class="seg-btn" data-tx-type="transfer">Transfer</button>
-    </div>
-    <form id="txForm">
-      <div class="field">
-        <label for="txAmount">Nominal (Rp)</label>
-        <input type="number" id="txAmount" class="input" placeholder="25000" min="1" required>
-      </div>
-      <div class="field">
-        <label for="txDesc">Deskripsi / Merchant</label>
-        <input type="text" id="txDesc" class="input" placeholder="Contoh: Kopi Kenangan, Gaji Bulanan">
-      </div>
-      <div class="field">
-        <label for="txCategory">Kategori</label>
-        <select id="txCategory" class="select"></select>
-      </div>
-      <div class="field">
-        <label for="txWallet">Dompet</label>
-        <select id="txWallet" class="select"></select>
-      </div>
-      <div class="field" id="txToWalletWrap" style="display:none;">
-        <label for="txToWallet">Dompet Tujuan</label>
-        <select id="txToWallet" class="select"></select>
-      </div>
-      <div class="field">
-        <label for="txDate">Tanggal</label>
-        <input type="date" id="txDate" class="input" required>
-      </div>
-      <button type="submit" class="btn btn-primary" id="txSubmitBtn" style="width:100%;">Simpan Transaksi</button>
-    </form>
-  </dialog>
-
-  <!-- VIP Auth Gate Overlay -->
-  <div class="vip-gate" id="vipGate" role="dialog" aria-modal="true" aria-labelledby="vipGateTitle">
-    <div class="vip-gate-card">
-      <img src="../assets/brand/uangii-icon.webp" alt="Uangii">
-      <span class="brand-badge" style="display:inline-block;margin:0 0 10px;">AKSES KHUSUS PERSONAL PRO &amp; FAMILY VIP</span>
-      <h2 id="vipGateTitle">Masuk ke Uangii Web</h2>
-      <p id="vipGateDesc">Masuk dengan akun Google Uangii untuk memverifikasi status Personal Pro atau Family VIP Anda.</p>
-      <div class="vip-gate-actions" id="vipGateActions">
-        <button type="button" class="btn btn-primary" id="btnVipGoogleSignIn">Masuk dengan Google</button>
-        <button type="button" class="btn btn-ghost" id="btnVipRefresh" style="display:none;">Periksa Ulang Status VIP</button>
-        <a class="btn btn-primary" id="btnVipUpgrade" style="display:none;" href="https://play.google.com/store/apps/details?id=com.ftrackpro.financetracker.emtitra" target="_blank" rel="noopener noreferrer">Upgrade di Aplikasi Uangii ↗</a>
-        <button type="button" class="btn btn-ghost" id="btnVipGateSignOut" style="display:none;">Keluar Akun</button>
-        <a class="btn btn-ghost btn-sm" href="../">← Kembali ke Website Uangii</a>
-      </div>
-      <div class="vip-gate-meta" id="vipGateMeta" style="display:none;"></div>
-    </div>
-  </div>
-
-  <!-- Post-Login Onboarding: Restore from Drive or Start Fresh -->
-  <div class="vip-gate" id="onboardGate" role="dialog" aria-modal="true" aria-labelledby="onboardTitle" hidden>
-    <div class="vip-gate-card">
-      <img src="../assets/brand/uangii-icon.webp" alt="Uangii">
-      <span class="brand-badge" id="onboardTierBadge" style="display:inline-block;margin:0 0 10px;">VIP AKTIF</span>
-      <h2 id="onboardTitle">Mau mulai dari mana?</h2>
-      <p id="onboardDesc">Browser ini belum memiliki data lokal. Pulihkan cadangan terenkripsi dari Google Drive atau mulai baru dari nol.</p>
-
-      <div class="vip-gate-actions" id="onboardStepChoice">
-        <button type="button" class="btn btn-primary" id="btnOnboardConnectDrive">Pulihkan dari Google Drive</button>
-        <button type="button" class="btn btn-ghost" id="btnOnboardStartFresh">Mulai Baru dari Nol</button>
-      </div>
-
-      <form id="onboardDriveForm" style="display:none;text-align:left;margin-top:8px;">
-        <div class="field">
-          <label for="onboardFileSelect">Pilih File Cadangan di Google Drive</label>
-          <select id="onboardFileSelect" class="select" required></select>
+  <!-- ==================== MODAL: CATAT TRANSAKSI (macOS Sheet) ==================== -->
+  <div id="txModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="txModalTitle">
+    <div class="modal-sheet w-full max-w-lg rounded-3xl bg-surface-solid/95 backdrop-blur-2xl border border-border-active shadow-[0_24px_80px_rgba(0,0,0,0.75)] overflow-hidden">
+      <div class="px-6 py-4 border-b border-border-hairline flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-primary-fixed/15 flex items-center justify-center text-primary-fixed">
+            <span class="material-symbols-outlined text-[18px]">edit_note</span>
+          </div>
+          <h3 id="txModalTitle" class="text-[16px] font-extrabold text-text-primary">Catat Transaksi</h3>
         </div>
-        <div class="field">
-          <label for="onboardPassphrase">Sandi Brankas</label>
-          <input type="password" id="onboardPassphrase" class="input" autocomplete="off" placeholder="Masukkan sandi brankas" required>
+        <button id="btnCloseTxModal" type="button" class="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <form id="txForm" class="p-6 space-y-4">
+        <input type="hidden" id="txId" />
+
+        <!-- Type Switcher -->
+        <div class="grid grid-cols-3 gap-2 p-1 rounded-xl bg-input-surface border border-border-hairline">
+          <button type="button" class="tx-type-btn py-2 rounded-lg text-[13px] font-bold transition-all bg-expense-danger/20 text-expense-danger border border-expense-danger/30" data-type="expense">Pengeluaran</button>
+          <button type="button" class="tx-type-btn py-2 rounded-lg text-[13px] font-bold text-text-muted hover:text-text-primary transition-all" data-type="income">Pemasukan</button>
+          <button type="button" class="tx-type-btn py-2 rounded-lg text-[13px] font-bold text-text-muted hover:text-text-primary transition-all" data-type="transfer">Transfer</button>
         </div>
-        <div class="vip-gate-actions">
-          <button type="submit" class="btn btn-primary" id="btnOnboardRestore">Pulihkan &amp; Masuk Beranda</button>
-          <button type="button" class="btn btn-ghost btn-sm" id="btnOnboardBackFresh">Lewati · Mulai Baru dari Nol</button>
+        <input type="hidden" id="txType" value="expense" />
+
+        <!-- Amount + Quick Presets -->
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Nominal (Rp)</label>
+          <input id="txAmount" type="number" step="1" min="1" required placeholder="0" class="w-full bg-input-surface border border-border-hairline rounded-xl px-4 py-3 text-[22px] font-extrabold text-text-primary focus:outline-none focus:border-border-active" />
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            <button type="button" class="preset-chip px-2.5 py-1 rounded-lg bg-white/5 hover:bg-primary-fixed/15 border border-border-hairline hover:border-primary-fixed/30 text-[11px] font-bold text-text-muted hover:text-primary-fixed transition-all" data-add="10000">+10rb</button>
+            <button type="button" class="preset-chip px-2.5 py-1 rounded-lg bg-white/5 hover:bg-primary-fixed/15 border border-border-hairline hover:border-primary-fixed/30 text-[11px] font-bold text-text-muted hover:text-primary-fixed transition-all" data-add="50000">+50rb</button>
+            <button type="button" class="preset-chip px-2.5 py-1 rounded-lg bg-white/5 hover:bg-primary-fixed/15 border border-border-hairline hover:border-primary-fixed/30 text-[11px] font-bold text-text-muted hover:text-primary-fixed transition-all" data-add="100000">+100rb</button>
+            <button type="button" class="preset-chip px-2.5 py-1 rounded-lg bg-white/5 hover:bg-primary-fixed/15 border border-border-hairline hover:border-primary-fixed/30 text-[11px] font-bold text-text-muted hover:text-primary-fixed transition-all" data-add="500000">+500rb</button>
+            <button type="button" class="preset-chip px-2.5 py-1 rounded-lg bg-white/5 hover:bg-primary-fixed/15 border border-border-hairline hover:border-primary-fixed/30 text-[11px] font-bold text-text-muted hover:text-primary-fixed transition-all" data-add="1000000">+1jt</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Dompet</label>
+            <select id="txWallet" required class="w-full bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2.5 text-[13px] text-text-primary focus:outline-none focus:border-border-active"></select>
+          </div>
+          <div id="txToWalletWrap" class="hidden">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Ke Dompet</label>
+            <select id="txToWallet" class="w-full bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2.5 text-[13px] text-text-primary focus:outline-none focus:border-border-active"></select>
+          </div>
+          <div id="txCategoryWrap">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Kategori</label>
+            <input id="txCategory" type="text" list="txCategoryDatalist" placeholder="Makan, Transport, Gaji..." class="w-full bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2.5 text-[13px] text-text-primary focus:outline-none focus:border-border-active" />
+            <datalist id="txCategoryDatalist"></datalist>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Tanggal</label>
+            <input id="txDate" type="date" required class="w-full bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2.5 text-[13px] text-text-primary focus:outline-none focus:border-border-active" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Catatan</label>
+            <input id="txNote" type="text" placeholder="Keterangan singkat..." class="w-full bg-input-surface border border-border-hairline rounded-xl px-3.5 py-2.5 text-[13px] text-text-primary focus:outline-none focus:border-border-active" />
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-between gap-3">
+          <span class="text-[11px] text-text-muted hidden sm:inline">Esc untuk batal • ⌘↵ simpan</span>
+          <div class="flex items-center gap-2 ml-auto">
+            <button type="button" id="btnCancelTxModal" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[13px] font-semibold text-text-muted hover:text-text-primary transition-all">Batal</button>
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary-fixed to-income-surplus text-on-primary-ink font-bold text-[13px] shadow-[0_0_20px_rgba(48,209,88,0.3)] hover:brightness-105 active:scale-95 transition-all">Simpan Transaksi</button>
+          </div>
         </div>
       </form>
     </div>
   </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <!-- VIP Auth Gate Overlay -->
+  <div id="vipGate" class="modal-backdrop">
+    <div class="modal-sheet w-full max-w-md rounded-3xl bg-surface-solid/95 backdrop-blur-2xl border border-border-active p-6 text-center space-y-4">
+      <div class="w-12 h-12 rounded-2xl bg-primary-fixed/15 border border-primary-fixed/30 flex items-center justify-center mx-auto text-primary-fixed">
+        <span class="material-symbols-outlined text-[26px]">workspace_premium</span>
+      </div>
+      <h2 class="text-[18px] font-extrabold text-text-primary">Akses Uangii Web VIP</h2>
+      <p id="vipGateMsg" class="text-[13px] text-text-muted">Masuk dengan akun Google yang terdaftar sebagai VIP / Family untuk mengakses Web App.</p>
+      <button id="btnVipLogin" type="button" class="w-full py-3 rounded-xl bg-gradient-to-r from-primary-fixed to-income-surplus text-on-primary-ink font-bold text-[14px] hover:brightness-105 transition-all">Masuk dengan Google</button>
+    </div>
+  </div>
 
-  <script src="../studio-parser.js"></script>
+  <!-- Onboarding Gate Overlay -->
+  <div id="onboardGate" class="modal-backdrop">
+    <div class="modal-sheet w-full max-w-md rounded-3xl bg-surface-solid/95 backdrop-blur-2xl border border-border-active p-6 space-y-4">
+      <h2 class="text-[18px] font-extrabold text-text-primary">Selamat Datang di Uangii Web</h2>
+      <p class="text-[13px] text-text-muted">Pulihkan data dari Google Drive / file backup Anda, atau mulai dari awal dengan dompet kosong.</p>
+      <div class="space-y-2.5">
+        <button id="btnOnboardDrive" type="button" class="w-full py-3 rounded-xl bg-gradient-to-r from-primary-fixed to-income-surplus text-on-primary-ink font-bold text-[13px]">Pulihkan dari Google Drive</button>
+        <button id="btnOnboardFresh" type="button" class="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-border-hairline text-text-primary font-semibold text-[13px]">Mulai dari Awal (Rp 0)</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Firebase & App Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="config.js"></script>
   <script src="crypto.js"></script>
   <script src="db.js"></script>
