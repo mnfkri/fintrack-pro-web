@@ -2894,6 +2894,13 @@ body.u-motion-paused .u-aurora i{animation:none!important}
   .us-device { width: min(100%, 232px) !important; }
   .nav-app-btn { display: none !important; }
 }
+@media (min-width: 1280px) {
+  .wrap { max-width: min(1420px, 92vw) !important; }
+  .u-hero { grid-template-columns: 1.05fr 0.95fr; gap: 56px; }
+  .u-hero-copy { max-width: 640px; }
+  .tools-grid { gap: 20px; }
+  .tiers-grid { gap: 22px; }
+}
 /* app-scenes.css */
 .us-mount,.us-tour{min-width:0}
 .us-stage{
